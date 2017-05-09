@@ -28,8 +28,7 @@ app.use(async function (ctx, next) {
     }
   }
 
-  // 路由分发
-  // 使用Node.js自身的模块寻址策略，自动匹配控制器路径
+  // 路由分发，使用Node.js自身的模块寻址策略，自动匹配控制器路径
   // URL路径与实际模块路径保持一致，支持多级控制器
   try {
     controller = require(`./app/controller${path}`)
