@@ -5,14 +5,14 @@ let path = String
 let actionName = String
 let controller = Function
 
-// 表层
+// 外层
 app.use(async function (ctx, next) {
 
   // URL解析
   path = ctx.url
   let urlArray = path.split('/')
   if (urlArray.length === 2) {
-    // 控制器缺省
+    // 缺省控制器
     if (urlArray[1] === '') {
       path = ''
     }
