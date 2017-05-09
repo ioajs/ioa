@@ -5,6 +5,9 @@ module.exports = ctx => {
     },
     test() {
       ctx.body = 'Hello goods test';
+    },
+    color() {
+      ctx.body = 'Hello goods color';
     }
   }
 }
