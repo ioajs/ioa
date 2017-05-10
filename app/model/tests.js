@@ -1,15 +1,16 @@
+let tests = DB.define('tests', {
+  'emp_id': {
+    'type': Sequelize.STRING
+  },
+  'nick': {
+    'type': Sequelize.STRING
+  },
+  'department': {
+    'type': Sequelize.STRING
+  }
+});
+
 module.exports = app => {
-  let tests = DB.define('tests', {
-    'emp_id': {
-      'type': Sequelize.STRING
-    },
-    'nick': {
-      'type': Sequelize.STRING
-    },
-    'department': {
-      'type': Sequelize.STRING
-    }
-  });
   return {
     async insert(data) {
       let response = await tests.create(data)

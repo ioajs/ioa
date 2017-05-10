@@ -2,6 +2,7 @@ let Koa = require('koa')
 let app = new Koa()
 let DB = require('./app/db') // 引入Sequelize模块
 let controllerCache = {} // controller缓存在多个http请求中复用
+let modelCache = {} // model缓存在多个http请求中复用
 
 // 为ctx添加模型选择器
 app.context.getModel = (name) => {
