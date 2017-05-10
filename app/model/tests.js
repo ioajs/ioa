@@ -22,7 +22,7 @@ module.exports = app => {
     async get(id) {
       let response = await tests.findById(Number(id))
       if (response) {
-        return response.dataValues
+        return response
       } else {
         return { error: '获取失败' }
       }

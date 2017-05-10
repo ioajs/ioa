@@ -1,6 +1,6 @@
 module.exports = app => {
   return {
-    async index() {
+    async index(ctx) {
       let tests = ctx.getModel('tests')
       let response = await tests.insert({
         'emp_id': '2',
@@ -9,7 +9,7 @@ module.exports = app => {
       })
       ctx.body = response;
     },
-    async get() {
+    async get(ctx) {
       let response = await ctx.getModel('tests').get(61)
       ctx.body = response;
     }

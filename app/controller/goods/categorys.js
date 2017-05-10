@@ -1,3 +1,7 @@
-module.exports = ctx => {
-  ctx.body = 'Hello categorys';
+module.exports = app => {
+  return {
+    index(ctx) {
+      ctx.body = 'index';
+    }
+  }
 }

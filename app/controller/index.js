@@ -1,6 +1,6 @@
-module.exports = ctx => {
+module.exports = app => {
   return {
-    index() {
+    index(ctx) {
       ctx.body = 'index';
     }
   }
