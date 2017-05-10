@@ -18,12 +18,12 @@ db.once('open', function (callback) {
   console.log('成功连接mongodb')
 });
 
-// 输出模型构造函数
-var goodsModel = mongoose.model('goods', {
-  title: String,
-  body: String,
-  date: Date
+var kittySchema = mongoose.Schema({
+    name: String
 });
+
+// 输出模型构造函数
+var goodsModel = mongoose.model('goods', kittySchema);
 
 // 生成模型实例
 var goods = new goodsModel({ name: 'Zildjian' });
