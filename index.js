@@ -1,7 +1,7 @@
-let Koa = require('koa');
-let app = new Koa();
-let DB = require('./db');
-let controllerCache = {}
+let Koa = require('koa')
+let app = new Koa()
+let DB = require('./db') // 引入Sequelize模块
+let controllerCache = {} // controller缓存在多个http请求中复用
 
 // 为ctx添加模型选择器
 app.context.getModel = (name) => {
@@ -74,9 +74,13 @@ app.use(async function (ctx, next) {
   if (typeof ctx.action === 'function') {
     await next()
   } else {
-    ctx.body = `"${actionName}"方法必须为函数`
+    if (ctx.action) {
+      ctx.body = `"${actionName}"方法必须为函数`
+    } else {
+      ctx.body = `"${actionName}"方法不存在`
+    }
   }
-});
+})
 
 // 中间层，中间件
 require('./app/middleware/')(app)
@@ -84,6 +88,6 @@ require('./app/middleware/')(app)
 // 中心层，执行action
 app.use(ctx => {
   ctx.action(ctx)
-});
+})
 
-app.listen(3000);
+app.listen(3000)
