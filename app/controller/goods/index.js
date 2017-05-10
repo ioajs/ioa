@@ -1,13 +1,12 @@
-
-module.exports = ctx => {
+module.exports = app => {
   return {
-    index() {
+    index(ctx) {
       ctx.body = 'Hello goods';
     },
-    test() {
+    test(ctx) {
       ctx.body = 'Hello goods test';
     },
-    color() {
+    color(ctx) {
       ctx.body = 'Hello goods color';
     }
   }
