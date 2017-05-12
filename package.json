@@ -1,17 +1,15 @@
 {
-  "name": "koa-mvc",
+  "name": "koa-biao",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
     "koa": "^2.2.0",
-    "pg": "^6.1.5",
-    "pg-hstore": "^2.3.2",
-    "sequelize": "^3.30.4"
+    "mongoose": "^4.9.7"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node-dev --no-notify index"
   },
   "author": "",
   "license": "ISC"
