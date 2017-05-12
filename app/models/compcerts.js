@@ -2,8 +2,9 @@ module.exports = app => {
 
   // 定义数据模型，用于验证
   let compcertsSchema = mongoose.Schema({
-    name: String,
-    item: Number
+    name: String
+    // ,
+    // item: Number
   });
 
   // 为collection绑定数据模型
