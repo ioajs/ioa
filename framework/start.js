@@ -190,7 +190,6 @@ module.exports = (baseDir, port) => {
   if (recursion()) {
     console.log('控制器错误，http服务未启动')
   } else {
-    // 启动http服务
     app.listen(port)
   }
 
