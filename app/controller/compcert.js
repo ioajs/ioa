@@ -25,6 +25,7 @@ module.exports = app => {
       }
     },
     async add(ctx) {
+      // console.log(ctx.parameter)
       let response = await ctx.collection('compcerts').insertMany([
         {
           item: "journal",
