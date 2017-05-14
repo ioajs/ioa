@@ -134,7 +134,7 @@ module.exports = (baseDir, port) => {
     }
   })
 
-  //////////// 用户中间件 ////////////
+  //////////// 加载应用层中间件 ////////////
 
   if (typeof middlewareObject === 'object') {
     for (let item of middlewareObject) {
@@ -153,7 +153,7 @@ module.exports = (baseDir, port) => {
     }
   }
 
-  //////////// 中心层，执行action ////////////
+  //////////// 执行action ////////////
 
   app.use(async ctx => {
     await ctx.action(ctx)
