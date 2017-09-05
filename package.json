@@ -9,7 +9,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "node-dev --no-notify index"
+    "dev": "nodemon index"
   },
   "author": "",
   "license": "ISC"

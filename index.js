@@ -2,5 +2,5 @@
 
 require('./framework/').start({
   baseDir: __dirname,
-  port: 3000
+  port: 8800
 })
