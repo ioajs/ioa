@@ -1,3 +1,5 @@
+'use strict';
+
 let fs = require('fs')
 let Koa = require('koa')
 let app = new Koa()
@@ -6,7 +8,7 @@ let modelCache = {} // model缓存
 let errorInfo = { code: 404, error: '资源不存在' }
 
 module.exports = (baseDir, port) => {
-   let DB = require(baseDir + '/app/DB')
+
    let middlewareObject = require(baseDir + '/app/middleware/config')
 
    // 递归加载控制器
@@ -33,7 +35,7 @@ module.exports = (baseDir, port) => {
                }
                // 检查控制器导出类型是否为函数
                if (typeof controllerFun === 'function') {
-                  controllerObj = controllerFun(app)
+                  let controllerObj = controllerFun(app)
                   // 检查控制器函数返回值是否为对象
                   if (typeof controllerObj === 'object') {
                      // 控制器对象写入缓存
@@ -110,7 +112,7 @@ module.exports = (baseDir, port) => {
          cPath = routeArray.join('/')
       }
 
-      ////////// 从缓存获取controllerObj   //////////
+      ////////// 从缓存获取controllerObj  //////////
 
       let controllerObj = {}
       if (controllerCache[cPath]) {
@@ -118,6 +120,7 @@ module.exports = (baseDir, port) => {
       } else {
          ctx.body = errorInfo
          console.error(`"${cPath}"控制器不存在`)
+         return
       }
 
       //////////  获取并检查action是否合法  //////////
@@ -132,7 +135,7 @@ module.exports = (baseDir, port) => {
          ctx.body = errorInfo
          console.error(`"${actionName}"方法不存在`)
       }
-      
+
    })
 
    //////////// 加载应用层中间件 ////////////
@@ -163,6 +166,7 @@ module.exports = (baseDir, port) => {
    ////////// 为ctx添加模型选择器 //////////////
 
    app.context.collection = (name) => {
+
       if (modelCache[name]) {
          return modelCache[name]
       } else {
@@ -186,6 +190,7 @@ module.exports = (baseDir, port) => {
             return
          }
       }
+
    }
 
    if (recursion()) {
