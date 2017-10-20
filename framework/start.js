@@ -13,15 +13,20 @@ module.exports = (baseDir, port) => {
 
    // 递归加载控制器
    function recursion(path) {
+
       path = path || '/'
+
       try {
          var files = fs.readdirSync(baseDir + '/app/controller' + path)
       } catch (err) {
          console.error(`${path}获取失败`)
          return true
       }
+
       if (files) {
+
          files.forEach((filename) => {
+
             let key = filename.indexOf('.js')
             // 文件
             if (key > -1) {
@@ -53,8 +58,11 @@ module.exports = (baseDir, port) => {
             else {
                recursion(path + filename + '/')
             }
+            
          })
+
       }
+
    }
 
    // http入口

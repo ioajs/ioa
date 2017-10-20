@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  start(options) {
-    require('./start')(options.baseDir, options.port || 3000)
-  }
+   start({ baseDir, port = 8800 }) {
+      require('./start')(baseDir, port)
+   }
 }
