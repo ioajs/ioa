@@ -1,15 +1,25 @@
 {
-  "name": "explain",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "koa": "^2.2.0"
-  },
-  "devDependencies": {},
+  "name": "newseed",
+  "version": "2.0.0",
+  "description": "基于Koa 2.0的易扩展、声明式框架",
   "scripts": {
     "dev": "nodemon index"
   },
+  "main": "framework/index.js",
+  "dependencies": {
+    "batch-import": "^1.2.4",
+    "jsonwebtoken": "^8.2.0",
+    "koa": "^2.2.0"
+  },
+  "devDependencies": {},
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiangle/explain.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xiangle/explain/issues"
+  },
+  "homepage": "https://github.com/xiangle/explain#readme"
 }

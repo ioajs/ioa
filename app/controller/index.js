@@ -1,7 +1,13 @@
 module.exports = app => {
-  return {
-    index(ctx) {
-      ctx.body = 'index';
-    }
-  }
+   return {
+      home(ctx) {
+         ctx.body = 'home';
+      },
+      sms(ctx) {
+         ctx.body = 'sms';
+      },
+      login(ctx) {
+         ctx.body = 'login';
+      }
+   }
 }

@@ -1,4 +1,5 @@
 module.exports = app => {
+
    return {
       async index(ctx) {
          ctx.body = 'index'
@@ -16,4 +17,5 @@ module.exports = app => {
          ctx.body = 'delete'
       }
    }
+
 }

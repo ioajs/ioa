@@ -1,7 +1,16 @@
 'use strict';
 
-module.exports = {
-   start({ baseDir, port = 8800 }) {
-      require('./start')(baseDir, port)
-   }
+let KOA = new require('koa')
+let koa = new KOA()
+let app = require('./app.js')
+let router = require('./router.js')(app)
+
+module.exports = function ({ port = 8800 }) {
+
+   koa.use(router)
+
+   koa.listen(port)
+
+   console.log(`http://localhost:${port}/`)
+
 }
