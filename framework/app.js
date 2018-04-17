@@ -5,10 +5,10 @@ let app = batchImport({
       "path": "config/",
    },
    "extend": {
-      "path": "app/extend/",
+      "path": "extend/",
    },
    "plugin": {
-      "path": "app/plugin/",
+      "path": "plugin/",
    },
    "models": {
       "path": "app/models/",
