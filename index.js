@@ -1,7 +1,10 @@
 'use strict';
 
-let app = require('./framework/')({ port: 8800 })
+// let app = require('newseed')
+
+let app = require('./framework/')
 
 console.log(app)
 
-// require('newseed')({ port: 8800 })
+// http服务不是必须的，不需要时可以关闭
+// app.listen({ port: 8800 })

@@ -26,12 +26,9 @@ let app = batchImport({
    },
    "models": {
       "path": "app/models/",
-      process(data, app) {
-         if (typeof data === 'function') {
-            data = data(app)
-         }
-         if (typeof data === 'object') {
-            return { data }
+      process(func, app) {
+         if (typeof func === 'function') {
+            return { data: func(app) }
          } else {
             return { error: `模型输出数据类型必须为Object` }
          }
@@ -39,22 +36,19 @@ let app = batchImport({
    },
    "middleware": {
       "path": "app/middleware/",
-      process(data) {
-         if (typeof data === 'function') {
-            return { data }
+      process(func, app) {
+         if (typeof func === 'function') {
+            return { data: func }
          } else {
-            return { error: `中间件输出数据类型必须为Function` }
+            return { error: `middleware输出数据类型必须为Function` }
          }
       },
    },
    "controller": {
       "path": "app/controller/",
-      process(data, app) {
-         if (typeof data === 'function') {
-            data = data(app)
-         }
-         if (typeof data === 'object') {
-            return { data }
+      process(func, app) {
+         if (typeof func === 'function') {
+            return { data: func(app) }
          } else {
             return { error: `控制器输出数据类型必须为Object` }
          }
