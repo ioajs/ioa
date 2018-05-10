@@ -13,4 +13,6 @@ module.exports = function ({ port = 8800 }) {
 
    console.log(`http://localhost:${port}/`)
 
+   return app
+
 }
