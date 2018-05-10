@@ -4,11 +4,25 @@ let app = batchImport({
    "config": {
       "path": "config/",
    },
-   "extend": {
-      "path": "extend/",
-   },
    "plugin": {
-      "path": "plugin/",
+      "path": "app/plugin/",
+      process(func, app) {
+         if (typeof func === 'function') {
+            return { data: func(app) }
+         } else {
+            return { error: "process输出数据类型必须为函数" }
+         }
+      }
+   },
+   "extend": {
+      "path": "app/extend",
+      process(func, app) {
+         if (typeof func === 'function') {
+            return { data: func(app) }
+         } else {
+            return { error: "extend输出数据类型必须为函数" }
+         }
+      }
    },
    "models": {
       "path": "app/models/",
