@@ -4,7 +4,5 @@
 
 let app = require('./framework/')
 
-console.log(app)
-
 // http服务不是必须的，不需要时可以关闭
-// app.listen({ port: 8800 })
+app.listen({ port: 8800 })
