@@ -6,13 +6,13 @@ module.exports = app => {
 
    app.get('/', 'index.home')
 
-   app.get('/sms/:id/sd/:kk', test, 'index.sms')
-
-   app.post('/sms/:id/sd/:kk', test, token, 'index.sms')
+   app.get('/sms', 'index.sms')
 
    app.post('/login', 'index.login')
 
-   // console.log(app.routes)
+   app.get('/sms/:id/sd/:kk', test, 'index.sms')
+
+   app.post('/sms/:id/sd/:kk', test, token, 'index.sms')
 
    ////////// REST路由 ////////////
 

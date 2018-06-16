@@ -2,7 +2,7 @@
 
 // let app = require('newseed')
 
-let app = require('./framework/')
+let newseed = require('./framework/')
 
 // http服务不是必须的，不需要时可以关闭
-app.listen({ port: 8800 })
+newseed.listen({ port: 8800 })

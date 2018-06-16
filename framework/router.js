@@ -86,17 +86,18 @@ module.exports = app => {
          }
       }
 
-      // 控制器作为最后一个特殊中间件
+      // 采用递进迭代方式获取提取controller
       let progressive = controller
       for (let itemPath of controllerPath) {
          let item = progressive[itemPath]
          if (item) {
             progressive = item
          } else {
-            throw `控制器${path}不存在`
+            throw new Error(`控制器${path}不存在`)
          }
       }
 
+      // 控制器作为最后一个特殊中间件
       if (typeof progressive === 'function') {
          route['*middleware'].push(progressive)
       } else {
@@ -163,8 +164,6 @@ module.exports = app => {
             await progressive["*middleware"][index](ctx, next)
          }
       }
-
-      // console.log(progressive, pathArray)
 
    }
 
