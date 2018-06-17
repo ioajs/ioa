@@ -4,164 +4,219 @@ let cwd = process.cwd()
 
 module.exports = app => {
 
-   let { middleware, controller } = app
-
    /**
     * 
     * @param {String} type 请求类型，GET、POST、PUT、DELETE
     * @param {String} path 路由路径
-    * @param {Array} middleware 包含多个中间件的数组
+    * @param {Array} middlewares 包含多个中间件的数组
     */
-   function process(type, path, middleware) {
+   function processPath(type, path, middlewares) {
 
       let [, ...pathArray] = path.split('/')
 
-      let route = app[type]
-      for (let item of pathArray) {
+      // 对请求类型进行分组保存
+      let iterative = app[type]
 
-         //构建树状路由导航模型
-         if (!route[item]) {
-            let [one, ...name] = item
-            // 路由参数，提取并保存参数名
-            if (one === ':') {
-               route["*"] = {
-                  "*name": name.join('')
-               }
-               route = route["*"]
-            } else {
-               route[item] = {}
-               route = route[item]
+      //将path路径转换为对应的对象索引结构
+      for (let name of pathArray) {
+
+         let [one, ...cname] = name
+
+         // 包含路由参数，提取并保存参数名
+         if (one === ':') {
+            iterative["*"] = { "<name>": cname.join('') }
+            iterative = iterative["*"]
+         } else {
+            if (!iterative[name]) {
+               iterative[name] = {}
             }
+            iterative = iterative[name]
          }
 
       }
 
-      /**
-       *  路由模型示例
-       *  *表示动态参数
-       *  *name表示动态参数名，
-       *  *middleware表示当前路由匹配的中间件
-       */
-      // "avatar": {
-      //    "*": {
-      //       "*name": "id",
-      //       "test": {
-      //          "*": {
-      //             "*name": "id",
-      //             "*": {
-      //                "*name": "id",
-      //                "*middleware": ["m1","m2"],
-      //             }
-      //          }
-      //       }
-      //    },
-      //    ":sid": {
-      //       "*": {
-      //          "*name": "id",
-      //          "*middleware": ["m1","m2","m3"],
-      //       }
-      //    }
-      // }
-
-      // route.path[item].
-      // let [, parameter] = item.split(':')
-      // if (parameter) {
-      // route.parameter.push(parameter)
-      // }
-
-      route['*middleware'] = []
-
-      let controllerPath = middleware.pop().split('.')
+      iterative['<middlewares>'] = []
 
       // 添加中间件
-      for (let item of middleware) {
+      for (let item of middlewares) {
          if (item) {
             if (typeof item === 'function') {
-               route['*middleware'].push(item)
+               iterative['<middlewares>'].push(item)
             } else {
-               throw `中间件${name}必须为函数`
+               throw new Error(`中间件${name}必须为函数`)
             }
          } else {
-            throw `中间件${name}不存在`
+            throw new Error(`中间件${name}不存在`)
          }
-      }
-
-      // 采用递进迭代方式获取提取controller
-      let progressive = controller
-      for (let itemPath of controllerPath) {
-         let item = progressive[itemPath]
-         if (item) {
-            progressive = item
-         } else {
-            throw new Error(`控制器${path}不存在`)
-         }
-      }
-
-      // 控制器作为最后一个特殊中间件
-      if (typeof progressive === 'function') {
-         route['*middleware'].push(progressive)
-      } else {
-         throw `控制器${path}必须为Function`
       }
 
    }
+
+   /**
+    * 将middlewares中的控制器Path替换为对应的控制器中间件
+    */
+   function processController(middlewares) {
+
+      let controllerPath = middlewares.pop()
+      let controllerPathArray = controllerPath.split('.')
+
+      // 迭代提取controller
+      let controller = app.controller
+      for (let itemPath of controllerPathArray) {
+         let item = controller[itemPath]
+         if (item) {
+            controller = item
+         } else {
+            throw new Error(`控制器${controllerPath}不存在`)
+         }
+      }
+
+      if (typeof controller === 'function') {
+         middlewares.push(controller)
+      } else {
+         throw new Error(`控制器${controllerPath}必须为Function`)
+      }
+
+   }
+
+   /**
+    * 将middlewares中的控制器Path替换为对应的控制器中间件
+    */
+   function processRest(path, middlewares) {
+
+      let controllerPath = middlewares.pop()
+      let controllerPathArray = controllerPath.split('.')
+
+      // 迭代提取controller
+      let controller = app.controller
+      for (let itemPath of controllerPathArray) {
+         let item = controller[itemPath]
+         if (item) {
+            controller = item
+         } else {
+            throw new Error(`控制器${controllerPath}不存在`)
+         }
+      }
+
+      if (typeof controller === 'object') {
+
+         let REST = {
+            'GET': "index",
+            'POST': "create",
+            'PUT': "update",
+            'DELETE': "destroy",
+         }
+
+         for (let type in REST) {
+            let name = REST[type]
+            if (controller[name]) {
+               processPath(type, path, [...middlewares, controller[name]])
+            }
+         }
+
+      } else {
+
+         throw new Error(`REST控制器${controllerPath}不存在`)
+
+      }
+
+   }
+
 
    // 路由预处理解析
    let router = {
       GET: {},
       POST: {},
       PUT: {},
-      DELELT: {},
-      get(path, ...middleware) {
-         process('GET', path, middleware)
+      DELETE: {},
+      get(path, ...middlewares) {
+         processController(middlewares)
+         processPath('GET', path, middlewares)
       },
-      post(path, ...middleware) {
-         process('POST', path, middleware)
+      post(path, ...middlewares) {
+         processController(middlewares)
+         processPath('POST', path, middlewares)
       },
-      put(path, ...middleware) {
-         process('PUT', path, middleware)
+      put(path, ...middlewares) {
+         processController(middlewares)
+         processPath('PUT', path, middlewares)
       },
-      delete(path, ...middleware) {
-         process('DELETE', path, middleware)
+      delete(path, ...middlewares) {
+         processController(middlewares)
+         processPath('DELETE', path, middlewares)
       },
-      resources(path, ...middleware) {
-
+      resources(path, ...middlewares) {
+         processRest(path, middlewares)
       }
    }
 
    Object.assign(app, router)
 
-   // 用户路由配置文件
+   // 加载用户路由配置文件，执行预处理
    require(cwd + '/app/router.js')(app)
 
-   // 路由中间件
+   /**
+    *  预生成路由索引数据结构示例
+    *  *表示动态参数通配符，作为内部保留属性名称
+    *  <name>表示动态参数名，使用<>号包裹，防止路命名冲突
+    *  <middlewares>表示当前路由匹配的中间件队列，使用<>号包裹，防止路径中参数同名
+    */
+   // "avatar": {
+   //    "*": {
+   //       "<name>": "id",
+   //       "test": {
+   //          "*": {
+   //             "<name>": "id",
+   //             "*": {
+   //                "<name>": "id",
+   //                "<middlewares>": ["m1","m2"],
+   //             },
+   //          },
+   //         "<middlewares>": ["m1","m2"],
+   //       }
+   //    },
+   //    ":sid": {
+   //       "*": {
+   //          "<name>": "id",
+   //          "<middlewares>": ["m1","m2","m3"],
+   //       }
+   //    }
+   // }
+
+
+   // 路由参数解析、分发中间件
    return async (ctx, next) => {
 
-      ctx.parameter = []
+      ctx.parameter = {}
 
+      // 参数解析
+      let iterative = app[ctx.method]
       let [, ...pathArray] = ctx.path.split('/')
-
-      let progressive = app[ctx.method]
       for (let path of pathArray) {
-         let item = progressive[path]
+         let item = iterative[path]
          if (item) {
-            progressive = item
-         } else if (progressive['*']) {
-            progressive = progressive['*']
+            iterative = item
+         }
+         // 当参数不存在时，尝试用*号填充
+         else if (iterative['*']) {
+            iterative = iterative['*']
+            ctx.parameter[iterative['<name>']] = path
          } else {
             ctx.body = '资源不存在'
             return
          }
       }
 
-      if (typeof progressive === 'object') {
-         if (progressive["*middleware"]) {
+      if (iterative instanceof Object) {
+         if (iterative["<middlewares>"]) {
             let index = 0
+            // 替换koa的静态next，使用内置的递进器
+            // 当在同一个中间件中触发多次next时会出现计数器混乱
             async function next() {
                index++
-               await progressive["*middleware"][index](ctx, next)
+               await iterative["<middlewares>"][index](ctx, next)
             }
-            await progressive["*middleware"][index](ctx, next)
+            await iterative["<middlewares>"][index](ctx, next)
          }
       }
 
