@@ -12,9 +12,12 @@ module.exports = app => {
 
    app.get('/news/:id/details/:kk', test, 'news.details')
 
+   app.get('/sms/:id/sd/:kk', 'index.sms')
+
    app.post('/sms/:id/sd/:kk', test, token, 'index.sms')
 
    
+
    ////////// REST路由 ////////////
 
    // 模糊匹配路由，泛解析，通用模型控制器

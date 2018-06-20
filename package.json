@@ -1,6 +1,6 @@
 {
    "name": "newseed",
-   "version": "2.0.8",
+   "version": "2.1.0",
    "description": "基于Koa 2.0的易扩展、声明式框架",
    "scripts": {
       "dev": "nodemon index"
