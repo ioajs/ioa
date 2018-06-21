@@ -26,6 +26,14 @@ require('newseed').listen({ port: 8800 })
 
 在app对象中提供了RESTful风格的路由方法，支持get、post、put、delele、resources，与egg框架的路由设计风格相同
 
+### resources路由与controller的映射关系
+
+* GET /test - index
+* GET /test/:id - details
+* POST /test - create
+* PUT /test/:id - update
+* DELETE /test/:id - destroy
+
 ```js
 // 路由中间件配置示例
 module.exports = app => {
@@ -44,6 +52,8 @@ module.exports = app => {
 
    app.delele('/login', 'index.login')
    
+   app.resources('/rest', 'rest')
+
 }
 ```
 

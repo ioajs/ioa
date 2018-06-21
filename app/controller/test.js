@@ -6,14 +6,14 @@ module.exports = app => {
       async details(ctx) {
          ctx.body = 'details'
       },
-      async add(ctx) {
-         ctx.body = 'add'
+      async create(ctx) {
+         ctx.body = 'create'
       },
       async update(ctx) {
          ctx.body = 'update'
       },
-      async delete(ctx) {
-         ctx.body = 'delete'
+      async destroy(ctx) {
+         ctx.body = 'destroy'
       }
    }
 }

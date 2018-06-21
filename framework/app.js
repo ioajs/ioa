@@ -1,8 +1,9 @@
 let batchImport = require('batch-import')
+let config = require('./config')
 
 let app = batchImport({
    "config": {
-      "path": "config/",
+      "path": "config/"
    },
    "plugin": {
       "path": "app/plugin/",
@@ -56,6 +57,29 @@ let app = batchImport({
    },
 })
 
+// 合并配置项
+Object.assign(config, app.config.default)
+
+// 未添加环境变量，暂时使用固定localhost配置
+Object.assign(config, app.config['localhost'])
+
+app.config = config
+
+// 全局中间件转换
+let middlewares = app.config.middlewares
+if (middlewares) {
+   for (let key in middlewares) {
+      let name = middlewares[key]
+      let middleware = app.middleware[name]
+      if (middleware) {
+         middlewares[key] = middleware
+      } else {
+         throw new Error('没有找到${name}全局中间件')
+      }
+   }
+}
+
+// 自定义模块批量加载器
 app.loader = function (options) {
    Object.assign(app, batchImport(options))
 }

@@ -11,7 +11,10 @@ module.exports = app => {
          ctx.body = 'create'
       },
       async update(ctx) {
-         ctx.body = 'update'
+         ctx.body = {
+            type: 'update',
+            parameter: ctx.parameter
+         }
       },
       async destroy(ctx) {
          ctx.body = 'destroy'

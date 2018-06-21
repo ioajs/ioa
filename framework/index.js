@@ -3,9 +3,11 @@
 let Koa = require('koa')
 let koa = new Koa()
 let app = require('./app.js')
-let router = require('./router.js')(app)
+let router = require('./middleware/router.js')(app)
 
-app.listen = function ({ port = 8800 }) {
+let { config } = app
+
+app.listen = function ({ port = config.port }) {
    console.log(`http://localhost:${port}/`)
    koa.listen(port)
    koa.use(router)

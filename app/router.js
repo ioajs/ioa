@@ -2,21 +2,20 @@
 
 module.exports = app => {
 
-   let { test, token, cors } = app.middleware
+   let { test, token } = app.middleware
 
-   app.get('/', cors, 'index.home')
+   // app.get('/', cors, 'index.home')
 
-   app.post('/login', 'index.login')
+   // app.post('/login', 'index.login')
 
-   app.get('/news', cors, 'news.home')
+   // app.get('/news', cors, 'news.home')
 
-   app.get('/news/:id/details/:kk', test, 'news.details')
+   // app.get('/news/:id/details/:kk', test, 'news.details')
 
-   app.get('/sms/:id/sd/:kk', 'index.sms')
+   // app.get('/sms/:id/sd/:kk', 'index.sms')
 
-   app.post('/sms/:id/sd/:kk', test, token, 'index.sms')
+   // app.post('/sms/:id/sd/:kk', test, token, 'index.sms')
 
-   
 
    ////////// REST路由 ////////////
 
