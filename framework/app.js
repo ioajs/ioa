@@ -65,7 +65,7 @@ Object.assign(config, app.config['localhost'])
 
 app.config = config
 
-// 全局中间件转换
+// 全局配置中间件转换
 let middlewares = app.config.middlewares
 if (middlewares) {
    for (let key in middlewares) {
@@ -77,6 +77,11 @@ if (middlewares) {
          throw new Error('没有找到${name}全局中间件')
       }
    }
+}
+
+// 缩短extend引用路径
+for (let name in app.extend) {
+   app[name] = app.extend[name]
 }
 
 // 自定义模块批量加载器
