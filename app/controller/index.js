@@ -7,7 +7,11 @@ module.exports = app => {
          ctx.body = 'sms';
       },
       login(ctx) {
-         ctx.body = 'login';
+         let body = ctx.request.body
+         ctx.body = {
+            type: 'login',
+            body
+         };
       }
    }
 }
