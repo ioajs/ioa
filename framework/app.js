@@ -5,62 +5,65 @@ let app = batchImport({
    "config": {
       "path": "config/"
    },
-   "plugin": {
-      "path": "app/plugin/",
-      process(func, app) {
-         if (typeof func === 'function') {
-            return { data: func(app) }
-         } else {
-            return { error: "process输出数据类型必须为函数" }
-         }
-      }
-   },
+   // "plugin": {
+   //    "path": "plugin/",
+   //    process(name, func) {
+   //       if (func instanceof Function) {
+   //          return func(this)
+   //       } else {
+   //          throw new Error(`${name}插件输出数据类型必须为函数`)
+   //       }
+   //    }
+   // },
    "extend": {
       "path": "app/extend",
-      process(func, app) {
-         if (typeof func === 'function') {
-            return { data: func(app) }
+      process(name, func) {
+         if (func instanceof Function) {
+            // 对扩展进行扁平化处理，缩短访问路径
+            let data = func(this)
+            this[name] = data
+            return data
          } else {
-            return { error: "extend输出数据类型必须为函数" }
+            throw new Error(`${name}扩展输出数据类型必须为函数`)
          }
       }
    },
    "models": {
       "path": "app/models/",
-      process(func, app) {
-         if (typeof func === 'function') {
-            return { data: func(app) }
+      process(name, func) {
+         if (func instanceof Function) {
+            return func(this)
          } else {
-            return { error: `模型输出数据类型必须为Object` }
+            throw new Error(`${name}模型输出数据类型必须为函数`)
          }
-      },
+      }
    },
    "middleware": {
       "path": "app/middleware/",
-      process(func, app) {
-         if (typeof func === 'function') {
-            return { data: func }
+      process(name, func) {
+         if (func instanceof Function) {
+            // middleware保持原样输出，不执行函数
+            return func
          } else {
-            return { error: `middleware输出数据类型必须为Function` }
+            throw new Error(`${name}中间件输出数据类型必须为函数`)
          }
-      },
+      }
    },
    "controller": {
       "path": "app/controller/",
-      process(func, app) {
-         if (typeof func === 'function') {
-            return { data: func(app) }
+      process(name, func) {
+         if (func instanceof Function) {
+            return func(this)
          } else {
-            return { error: `控制器输出数据类型必须为Object` }
+            throw new Error(`${name}中间件输出数据类型必须为函数`)
          }
-      },
+      }
    },
 })
 
-// 合并配置项
+// 合并配置项（未添加环境变量，暂时使用固定配置）
 Object.assign(config, app.config.default)
 
-// 未添加环境变量，暂时使用固定localhost配置
 Object.assign(config, app.config['localhost'])
 
 app.config = config
@@ -77,11 +80,6 @@ if (middlewares) {
          throw new Error('没有找到${name}全局中间件')
       }
    }
-}
-
-// 缩短extend引用路径
-for (let name in app.extend) {
-   app[name] = app.extend[name]
 }
 
 // 自定义模块批量加载器
