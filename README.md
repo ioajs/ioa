@@ -8,10 +8,12 @@ npm install newseed
 
 ### Usage
 
-> http服务不是必须的，只有调用listen时才会开启http
-
 ```js
-require('newseed').listen({ port: 8800 })
+// 仅使用框架来管理模块
+let app = require('newseed')
+
+// http服务不是必备的，可以按需启动
+app.listen({ port: 8800 })
 ```
 
 ## 中间件

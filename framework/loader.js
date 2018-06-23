@@ -68,6 +68,7 @@ Object.assign(config, app.config['localhost'])
 
 app.config = config
 
+
 // 全局配置中间件转换
 let middlewares = app.config.middlewares
 if (middlewares) {

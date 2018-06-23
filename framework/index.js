@@ -1,19 +1,19 @@
 'use strict';
 
-let Koa = require('koa')
 let bodyParser = require('koa-bodyparser')
-let app = require('./app.js')
-let router = require('./middleware/router.js')(app)
+let app = require('./loader')
 
-app.koa = new Koa()
+app.listen = function ({ port = app.config.port }) {
 
-let { koa, config } = app
+   let Koa = require('koa')
+   let router = require('./router')(app)
 
-app.listen = function ({ port = config.port }) {
+   app.koa = new Koa()
+   app.koa.listen(port)
+   app.koa.use(bodyParser({ "enableTypes": ['json', 'form', 'text'] }))
+   app.koa.use(router)
    console.log(`http://localhost:${port}/`)
-   koa.listen(port)
-   koa.use(bodyParser({ "enableTypes": ['json', 'form', 'text'] }))
-   koa.use(router)
+
 }
 
 module.exports = app

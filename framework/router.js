@@ -183,7 +183,11 @@ module.exports = app => {
    Object.assign(app, router)
 
    // 加载用户路由配置文件，执行预处理
-   require(cwd + '/app/router.js')(app)
+   try {
+      require(cwd + '/app/router.js')(app)
+   } catch (error) {
+      throw new Error(`找不到/app/router.js文件`)
+   }
 
    // 路由参数解析、路由分发中间件
    return async (ctx, next) => {
