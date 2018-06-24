@@ -2,6 +2,8 @@
 
 // let app = require('newseed')
 
-let newseed = require('./framework/')
+let app = require('./framework/')
 
-newseed.listen({ port: 8800 })
+app.listen({ port: 8800 })
+
+console.log(app.config)
