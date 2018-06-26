@@ -166,8 +166,10 @@ module.exports = app => {
             for (let name in controllers) {
                let controller = controllers[name]
                if (controller instanceof Function) {
-                  let { type, parameter } = Resources[name]
-                  processPath(type, path + parameter, middlewares, controller)
+                  if (Resources[name]) {
+                     let { type, parameter } = Resources[name]
+                     processPath(type, path + parameter, middlewares, controller)
+                  }
                }
             }
 
@@ -186,7 +188,7 @@ module.exports = app => {
    try {
       require(cwd + '/app/router.js')(app)
    } catch (error) {
-      throw new Error(`找不到/app/router.js文件`)
+      throw error
    }
 
    // 路由参数解析、路由分发中间件

@@ -22,4 +22,6 @@ module.exports = app => {
    // 模糊匹配路由，泛解析，通用模型控制器
    app.resources('/rest/:name', 'rest')
 
+   app.get('/rest/xxxx', 'rest.xxxx')
+
 }

@@ -18,6 +18,9 @@ module.exports = app => {
       },
       async destroy(ctx) {
          ctx.body = 'destroy'
+      },
+      async xxxx(ctx) {
+         ctx.body = 'xxxx'
       }
    }
 
