@@ -1,7 +1,15 @@
 let batchImport = require('batch-import')
+let app = require('./index')
 let config = require('./config')
 
-let app = batchImport({
+
+// 自定义模块批量加载器
+app.loader = function (options) {
+   Object.assign(app, batchImport(options))
+}
+
+// 批量加载模块
+batchImport({
    "config": {
       "path": "config/"
    },
@@ -51,13 +59,20 @@ let app = batchImport({
       "path": "app/controller/",
       process(name, func) {
          if (func instanceof Function) {
-            return func(this)
+            // 普通函数，不管是不是构造函数都可以使用new
+            if (func.prototype) {
+               return new func(this)
+            }
+            // 箭头函数，没有prototype
+            else {
+               return func(this)
+            }
          } else {
             throw new Error(`${name}模块导出必须为注入函数`)
          }
       }
    },
-})
+}, app)
 
 // 合并配置项（未添加环境变量，暂时使用固定配置）
 Object.assign(config, app.config.default)
@@ -65,8 +80,6 @@ Object.assign(config, app.config.default)
 Object.assign(config, app.config['localhost'])
 
 app.config = config
-
-app.cwd = process.cwd()
 
 // 全局配置中间件转换
 let middlewares = app.config.middlewares
@@ -77,14 +90,9 @@ if (middlewares) {
       if (middleware) {
          middlewares[key] = middleware
       } else {
-         throw new Error('没有找到${name}全局中间件')
+         throw new Error(`没有找到${name}全局中间件`)
       }
    }
-}
-
-// 自定义模块批量加载器
-app.loader = function (options) {
-   Object.assign(app, batchImport(options))
 }
 
 module.exports = app
