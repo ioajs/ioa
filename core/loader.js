@@ -17,15 +17,13 @@ let app = batchImport({
    // },
    "extend": {
       "path": "app/extend",
-      process(name, func) {
-         if (func instanceof Function) {
+      process(name, data) {
+         if (data instanceof Function) {
             // 对扩展进行扁平化处理，缩短访问路径
-            let data = func(this)
+            data = data(this)
             this[name] = data
-            return data
-         } else {
-            throw new Error(`${name}扩展输出数据类型必须为函数`)
          }
+         return data
       }
    },
    "models": {
@@ -34,7 +32,7 @@ let app = batchImport({
          if (func instanceof Function) {
             return func(this)
          } else {
-            throw new Error(`${name}模型输出数据类型必须为函数`)
+            throw new Error(`${name}模块导出必须为函数`)
          }
       }
    },
@@ -45,7 +43,7 @@ let app = batchImport({
             // middleware保持原样输出，不执行函数
             return func
          } else {
-            throw new Error(`${name}中间件输出数据类型必须为函数`)
+            throw new Error(`${name}模块导出必须为注入函数`)
          }
       }
    },
@@ -55,7 +53,7 @@ let app = batchImport({
          if (func instanceof Function) {
             return func(this)
          } else {
-            throw new Error(`${name}中间件输出数据类型必须为函数`)
+            throw new Error(`${name}模块导出必须为注入函数`)
          }
       }
    },
@@ -67,6 +65,8 @@ Object.assign(config, app.config.default)
 Object.assign(config, app.config['localhost'])
 
 app.config = config
+
+app.cwd = process.cwd()
 
 // 全局配置中间件转换
 let middlewares = app.config.middlewares

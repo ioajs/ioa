@@ -1,6 +1,6 @@
 'use strict';
 
-let cwd = process.cwd()
+let path = require('path')
 
 let Resources = {
    "index": {
@@ -28,7 +28,12 @@ let Resources = {
 // 路由预处理解析容器
 let container = {}
 
-module.exports = app => {
+/**
+ * 路由
+ * @param {*} app 
+ * @param {*} routerPath router.js文件路径，以应用根目录为起始路径
+ */
+module.exports = (app, routerPath) => {
 
    /**
     * 
@@ -184,9 +189,11 @@ module.exports = app => {
 
    Object.assign(app, router)
 
+   routerPath = path.join(app.cwd, routerPath)
+
    // 加载用户路由配置文件，执行预处理
    try {
-      require(cwd + '/app/router.js')(app)
+      require(routerPath)(app)
    } catch (error) {
       throw error
    }

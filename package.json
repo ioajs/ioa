@@ -1,11 +1,11 @@
 {
    "name": "newseed",
-   "version": "2.2.5",
+   "version": "2.2.6",
    "description": "基于Koa 2.0的易扩展、声明式框架",
    "scripts": {
-      "dev": "nodemon index"
+      "dev": "nodemon test/index.js"
    },
-   "main": "framework/index.js",
+   "main": "index.js",
    "dependencies": {
       "batch-import": "^2.0.1",
       "koa": "^2.2.0",
@@ -18,10 +18,6 @@
    "license": "ISC",
    "repository": {
       "type": "git",
-      "url": "git+https://github.com/xiangle/explain.git"
-   },
-   "bugs": {
-      "url": "https://github.com/xiangle/explain/issues"
-   },
-   "homepage": "https://github.com/xiangle/explain#readme"
+      "url": "git+https://github.com/newseedjs/newseed.git"
+   }
 }
