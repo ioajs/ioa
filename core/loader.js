@@ -26,11 +26,12 @@ batchImport({
    "extend": {
       "path": "app/extend",
       process(name, data) {
+         // 如果导出为函数类型，则判定为依赖注入函数
          if (data instanceof Function) {
-            // 对扩展进行扁平化处理，缩短访问路径
             data = data(this)
-            this[name] = data
          }
+         // 对扩展进行扁平化处理，缩短访问路径
+         this[name] = data
          return data
       }
    },

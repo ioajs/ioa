@@ -4,9 +4,10 @@ let app = require('./core/')
 
 module.exports = app
 
-// 批量加载模块（必须优先导出app对象，否则模块无法访问app）
+// 批量加载模块必须在导出app后进行，否则提前引用的app处于未定义状态
 require('./core/loader')
 
+// 启用http服务
 app.listen = function ({ port = app.config.port }) {
 
    let Koa = require('koa')

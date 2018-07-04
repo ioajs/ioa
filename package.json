@@ -2,9 +2,7 @@
    "name": "newseed",
    "version": "2.3.0",
    "description": "基于Koa 2.0的易扩展、声明式框架",
-   "scripts": {
-      "dev": "nodemon test/index.js"
-   },
+   "scripts": {},
    "main": "index.js",
    "dependencies": {
       "batch-import": "^2.0.1",
