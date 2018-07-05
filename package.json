@@ -1,7 +1,7 @@
 {
    "name": "newseed",
    "version": "2.3.3",
-   "description": "基于Koa 2.0的易扩展、声明式框架",
+   "description": "基于Koa 2.0轻量、易扩展的Node.js基础框架",
    "scripts": {},
    "main": "index.js",
    "dependencies": {
