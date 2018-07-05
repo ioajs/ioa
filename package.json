@@ -1,11 +1,11 @@
 {
    "name": "newseed",
-   "version": "2.3.0",
+   "version": "2.3.3",
    "description": "基于Koa 2.0的易扩展、声明式框架",
    "scripts": {},
    "main": "index.js",
    "dependencies": {
-      "batch-import": "^2.0.1",
+      "batch-import": "^3.0.0",
       "koa": "^2.2.0",
       "koa-bodyparser": "^4.2.1"
    },
