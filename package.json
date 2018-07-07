@@ -1,6 +1,6 @@
 {
    "name": "newseed",
-   "version": "2.3.3",
+   "version": "2.4.0",
    "description": "基于Koa 2.0轻量、易扩展的Node.js基础框架",
    "scripts": {
       "dev": "nodemon index.js",

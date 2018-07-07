@@ -28,16 +28,9 @@ app.listen(8800)
 
 在app对象中提供了RESTful风格的路由方法，支持get、post、put、delele、resources，与egg框架的路由设计风格相同
 
-### resources路由与controller的映射关系
-
-* GET /test - index
-* GET /test/:id - details
-* POST /test - create
-* PUT /test/:id - update
-* DELETE /test/:id - destroy
 
 ```js
-// 路由中间件配置示例
+// 路由示例
 module.exports = app => {
 
    let { test, token } = app.middleware
@@ -58,6 +51,16 @@ module.exports = app => {
 
 }
 ```
+
+### resources路由与controller的映射关系
+
+Method | Path |  Controller.Action
+- | - | -:
+GET | /test | index
+GET | /test/:id | details
+POST | /test | create
+PUT | /test/:id | update
+DELETE | /test/:id | destroy
 
 <!-- ### 手动配置路由（当前）
 
@@ -131,6 +134,7 @@ example
     |    |-- extend
     |    |    |- application.js
     |    |    └─ context.js
+    |    |    └─ $name.js
     |    |
     |    |
     |    |
@@ -161,7 +165,7 @@ example
    app.loader方法通过batch-import库实现，支持目录递归和包含、排除、预处理等特性，具体使用方法请参照[https://github.com/xiangle/batch-import](https://github.com/xiangle/batch-import)。
 
 
-## 插件（开发中）
+## 插件（规划中）
 
 我们期望应用更多的以插件方式构建，每个插件相当于一个微型应用，其目录结构与主应用完全一致，拥有独立的运行环境，同时允许应用间资源共享。实现功能模块化、标准化、即插即用的需求。
 
