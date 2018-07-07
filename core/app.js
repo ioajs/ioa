@@ -8,7 +8,7 @@ app.Controller = class { }
 // Service基类
 app.Service = class { }
 
-// 应用根目录
+// 当前执行命令行所在的路径
 app.cwd = process.cwd()
 
 module.exports = app

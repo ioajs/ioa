@@ -1,4 +1,4 @@
 module.exports = {
-   // middlewares: ['cors'],
+   middlewares: ['cors'],
    jjj: 999
 }

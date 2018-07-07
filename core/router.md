@@ -7,23 +7,23 @@
 ```js
 {
     "avatar": {
-        "*": {
+        "<*>": {
             "<name>": "id",
-                "test": {
-                "*": {
+            "test": {
+                "<*>": {
                     "<name>": "id",
-                        "*": {
+                    "<*>": {
                         "<name>": "id",
-                            "<middlewares>": ["m1", "m2"],
-                 },
+                        "<middlewares>": ["m1", "m2"],
+                    },
                 },
                 "<middlewares>": ["m1", "m2"],
            }
         },
         ":sid": {
-            "*": {
+            "<*>": {
                 "<name>": "id",
-                    "<middlewares>": ["m1", "m2", "m3"],
+                "<middlewares>": ["m1", "m2", "m3"],
            }
         }
     }

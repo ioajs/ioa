@@ -1,5 +1,5 @@
 let batchImport = require('batch-import')
-let app = require('./index.js')
+let app = require('./app.js')
 let config = require('./config.js')
 
 // 批量预加载模块
@@ -59,12 +59,11 @@ batchImport({
       "path": "app/controller/",
       import(filename, func) {
          if (func instanceof Function) {
-            // 普通函数，不管是不是构造函数都可以使用new
             if (func.prototype) {
+               // 普通函数，不管是不是构造函数都可以使用new
                return new func(this)
-            }
-            // 箭头函数，没有prototype
-            else {
+            } else {
+               // 箭头函数，没有prototype
                return func(this)
             }
          } else {
