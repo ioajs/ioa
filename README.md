@@ -55,7 +55,7 @@ module.exports = app => {
 ### resources路由与controller的映射关系
 
 Method | Path |  Controller.Action
-- | - | -:
+--- | --- | ---:
 GET | /test | index
 GET | /test/:id | details
 POST | /test | create
