@@ -13,7 +13,7 @@ npm install newseed
 let app = require('newseed')
 
 // http服务不是必备的，可以按需启动
-app.listen({ port: 8800 })
+app.listen(8800)
 ```
 
 ## 中间件
