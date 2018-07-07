@@ -16,7 +16,7 @@ let app = require('newseed')
 app.listen(8800)
 ```
 
-## 中间件
+### 中间件
 
 在app/middleware目录下创建中间件文件，框架自动载入并进行类型检测。
 
@@ -24,10 +24,9 @@ app.listen(8800)
 
 在路由中使用中间件时，通过app.middleware引用中间件，插入到配置项中
 
-## 路由
+### 路由
 
 在app对象中提供了RESTful风格的路由方法，支持get、post、put、delele、resources，与egg框架的路由设计风格相同
-
 
 ```js
 // 路由示例
@@ -52,7 +51,7 @@ module.exports = app => {
 }
 ```
 
-### resources路由与controller的映射关系
+#### RESTful路由与Controller映射关系
 
 Method | Path |  Controller.Action
 --- | --- | ---:
@@ -88,19 +87,19 @@ DELETE | /test/:id | destroy
 * 不够灵活，使用固定的寻址规则，会与手动路由参数冲突。 -->
 
 
-## 模型（可选）
+### 模型（可选）
 
 在app/models目录下创建模型文件，框架自动载入并进行类型检测，在controller中通过app.models引用。
 
 常见ORM库通常使用独立模型文件，框架仅提供app/models目录下模型文件的批量导入功能。
 
 
-## 控制器
+### 控制器
 
 在app/controller目录下创建控制器文件，框架自动载入并进行类型检测。
 
 
-## 目录结构
+### 目录结构
 
 ```
 example
@@ -151,12 +150,12 @@ example
 ```
 
 
-## 加载顺序
+### 加载顺序
 
    框架约定的加载顺序依次为config > extend > plugin > models > middleware > controller
 
 
-## 框架扩展
+### 框架扩展
 
    框架app/extend/目录提供application.js、context.js用于app、ctx对象扩展。
 
@@ -165,22 +164,22 @@ example
    app.loader方法通过batch-import库实现，支持目录递归和包含、排除、预处理等特性，具体使用方法请参照[https://github.com/xiangle/batch-import](https://github.com/xiangle/batch-import)。
 
 
-## 插件（规划中）
+### 插件（规划中）
 
 我们期望应用更多的以插件方式构建，每个插件相当于一个微型应用，其目录结构与主应用完全一致，拥有独立的运行环境，同时允许应用间资源共享。实现功能模块化、标准化、即插即用的需求。
 
-### 公共区
+#### 公共区
 
 每个插件中包含common.js，用于资源互访。
 
-### 路由（可选）
+#### 路由（可选）
 
 插件中允许定义路由，当存在路由冲突时会发出警告。
 
-### 控制器
+#### 控制器
 
 和主应用一致，但彼此隔离
 
-### 模型（可选）
+#### 模型（可选）
 
 和主应用一致，但彼此隔离
