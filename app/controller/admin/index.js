@@ -1,6 +1,4 @@
-let cwd = process.cwd()
-
-let { Controller } = require(cwd)
+let { Controller } = require(process.cwd())
 
 class index extends Controller {
    async index(ctx) {

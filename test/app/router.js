@@ -1,5 +1,5 @@
 import test from 'ava';
-import check from 'check-data';
+// import check from 'check-data';
 import axios from 'axios'
 import app from '../../';
 

@@ -1,1 +1,1 @@
-module.exports = 999
+module.exports = {}

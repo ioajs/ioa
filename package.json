@@ -1,28 +1,31 @@
 {
-   "name": "newseed",
-   "version": "2.4.0",
+   "name": "ioa",
+   "version": "2.5.0",
    "description": "基于Koa 2.0轻量、易扩展的Node.js基础框架",
    "scripts": {
+      "start": "node index.js",
       "dev": "nodemon index.js",
       "test": "ava test/ -w"
    },
    "main": "index.js",
    "dependencies": {
       "batch-import": "^3.0.0",
+      "debug": "^3.1.0",
       "koa": "^2.2.0",
-      "koa-bodyparser": "^4.2.1"
+      "koa-bodyparser": "^4.2.1",
+      "small-tools": "^2.1.0"
    },
    "devDependencies": {
       "@koa/cors": "^2.2.1",
       "ava": "^0.25.0",
       "axios": "^0.18.0",
-      "check-data": "^3.0.0",
+      "check-data": "^4.1.1",
       "nodemon": "^1.17.5"
    },
    "author": "",
    "license": "ISC",
    "repository": {
       "type": "git",
-      "url": "git+https://github.com/newseedjs/newseed.git"
+      "url": "git+https://github.com/ioajs/ioa.git"
    }
 }

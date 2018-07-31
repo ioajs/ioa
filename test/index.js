@@ -2,27 +2,31 @@ import test from 'ava';
 import check from 'check-data';
 import app from '..';
 
-test('检查app对象', t => {
-   let { data, error } = check(app, {
+
+test('app', t => {
+
+   let { data, error } = check.strict(app, {
       Controller: Function,
-      Service: Function,
-      cwd: String,
+      root: String,
       config: {
          middlewares: [Function],
          port: Number,
       },
-      plugin: { demo: { app: Object } },
       extend: {
          application: Number,
-         context: Object,
          db: Object,
-         emulates: Object
+         emulates: {
+            mobile: Object,
+            pc: Object,
+         }
       },
       application: Number,
-      context: Object,
       db: Object,
-      emulates: Object,
-      models: { compcerts: Object },
+      emulates: {
+         mobile: Object,
+         pc: Object,
+      },
+      model: { compcerts: Object },
       middleware: {
          cors: Function,
          test: Function,
@@ -64,12 +68,13 @@ test('检查app对象', t => {
       },
       loader: Function,
       listen: Function,
-      get: Function,
-      post: Function,
-      put: Function,
-      delete: Function,
-      resources: Function,
-      koa: Object
+      get: undefined,
+      post: undefined,
+      put: undefined,
+      delete: undefined,
+      resources: undefined
    })
+
    t.truthy(data, error);
+
 });

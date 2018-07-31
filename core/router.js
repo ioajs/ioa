@@ -3,7 +3,7 @@
 let path = require('path')
 let app = require('./app.js')
 
-let routerPath = path.join(app.cwd, '/app/router.js')
+let routerPath = path.join(app.root, '/app/router.js')
 
 let Resources = {
    "index": {
@@ -181,11 +181,15 @@ let router = {
    }
 }
 
+// 将router方法混合到app中，方便快速访问
 Object.assign(app, router)
 
 // 加载用户路由配置文件，生成路由映射对象结构
 try {
-   require(routerPath)(app)
+   let router = require(routerPath)
+   if (router instanceof Function) {
+      router(app)
+   }
 } catch (error) {
    throw error
 }

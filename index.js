@@ -19,6 +19,6 @@ app.listen = function (port = app.config.port) {
 
    app.koa.listen(port)
 
-   console.log(`http://localhost:${port}/`)
+   console.log(`http://localhost:${port}/`, app.NODE_ENV)
 
 }

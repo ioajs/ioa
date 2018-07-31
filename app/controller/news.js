@@ -1,6 +1,4 @@
-let cwd = process.cwd()
-
-let { Controller } = require(cwd)
+let { Controller } = require(process.cwd())
 
 class news extends Controller {
    home(ctx) {

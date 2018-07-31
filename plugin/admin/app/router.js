@@ -2,9 +2,9 @@
 
 module.exports = app => {
 
-   let { test, token } = app.middleware
+   let { routerPrefix } = app.config
 
    // 模糊匹配路由，泛解析，通用模型控制器
-   app.resources('/model/:name', 'model', 'model')
+   app.resources(`/${routerPrefix}/:name`, 'model')
 
 }

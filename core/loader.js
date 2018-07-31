@@ -1,4 +1,5 @@
-let batchImport = require('batch-import')
+const batchImport = require('batch-import')
+const T = require('small-tools')
 let app = require('./app.js')
 let config = require('./config.js')
 
@@ -8,7 +9,7 @@ batchImport({
       "path": "config/"
    },
    "plugin": {
-      "path": "plugin/",
+      "path": "app/plugin/",
       import(filename, func) {
          // if (func instanceof Function) {
          //    return func(this)
@@ -34,8 +35,8 @@ batchImport({
          return data
       }
    },
-   "models": {
-      "path": "app/models/",
+   "model": {
+      "path": "app/model/",
       import(filename, func) {
          if (func instanceof Function) {
             return func(this)
@@ -73,10 +74,16 @@ batchImport({
    }
 }, app)
 
-// 合并配置项（未添加环境变量，临时使用固定配置）
-Object.assign(config, app.config.default)
 
-Object.assign(config, app.config['localhost'])
+T.mixin(config, app.config.default)
+
+let envConfig = app.config[app.NODE_ENV]
+
+if (!envConfig) {
+   throw new Error(`找不到与${app.NODE_ENV}环境变量对应的配置文件`)
+}
+
+T.mixin(config, envConfig)
 
 app.config = config
 

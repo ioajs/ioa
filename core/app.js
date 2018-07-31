@@ -1,14 +1,20 @@
 'use strict';
 
-let app = {}
+const { version } = require('../package.json')
 
-// Controller基类
-app.Controller = class { }
+const debug = require('debug')('ioa')
 
-// Service基类
-app.Service = class { }
+const Controller = require('./controller.js')
 
-// 当前执行命令行所在的路径
-app.cwd = process.cwd()
+// 环境变量
+const NODE_ENV = process.env.NODE_ENV || 'production'
+
+let app = {
+   version,
+   debug,
+   NODE_ENV,
+   Controller,
+   root: process.cwd() // 命令行启动目录
+}
 
 module.exports = app
