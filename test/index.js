@@ -1,7 +1,8 @@
-import test from 'ava';
-import check from 'check-data';
-import app from '..';
+'use strict';
 
+const test = require('jtf')
+const check = require('check-data')
+const app = require('..')
 
 test('app', t => {
 
@@ -68,13 +69,13 @@ test('app', t => {
       },
       loader: Function,
       listen: Function,
-      get: undefined,
-      post: undefined,
-      put: undefined,
-      delete: undefined,
-      resources: undefined
+      // get: undefined,
+      // post: undefined,
+      // put: undefined,
+      // delete: undefined,
+      // resources: undefined
    })
 
-   t.truthy(data, error);
+   t.ok(data, error)
 
 });

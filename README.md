@@ -47,8 +47,6 @@ project
     |    |    └─ $name.js
     |    |
     |    |-- schedule                  定时任务（可选）
-    |    |    |- application.js
-    |    |    └─ context.js
     |    |    └─ $name.js
     |    | 
     |    └─ router.js                  路由配置
@@ -81,7 +79,7 @@ project
     |    |- middleware
     |    └─ ...
     |
-    └─ index.js                        启动入口文件
+    └─ index.js                        启动入口
 ```
 
 ### 配置文件
@@ -186,14 +184,14 @@ DELETE | /test/:id | destroy
 
 ### 模型（可选）
 
-在app/models目录下创建模型文件，框架自动载入并进行类型检测，在controller中通过app.models引用。
+在app/models目录下创建模型文件，框架自动载入并进行类型检测，在controller中通过app.models引用，支持多级目录分组。
 
 常见ORM库通常使用独立模型文件，框架仅提供app/models目录下模型文件的批量导入功能。
 
 
 ### 控制器
 
-在app/controller目录下创建控制器文件，框架自动载入并进行类型检测。
+在app/controller目录下创建控制器文件，框架自动载入并进行类型检测，支持多级目录分组。
 
 
 ### 加载顺序
@@ -201,20 +199,20 @@ DELETE | /test/:id | destroy
 框架约定的加载顺序依次为config > extend > plugin > models > middleware > controller
 
 
-### app扩展
+### 扩展
 
-框架app/extend/目录用于app对象扩展，该目录拥有自动加载特性，目录下的所有模块都会以模块路径映射的方式挂载到app目录下，且不限制层级。
+app/extend/目录用于app对象扩展，该目录下的所有模块均会自动加载，将导出结果提升后挂载到app对象上，支持多级目录分组。
 
-文件名被用于扩展名，使用时应避免产生命名冲突。
+> 文件名会被用作扩展名，使用时应避免产生命名冲突。
 
 参考示例如下：
-   
+
    * app/extend/application.js 对应 app.application
    
    * app/extend/helper.js 对应 app.helper
 
    * app/extend/db/postgres.js 对应 app.db.postgres
-   
+
 除了框架约定的加载项外，也可以通过app.loader()或config/loader.js配置文件加载指定的模块目录。
 
 app.loader方法通过batch-import库实现，支持目录递归和包含、排除、预处理等特性，具体使用方法请参照[batch-import](https://github.com/xiangle/batch-import)。
@@ -238,11 +236,18 @@ module.exports = function(){
 
 我们期望应用更多的以插件方式构建，真正实现插件即应用的目标。每个插件可以视为一个完全独立的微型应用，其目录结构与主应用完全一致，也可以作为一个独立应用单独运行。
 
-实现功能模块化、标准化、即插即用的需求。
-
 框架提供了一种混合机制，可以将多个小应用合并为一个更大的应用，也可以轻松的拆分他们单独运行。
 
-当微应用以插件形态工作时，插件会共享主应用资源。
+当微应用以插件形态工作时，插件会以继承的方式共享主应用资源。
+
+#### 特点
+
+* 功能模块化，像积木一样构建应用
+
+* 轻耦合、即插即用
+
+* 标准化
+
 
 #### 接口文件
 

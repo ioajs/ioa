@@ -1,7 +1,8 @@
-import test from 'ava';
-// import check from 'check-data';
-import axios from 'axios'
-import app from '../../';
+'use strict';
+
+const test = require('jtf')
+const axios = require('axios')
+const app = require('../../')
 
 app.listen(8800)
 
@@ -9,18 +10,17 @@ axios.defaults.baseURL = 'http://localhost:8800';
 
 test('get /', async t => {
    let { data } = await axios.get("/")
-   t.truthy(data);
+   t.ok(data);
 });
 
 test('get /news', async t => {
    let { data } = await axios.get("/news")
-   t.truthy(data);
+   t.ok(data);
 });
 
 test('get /sms/:id/sd/:kk', async t => {
    let { data } = await axios.get("/sms/666/sd/888")
    t.deepEqual(data, { id: '666', kk: '888' })
-   // t.truthy(data);
 });
 
 test('get /admin', async t => {
@@ -41,10 +41,10 @@ test('post /sms/:id/sd/:kk', async t => {
    t.deepEqual(data, { id: "55", kk: "66" });
 });
 
+
 test('resources get /rest/:name', async t => {
    let { data } = await axios.get("/rest/sss")
    t.deepEqual(data, { name: 'sss' });
-   // t.truthy(data);
 });
 
 test('resources get /rest/:name/:id', async t => {
@@ -67,4 +67,4 @@ test('resources put /rest/:name/:id', async t => {
 test('resources delete /rest/:name/:id', async t => {
    let { data } = await axios.delete("/rest/kk/999")
    t.deepEqual(data, { name: 'kk', id: '999' });
-});
+})

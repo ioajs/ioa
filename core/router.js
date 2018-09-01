@@ -1,11 +1,11 @@
 'use strict';
 
-let path = require('path')
-let app = require('./app.js')
+const path = require('path')
+const app = require('./app.js')
 
-let routerPath = path.join(app.root, '/app/router.js')
+const routerPath = path.join(app.root, '/app/router.js')
 
-let Resources = {
+const Resources = {
    "index": {
       "type": 'GET',
       "parameter": ""
@@ -141,8 +141,8 @@ let router = {
    },
    /**
     * 生成rest api
-    * @param {*} path 
-    * @param {*} middlewares 
+    * @param {String} path 
+    * @param {...Function} middlewares 
     */
    resources(path, ...middlewares) {
 
@@ -195,7 +195,10 @@ try {
 }
 
 
-// 路由参数解析、路由分发中间件
+/**
+ * koa路由参数解析、路由分发中间件
+ * @param {Object} ctx 请求上下文
+ */
 module.exports = async (ctx) => {
 
    ctx.parameter = {}
@@ -246,16 +249,24 @@ module.exports = async (ctx) => {
             }
          }
 
-         // 使用内置的递进器替换掉koa的next()，当在同一个中间件中触发多次next时会出现计数器混乱
          let index = 0
+         
+         // 含状态锁的next递归器，防止next()被重复调用
          async function next() {
-            index++
-            if (middlewares[index]) {
-               await middlewares[index](ctx, next)
+            let middleware = middlewares[index + 1]
+            if (middleware) {
+               let lock = true
+               await middleware(ctx, () => {
+                  if (lock) {
+                     lock = false
+                     index++
+                     next()
+                  }
+               })
             }
          }
 
-         await middlewares[index](ctx, next)
+         await next()
 
       }
 

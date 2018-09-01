@@ -6,7 +6,7 @@ let { test, token } = app.middleware
 
 app.get('/', 'index.home')
 
-app.post('/login', 'index.login')
+app.post('/login', test, token, 'index.login')
 
 app.get('/news', 'news.home')
 
