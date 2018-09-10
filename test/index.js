@@ -1,12 +1,12 @@
 'use strict';
 
 const test = require('jtf')
-const check = require('check-data')
+const typea = require('typea')
 const app = require('..')
 
 test('app', t => {
 
-   let { data, error } = check.strict(app, {
+   let { data, error } = typea.strict(app, {
       Controller: Function,
       root: String,
       config: {
@@ -16,16 +16,16 @@ test('app', t => {
       extend: {
          application: Number,
          db: Object,
-         emulates: {
-            mobile: Object,
-            pc: Object,
-         }
+         sub: {
+            a: Object,
+            b: Object,
+         },
       },
       application: Number,
       db: Object,
-      emulates: {
-         mobile: Object,
-         pc: Object,
+      sub: {
+         a: Object,
+         b: Object,
       },
       model: { compcerts: Object },
       middleware: {

@@ -1,8 +1,8 @@
 'use strict';
 
-let app = require(process.cwd())
+const app = require(process.cwd())
 
-let { test, token } = app.middleware
+const { test, token } = app.middleware
 
 app.get('/', 'index.home')
 

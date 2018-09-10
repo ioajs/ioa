@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path')
-const app = require('./app.js')
+const app = require('..')
 
 const routerPath = path.join(app.root, '/app/router.js')
 

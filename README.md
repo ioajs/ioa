@@ -224,10 +224,10 @@ app.loader方法通过batch-import库实现，支持目录递归和包含、排�
 > 由于加载器自动执行导出函数的特性，导致在某些场景下你希望导出结果为函数，而不是被隐性执行后的函数。目前的解决方案是使用一个空的包装函数返回另一个你真正需要导出到app的函数。参考示例如下：
 
 ```js
-let check = require('check-data')
+let typea = require('typea')
 
 module.exports = function(){
-   return check
+   return typea
 }
 ```
 

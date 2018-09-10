@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = app => {
 
    let loader = app.loader({
