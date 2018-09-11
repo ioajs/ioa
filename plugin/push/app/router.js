@@ -1,10 +1,7 @@
 'use strict';
 
-module.exports = app => {
+const app = require(process.cwd())
 
-   let { routerPrefix } = app.config
+// app.get('/', 'index.home')
 
-   // 模糊匹配路由，泛解析，通用模型控制器
-   app.resources(`/${routerPrefix}/:name`, 'model')
-
-}
+// console.log(app.get)

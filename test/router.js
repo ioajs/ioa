@@ -2,7 +2,7 @@
 
 const test = require('jtf')
 const axios = require('axios')
-const app = require('../../')
+const app = require('..')
 
 app.listen(8800)
 
@@ -10,12 +10,12 @@ axios.defaults.baseURL = 'http://localhost:8800';
 
 test('get /', async t => {
    let { data } = await axios.get("/")
-   t.ok(data);
-});
+   t.deepEqual('home', data);
+})
 
 test('get /news', async t => {
    let { data } = await axios.get("/news")
-   t.ok(data);
+   t.deepEqual('news home', data);
 });
 
 test('get /sms/:id/sd/:kk', async t => {

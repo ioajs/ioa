@@ -3,23 +3,21 @@
 const T = require('small-tools')
 const app = require('..')
 
-// 内置默认配置项
+// 内置基础配置项
 const config = {
    middlewares: [],
    port: 8800
 }
 
-// 与外置默认配置合并
+// 与默认配置合并
 T(config).object({ mixin: app.config.default })
 
 let envConfig = app.config[app.NODE_ENV]
 
-if (!envConfig) {
-   throw new Error(`找不到环境变量配置文件"${app.NODE_ENV}"`)
+// 与环境变量配置合并
+if (envConfig) {
+   T(config).object({ mixin: envConfig })
 }
-
-// 与外置环境变量配置合并
-T(config).object({ mixin: envConfig })
 
 app.config = config
 

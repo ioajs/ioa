@@ -1,6 +1,6 @@
 {
    "name": "ioa",
-   "version": "3.0.0-alpha.1",
+   "version": "3.0.0-alpha.2",
    "description": "基于Koa 2.0轻量、易扩展的Node.js基础框架",
    "scripts": {
       "start": "node index.js",
