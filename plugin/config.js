@@ -5,6 +5,6 @@ module.exports = {
       enable: true
    },
    "role": {
-      enable: false
+      enable: true
    }
 }

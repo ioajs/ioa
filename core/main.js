@@ -1,6 +1,7 @@
 'use strict';
 
 const batchImport = require('batch-import')
+const mixin = require('./config')
 const app = require('..')
 
 // 在载入主框架前先加载必要的依赖
@@ -52,3 +53,6 @@ batchImport({
       }
    }
 }, app)
+
+// 配置合并
+mixin(app)

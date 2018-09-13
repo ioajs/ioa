@@ -1,39 +1,46 @@
 'use strict';
 
 const T = require('small-tools')
-const app = require('..')
 
-// 内置基础配置项
-const config = {
-   middlewares: [],
-   port: 8800
-}
+/**
+ * 框架配置合并
+ * @param {*} app 
+ */
+module.exports = function (app) {
 
-// 与默认配置合并
-T(config).object({ mixin: app.config.default })
+   // 内置基础配置项
+   const config = {
+      middlewares: [],
+      port: 8800
+   }
 
-let envConfig = app.config[app.NODE_ENV]
+   // 与默认配置合并
+   T(config).object({ mixin: app.config.default })
 
-// 与环境变量配置合并
-if (envConfig) {
-   T(config).object({ mixin: envConfig })
-}
+   let envConfig = app.config[app.NODE_ENV]
 
-app.config = config
+   // 与环境变量配置合并
+   if (envConfig) {
+      T(config).object({ mixin: envConfig })
+   }
 
-// 全局中间件配置替换
-let middlewares = app.config.middlewares
+   app.config = config
 
-if (middlewares) {
+   // 全局中间件配置替换
+   let middlewares = app.config.middlewares
 
-   for (let key in middlewares) {
-      let name = middlewares[key]
-      let middleware = app.middleware[name]
-      if (middleware) {
-         middlewares[key] = middleware
-      } else {
-         throw new Error(`没有找到${name}全局中间件`)
+   if (middlewares) {
+
+      for (let key in middlewares) {
+         let name = middlewares[key]
+         let middleware = app.middleware[name]
+         if (middleware) {
+            middlewares[key] = middleware
+         } else {
+            throw new Error(`没有找到${name}全局中间件`)
+         }
       }
+
    }
 
 }

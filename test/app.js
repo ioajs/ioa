@@ -1,8 +1,8 @@
-'use strict';
-
 const test = require('jtf')
 const typea = require('typea')
 const app = require('..')
+
+app.listen(8800)
 
 test('app', t => {
 

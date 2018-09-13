@@ -1,6 +1,6 @@
 {
    "name": "ioa",
-   "version": "3.0.0-alpha.2",
+   "version": "3.0.0-alpha.3",
    "description": "基于Koa 2.0轻量、易扩展的Node.js基础框架",
    "keywords": [
       "application",
@@ -16,7 +16,7 @@
    },
    "main": "index.js",
    "dependencies": {
-      "batch-import": "^3.0.0",
+      "batch-import": "^3.1.1",
       "debug": "^3.1.0",
       "koa": "^2.2.0",
       "koa-bodyparser": "^4.2.1",

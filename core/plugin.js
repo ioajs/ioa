@@ -3,6 +3,7 @@
 const path = require('path')
 const T = require('small-tools')
 const batchImport = require('batch-import')
+const mixin = require('./config')
 const app = require('..')
 
 const pluginPath = path.join(app.root, 'plugin')
@@ -13,21 +14,46 @@ try {
 
 }
 
-// 批量预加载插件框架
-T(config).query({ '*.enable': true }, function (pluginName) {
+// 批量预加载插件应用
+T(config).query({ '*.enable': true }, function (name) {
 
-   const base = path.join('plugin', pluginName)
+   const base = path.join('plugin', name)
 
-   try {
-      // 加载插件内ioa混合app
-      var pluginApp = require(path.join(pluginPath, pluginName, 'node_modules', 'ioa'))
-      // 加载入口文件
-      require(path.join(pluginPath, pluginName))
-   } catch (error) {
-      app.logger.warn(error)
+   const config = T(app.config).clone()
+   const extend = T(app.extend).clone()
+   const model = T(app.model).clone()
+   const middleware = T(app.middleware).clone()
+   const controller = T(app.controller).clone()
+
+   const plugin = {
+      ...app,
+      config,
+      extend,
+      ...extend,
+      model,
+      middleware,
+      controller
    }
 
-   app.plugin[pluginName] = batchImport({
+   app.plugin[name] = plugin
+   app.currentPlugin = plugin
+
+   // 加载插件内ioa模块
+   try {
+      require(path.join(pluginPath, name, 'node_modules', 'ioa'))
+   } catch (error) {
+      app.logger.warn(`${name}插件加载失败`, error)
+      return
+   }
+
+   // 尝试加载入口文件
+   try {
+      require(path.join(pluginPath, name))
+   } catch (error) {
+
+   }
+
+   batchImport({
       "config": {
          "path": path.join(base, 'config')
       },
@@ -65,6 +91,9 @@ T(config).query({ '*.enable': true }, function (pluginName) {
             }
          }
       }
-   }, pluginApp)
+   }, plugin)
 
+   // 插件配置合并
+   mixin(plugin)
+   
 })
