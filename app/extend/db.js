@@ -1,6 +1,5 @@
-module.exports = function (app) {
-   // app.xxx = 8888
-   return {
-      xxx: 9999
-   }
+'use strict';
+
+module.exports = {
+   xxx: 9999
 }

@@ -6,6 +6,9 @@ const app = require('..')
 // 在载入主框架前先加载必要的依赖
 app.Controller = require('./extends/controller')
 
+// 在载入主框架前先加载必要的依赖
+app.Model = require('./extends/model')
+
 // 预加载主框架
 batchImport({
    "config": {
@@ -13,13 +16,6 @@ batchImport({
    },
    "extend": {
       "path": "app/extend",
-      import(name, data) {
-         // 如果导出为函数类型，则判定为依赖注入函数
-         if (data instanceof Function) {
-            data = data(app)
-         }
-         return data
-      },
       complete(data) {
          // 对extend进行扁平化处理，缩短访问路径
          for (let name in data) {
@@ -29,14 +25,7 @@ batchImport({
       }
    },
    "model": {
-      "path": "app/model/",
-      import(name, func) {
-         if (func instanceof Function) {
-            return func(app)
-         } else {
-            throw new Error(`${name}模块导出必须为函数`)
-         }
-      }
+      "path": "app/model/"
    },
    "middleware": {
       "path": "app/middleware/",
@@ -56,12 +45,9 @@ batchImport({
             if (func.prototype) {
                // 普通函数，不管是不是构造函数都可以使用new
                return new func(app)
-            } else {
-               // 箭头函数，没有prototype
-               return func(app)
             }
          } else {
-            throw new Error(`${name}模块导出必须为注入函数`)
+            throw new Error(`controller/${name}模块导出必须为函数类型`)
          }
       }
    }

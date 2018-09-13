@@ -7,8 +7,12 @@ const app = require('..')
 test('app', t => {
 
    let { data, error } = typea.strict(app, {
-      Controller: Function,
+      version: String,
       root: String,
+      NODE_ENV: String,
+      loader: Function,
+      Controller: Function,
+      Model: Function,
       config: {
          middlewares: [Function],
          port: Number,
@@ -69,11 +73,11 @@ test('app', t => {
       },
       loader: Function,
       listen: Function,
-      // get: undefined,
-      // post: undefined,
-      // put: undefined,
-      // delete: undefined,
-      // resources: undefined
+      get: Function,
+      post: Function,
+      put: Function,
+      delete: Function,
+      resources: Function
    })
 
    t.ok(data, error)

@@ -14,89 +14,57 @@ try {
 }
 
 // 批量预加载插件框架
-app.plugin = T(config).query({ '*.enable': true },
-   pluginName => {
+T(config).query({ '*.enable': true }, function (pluginName) {
 
-      let base = path.join('plugin', pluginName)
+   const base = path.join('plugin', pluginName)
 
-      try {
-         require(path.join(pluginPath, pluginName))
-      } catch (error) {
+   try {
+      // 加载插件内ioa混合app
+      var pluginApp = require(path.join(pluginPath, pluginName, 'node_modules', 'ioa'))
+      // 加载入口文件
+      require(path.join(pluginPath, pluginName))
+   } catch (error) {
+      app.logger.warn(error)
+   }
 
-      }
-
-      batchImport({
-         "config": {
-            "path": path.join(base, 'config'),
-            import(name, data) {
-               if (this[name]) {
-                  Object.assign(data, this[name])
-               }
-               return data
-            },
-         },
-         "extend": {
-            "path": path.join(base, 'app/extend'),
-            import(name, data) {
-               if (this[name]) {
-                  Object.assign(data, this[name])
-               }
-               if (data instanceof Function) {
-                  data = data(app)
-               }
-               return data
-            },
-            complete(data) {
-               for (let name in data) {
-                  this[name] = data[name]
-               }
-               return data
+   app.plugin[pluginName] = batchImport({
+      "config": {
+         "path": path.join(base, 'config')
+      },
+      "extend": {
+         "path": path.join(base, 'app/extend'),
+         complete(data) {
+            for (let name in data) {
+               this[name] = data[name]
             }
-         },
-         "model": {
-            "path": path.join(base, 'app/model'),
-            import(name, func) {
-               if (this[name]) {
-                  throw new Error(`${pluginName}插件中model/${name}模块存在命名冲突`)
-               }
-               if (func instanceof Function) {
-                  return func(app)
-               } else {
-                  throw new Error(`${name}模块导出必须为函数`)
-               }
-            }
-         },
-         "middleware": {
-            "path": path.join(base, 'app/middleware'),
-            import(name, func) {
-               if (this[name]) {
-                  throw new Error(`${pluginName}插件中middleware/${name}模块存在命名冲突`)
-               }
-               if (func instanceof Function) {
-                  return func
-               } else {
-                  throw new Error(`${name}模块导出必须为注入函数`)
-               }
-            }
-         },
-         "controller": {
-            "path": path.join(base, 'app/controller'),
-            import(name, func) {
-               if (this[name]) {
-                  throw new Error(`${pluginName}插件中controller/${name}模块存在命名冲突`)
-               }
-               if (func instanceof Function) {
-                  if (func.prototype) {
-                     return new func(app)
-                  } else {
-                     return func(app)
-                  }
-               } else {
-                  throw new Error(`${name}模块导出必须为注入函数`)
-               }
+            return data
+         }
+      },
+      "model": {
+         "path": path.join(base, 'app/model')
+      },
+      "middleware": {
+         "path": path.join(base, 'app/middleware'),
+         import(name, func) {
+            if (func instanceof Function) {
+               return func
+            } else {
+               throw new Error(`${name}模块导出必须为注入函数`)
             }
          }
-      }, app)
+      },
+      "controller": {
+         "path": path.join(base, 'app/controller'),
+         import(name, func) {
+            if (func instanceof Function) {
+               if (func.prototype) {
+                  return new func()
+               }
+            } else {
+               throw new Error(`${name}模块导出必须为注入函数`)
+            }
+         }
+      }
+   }, pluginApp)
 
-   }
-)
+})

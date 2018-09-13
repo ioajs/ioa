@@ -2,6 +2,13 @@
    "name": "ioa",
    "version": "3.0.0-alpha.2",
    "description": "基于Koa 2.0轻量、易扩展的Node.js基础框架",
+   "keywords": [
+      "application",
+      "framework",
+      "middleware",
+      "koa",
+      "ioa"
+   ],
    "scripts": {
       "start": "node index.js",
       "dev": "node index.js",
@@ -13,8 +20,8 @@
       "debug": "^3.1.0",
       "koa": "^2.2.0",
       "koa-bodyparser": "^4.2.1",
-      "loggercc": "^1.2.9",
-      "small-tools": "^3.0.1"
+      "loggercc": "^1.2.10",
+      "small-tools": "^3.0.2"
    },
    "devDependencies": {
       "@koa/cors": "^2.2.1",
@@ -22,6 +29,10 @@
       "jtf": "^1.5.1",
       "typea": "^4.2.0"
    },
+   "files": [
+      "index.js",
+      "core"
+   ],
    "author": "",
    "license": "ISC",
    "repository": {

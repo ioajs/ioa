@@ -1,6 +1,25 @@
 'use strict';
 
-const { container } = require('../..')
+const path = require('path')
+const app = require('../..')
+const { container, root, plugin } = app
+
+// 加载主路由配置文件
+try {
+   require(path.join(root, 'app/router.js'))
+} catch (error) {
+
+}
+
+// 加载插件路由配置文件
+try {
+   for (let name in plugin) {
+      app.scope = name
+      require(path.join(root, 'plugin', name, 'app', 'router'))
+   }
+} catch (error) {
+   console.error(error)
+}
 
 /**
  * koa路由参数解析、路由分发中间件
@@ -58,7 +77,7 @@ module.exports = async (ctx) => {
 
          let index = 0
 
-         // 含状态锁的next递归器，防止next()被重复调用
+         // 含状态锁的next()递进器，防止重复调用
          async function next() {
             let middleware = middlewares[index + 1]
             if (middleware) {

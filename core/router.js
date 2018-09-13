@@ -1,6 +1,5 @@
 'use strict';
 
-const path = require('path')
 const app = require('..')
 
 const Resources = {
@@ -93,15 +92,15 @@ function processPath(type, path, middlewares, controller) {
 }
 
 /**
- * 从middlewares中提取控制器Path，根据Path提取控制器
+ * 从middlewares中根据Path路径提取控制器
  */
 function processController(middlewares) {
 
-   let controllerPath = middlewares.pop()
-   let controllerPathArray = controllerPath.split('.')
+   const controllerPath = middlewares.pop()
+   const controllerPathArray = controllerPath.split('.')
+   let controller = getController()
 
    // 迭代提取controller
-   let controller = app.controller
    for (let itemPath of controllerPathArray) {
       let item = controller[itemPath]
       if (item) {
@@ -119,8 +118,23 @@ function processController(middlewares) {
 
 }
 
+/**
+ * 动态获取controller
+ */
+function getController() {
+
+   const pluginApp = app.plugin[app.scope]
+
+   if (pluginApp) {
+      return pluginApp.controller
+   } else {
+      return app.controller
+   }
+
+}
+
 // 路由预处理解析，按请求类型进行分组
-let router = {
+const router = {
    get(path, ...middlewares) {
       let controller = processController(middlewares)
       processPath('GET', path, middlewares, controller)
@@ -148,7 +162,7 @@ let router = {
       let controllerPathArray = controllerPath.split('.')
 
       // 迭代提取controllers
-      let controllers = app.controller
+      let controllers = getController()
       for (let itemPath of controllerPathArray) {
 
          let item = controllers[itemPath]
@@ -181,19 +195,3 @@ let router = {
 
 // 将router方法混合到app中，方便快速访问
 Object.assign(app, router)
-
-// 加载主路由设置文件
-try {
-   require(path.join(app.root, 'app/router.js'))
-} catch (error) {
-
-}
-
-// 加载插件路由设置文件
-try {
-   for (let name in app.plugin) {
-      require(path.join(app.root, 'plugin', name, 'app', 'router'))
-   }
-} catch (error) {
-
-}

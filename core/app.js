@@ -1,16 +1,16 @@
 'use strict';
 
 const batchImport = require('batch-import')
+const logger = require('loggercc')
 const { version } = require('../package.json')
 
-// 由于根模块内部存在相互引用，需要提前导出必要的依赖
-const app = {
+module.exports = {
    version,
    root: process.cwd(),
    NODE_ENV: process.env.NODE_ENV || 'production',
    loader(options) {
-      batchImport(options, app)
-   }
+      batchImport(options, module.exports)
+   },
+   logger,
+   plugin: {}
 }
-
-module.exports = app

@@ -1,5 +1,3 @@
-module.exports = app => {
+'use strict';
 
-   return {}
-
-}
+module.exports = {}

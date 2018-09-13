@@ -8,20 +8,24 @@ app.listen(8800)
 
 axios.defaults.baseURL = 'http://localhost:8800';
 
+
 test('get /', async t => {
    let { data } = await axios.get("/")
    t.deepEqual('home', data);
 })
+
 
 test('get /news', async t => {
    let { data } = await axios.get("/news")
    t.deepEqual('news home', data);
 });
 
+
 test('get /sms/:id/sd/:kk', async t => {
    let { data } = await axios.get("/sms/666/sd/888")
    t.deepEqual(data, { id: '666', kk: '888' })
 });
+
 
 test('get /admin', async t => {
    let { data } = await axios.get("/admin")

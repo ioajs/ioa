@@ -1,20 +1,18 @@
 'use strict';
 
-module.exports = app => {
+const app = require(process.cwd())
 
-   let loader = app.loader({
-      "server": {
-         "path": "app/server/",
-         import(filename, func) {
-            if (func instanceof Function) {
-               return func(this)
-            } else {
-               throw new Error(`${filename}`)
-            }
+const loader = app.loader({
+   "server": {
+      "path": "app/server/",
+      import(filename, func) {
+         if (func instanceof Function) {
+            return func(this)
+         } else {
+            throw new Error(`${filename}`)
          }
       }
-   })
+   }
+})
 
-   Object.assign(app, loader)
-
-}
+Object.assign(app, loader)

@@ -1,3 +1,3 @@
-module.exports = function (app) {
-   return 666
-}
+'use strict';
+
+module.exports = 666
