@@ -1,4 +1,3 @@
 module.exports = {
-   middlewares: ['cors'],
-   routerPrefix: "demo",
+   middlewares: ['cors']
 }

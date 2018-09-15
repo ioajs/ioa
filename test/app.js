@@ -10,7 +10,6 @@ test('app', t => {
       version: String,
       root: String,
       NODE_ENV: String,
-      loader: Function,
       Controller: Function,
       Model: Function,
       config: {
@@ -71,7 +70,6 @@ test('app', t => {
             destroy: Function
          }
       },
-      loader: Function,
       listen: Function,
       get: Function,
       post: Function,

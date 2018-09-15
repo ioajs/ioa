@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = {
-   "user": {
+   "role": {
       enable: true
    },
-   "role": {
+   "user": {
       enable: true
    }
 }

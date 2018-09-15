@@ -1,16 +1,19 @@
 'use strict';
 
 // app跨域容器，由于根模块内部存在相互引用，需要提前导出依赖
-module.exports = require('./core/app')
+module.exports = require('./lib/app')
 
-// 加载路由解析器
-require('./core/router')
+// 路由解析器
+require('./lib/router')
+
+// 加载共享资源
+require('./lib/shared')
 
 // 加载主框架
-require('./core/main')
+require('./lib/main')
 
 // 加载插件框架
-require('./core/plugin')
+require('./lib/plugin')
 
 // 启用http
-require('./core/http')
+require('./lib/http')
