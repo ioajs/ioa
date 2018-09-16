@@ -1,3 +1,5 @@
+'use strict';
+
 let { Controller } = require(process.cwd())
 
 class rest extends Controller {
@@ -25,8 +27,8 @@ class rest extends Controller {
     * 在rest中混入普通路由
     * @param {*} ctx 
     */
-   async xxxx(ctx) {
-      ctx.body = 'xxxx'
+   async other(ctx) {
+      ctx.body = 'other'
    }
 }
 

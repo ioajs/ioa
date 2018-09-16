@@ -17,15 +17,13 @@ test('app', t => {
          port: Number,
       },
       extend: {
-         application: Number,
-         db: Object,
+         debug: Object,
          sub: {
             a: Object,
             b: Object,
          },
       },
-      application: Number,
-      db: Object,
+      debug: Object,
       sub: {
          a: Object,
          b: Object,
@@ -33,7 +31,6 @@ test('app', t => {
       model: { compcerts: Object },
       middleware: {
          cors: Function,
-         test: Function,
          token: Function
       },
       controller: {

@@ -2,4 +2,4 @@
 
 const app = require('ioa')
 
-// console.log(app.config)
+// console.log(app.typea)

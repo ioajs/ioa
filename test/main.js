@@ -37,29 +37,29 @@ test('post /sms/:id/sd/:kk', async t => {
 });
 
 
-test('resources get /rest/:name', async t => {
-   let { data } = await axios.get("/rest/sss")
-   t.deepEqual({ name: 'sss' }, data)
+test('resources get /rest', async t => {
+   let { data } = await axios.get("/rest")
+   t.deepEqual({}, data)
 });
 
-test('resources get /rest/:name/:id', async t => {
-   let { data } = await axios.get("/rest/xx/888")
-   t.deepEqual({ id: '888', name: 'xx' }, data)
+test('resources get /rest/:id', async t => {
+   let { data } = await axios.get("/rest/888")
+   t.deepEqual({ id: '888' }, data)
 });
 
-test('resources post /rest/:name', async t => {
+test('resources post /rest', async t => {
    let body = { xx: 666 }
-   let { data } = await axios.post("/rest/xx", body)
+   let { data } = await axios.post("/rest", body)
    t.deepEqual(body, data)
 });
 
-test('resources put /rest/:name/:id', async t => {
+test('resources put /rest/:id', async t => {
    let body = { sss: 888 }
-   let { data } = await axios.put("/rest/xx/999", body)
-   t.deepEqual({ body, parameter: { name: 'xx', id: '999' } }, data)
+   let { data } = await axios.put("/rest/999", body)
+   t.deepEqual({ body, parameter: { id: '999' } }, data)
 });
 
-test('resources delete /rest/:name/:id', async t => {
-   let { data } = await axios.delete("/rest/kk/999")
-   t.deepEqual({ name: 'kk', id: '999' }, data)
+test('resources delete /rest/:id', async t => {
+   let { data } = await axios.delete("/rest/999")
+   t.deepEqual({ id: '999' }, data)
 })

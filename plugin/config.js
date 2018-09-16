@@ -5,6 +5,6 @@ module.exports = {
       enable: true
    },
    "user": {
-      enable: true
+      enable: false
    }
 }

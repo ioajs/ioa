@@ -3,10 +3,10 @@
  */
 
 module.exports = {
-   config: 'inherit',
-   app: {
-      controller: 'inherit',
-      middleware: 'inherit',
-      model: 'inherit'
-   }
+   // config: 'inherit',
+   // app: {
+   //    controller: 'inherit',
+   //    middleware: 'inherit',
+   //    model: 'inherit'
+   // }
 }

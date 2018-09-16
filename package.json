@@ -1,7 +1,7 @@
 {
    "name": "ioa",
-   "version": "3.0.0-alpha.8",
-   "description": "基于Koa 2.0轻量、易扩展的Node.js基础框架",
+   "version": "3.0.0-alpha.9",
+   "description": "基于Koa 2.0轻量、易扩展的Node.js声明式、组件化框架",
    "keywords": [
       "application",
       "framework",
@@ -20,7 +20,7 @@
       "koa": "^2.2.0",
       "koa-bodyparser": "^4.2.1",
       "loggercc": "^1.2.10",
-      "small-tools": "^3.0.2"
+      "small-tools": "^3.0.3"
    },
    "devDependencies": {
       "@koa/cors": "^2.2.1",

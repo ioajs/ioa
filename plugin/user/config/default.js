@@ -1,3 +1,3 @@
 module.exports = {
-   middlewares: ['cors']
+   // middlewares: ['cors']
 }
