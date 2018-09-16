@@ -11,20 +11,18 @@
 
 * 简单、轻量、易扩展、高性能
 
-
-### Usage
-
-```js
-let app = require('ioa')
-
-// http服务是可选的，可以按需启动
-app.listen(8800)
-```
-
 ### Install
 
 ```
 npm install ioa
+```
+
+### Usage
+
+```js
+const app = require('ioa')
+
+app.listen(8800)
 ```
 
 ### 目录结构
@@ -33,66 +31,49 @@ npm install ioa
 
 ```
 project
+    |
+    |-- config                       配置文件目录
+    |    |- default.js               公用默认配置（可选）
+    |    |- development.js           开发环境配置（可选）
+    |    |- localhost.js             本地环境配置（可选）
+    |    └─ production.js            生产环境配置（可选）
+    |
     |-- app
+    |    |
+    |    |-- extend                  扩展目录（可选）
+    |    |    └─ $name.js
+    |    |
+    |    |-- model                   模型目录（可选）
+    |    |    |- $name.js
+    |    |    └─ ...
+    |    |
+    |    |-- middleware              中间件目录 (可选)
+    |    |    |- $name.js
+    |    |    └─ ...
+    |    |
     |    |-- controller              控制器目录（可选）
     |    |    |-- home               多层控制器嵌套
-    |    |    |    |- c1.js
-    |    |    |    |- c2.js
+    |    |    |    |- $name.js
     |    |    |    └─ ...
-    |    |    |
+    |    |    |- ...
     |    |    └─ index.js
     |    |
-    |    |-- middleware               中间件目录 (可选)
-    |    |    |- middleware1.js
-    |    |    |- middleware2.js
-    |    |    └─ ...
-    |    |
-    |    |-- model                    模型目录（可选）
-    |    |    |- model1.js
-    |    |    |- model2.js
-    |    |    └─ ...
-    |    |
-    |    |-- extend                    扩展目录（可选）
-    |    |    |- application.js
-    |    |    └─ context.js
-    |    |    └─ $name.js
-    |    |
-    |    |-- schedule                  定时任务（可选）
-    |    |    └─ $name.js
+    |    |-- schedule                定时任务（可选）
     |    | 
-    |    └─ router.js                  路由配置
+    |    └─ router.js                路由配置
     |
-    |--- config                        配置文件目录
-    |    |- default.js                 公用默认配置（可选）
-    |    |- development.js             开发环境配置（可选）
-    |    |- localhost.js               本地环境配置（可选）
-    |    └─ production.js              生产环境配置（可选）
-    |
-    |--- plugin                        组件目录（可选）
-    |    |
-    |    |- plugin a                   组件模块，结构与主应用完全一致
+    |-- plugin                       组件目录（可选）
+    |    |- plugin A                 组件模块，结构与主应用完全一致
     |    |     |- app
-    |    |     |- config
     |    |     └─ ...
-    |    |
-    |    |- plugin b
-    |    |     └─ ...
-    |    |     
-    |    |- config.js                 组件配置文件
-    |    |
-    |    └─ ...
+    |    |- ...
+    |    └─ config.js                组件配置文件
     |
-    |--- static                        静态资源目录
-    |    |- logo.img
-    |    |- home.css
-    |    └─ ...
+    |-- logger                       日志存档（按日期分组保存）
     |
-    |--- test                          测试目录
-    |    |- controller
-    |    |- middleware
-    |    └─ ...
+    |-- static                       静态资源目录
     |
-    └─ index.js                        启动入口
+    └─  index.js                     启动入口（自由定义）
 ```
 
 ### 配置文件
@@ -110,10 +91,48 @@ project
 
 ### 路由
 
-在app对象中提供了RESTful风格的路由方法，支持get、post、put、delele、resources，与egg框架的路由设计风格相似。
+app对象中提供了get、post、put、delele路由声明方法，支持用resources批量定义RESTful路由，与egg的路由设计风格类似。
 
-另外支持目录匹配方式的自动化寻址路由
+ioa中同时支持声明式和自动寻址两种路由模式：
 
+#### 声明式路由
+
+声明式路由具有高度灵活和可定制url的特性。允许随意定义url格式，调用任意middleware、controller，但每个url都需要单独定义。
+
+#### 自动寻址路由
+
+指定一个controller目录，路由解析器根据目录结构自动寻址，不再需要单独配置每个路由。这对于常规、标准化路由的定义非常方便，但是缺乏灵活性。
+
+#### 示例
+
+```js
+app.get('/', 'index.home')
+
+app.get('/sms/:sid/sd/:id', 'index.sms')
+
+app.post('/sms/:sid/sd/:sid', 'index.sms')
+
+app.post('/login', 'index.login')
+
+app.put('/login', 'index.login')
+
+app.delele('/login', 'index.login')
+
+app.resources('/rest', 'rest')
+
+// 映射到controller/admin目录
+app.controller('admin')
+
+// 路由分组
+app.group('admin', {
+    "login": ['index.login'],
+    "sms": ['index.sms'],
+    "cc": {
+        "xx": ['index.xx'],
+        "jj": ['index.jj']
+    },
+})
+```
 
 ### 中间件
 
@@ -123,44 +142,12 @@ project
 
 在路由中使用中间件时，通过app.middleware引用中间件，插入到配置项中
 
+#### 示例
 
 ```js
-// 路由示例
-module.exports = app => {
+const { test, token } = app.middleware
 
-    let { test, token } = app.middleware
-
-    app.get('/', 'index.home')
-
-    app.get('/sms/:sid/sd/:id', test, 'index.sms')
-
-    app.post('/sms/:sid/sd/:sid', test, token, 'index.sms')
-
-    app.post('/login', 'index.login')
-
-    app.put('/login', 'index.login')
-
-    app.delele('/login', 'index.login')
-
-    app.resources('/rest', 'rest')
-
-    // 映射到controller下指定目录
-    app.controller('admin')
-
-    // 映射到指定数据模型
-    app.module('admin')
-
-    // 路由分组
-    app.group('admin', test, {
-        "login": [test, 'index.login'],
-        "sms": ['index.sms'],
-        "cc": {
-            "xx": ['index.xx'],
-            "jj": ['index.jj']
-        },
-    })
-
-}
+app.get('/',test, token, 'index.home')
 ```
 
 
@@ -194,35 +181,18 @@ DELETE | /test/:id | destroy
 
 ### 扩展
 
-app/extend/目录用于app对象扩展，该目录下的所有模块均会自动加载，将导出结果提升后挂载到app对象上，支持多级目录分组。
+app/extend目录用于扩展app对象，该目录下的所有模块均会自动加载，将导出结果提升后挂载到app对象上，支持多级目录分组。
 
 > 文件名会被用作扩展名，使用时应避免产生命名冲突。
 
 参考示例如下：
 
-   * app/extend/application.js 对应 app.application
-   
-   * app/extend/helper.js 对应 app.helper
+```
+app/extend/application.js 对应 app.application
 
-   * app/extend/db/postgres.js 对应 app.db.postgres
+app/extend/helper.js 对应 app.helper
 
-除了框架约定的加载项外，也可以通过app.loader()或config/loader.js配置文件加载指定的模块目录。
-
-app.loader方法通过batch-import库实现，支持目录递归和包含、排除、预处理等特性，具体使用方法请参照[batch-import](https://github.com/xiangle/batch-import)。
-
-
-#### 注意事项
-
-> 所有extend中的模块如果导出为函数，则被视为注入函数，加载器会隐性执行该函数并注入app对象，最终以函数返回值作为结果，而不是导出函数本身。
-
-> 由于加载器自动执行导出函数的特性，导致在某些场景下你希望导出结果为函数，而不是被隐性执行后的函数。目前的解决方案是使用一个空的包装函数返回另一个你真正需要导出到app的函数。参考示例如下：
-
-```js
-let typea = require('typea')
-
-module.exports = function(){
-   return typea
-}
+app/extend/db/postgres.js 对应 app.db.postgres
 ```
 
 
@@ -232,9 +202,11 @@ module.exports = function(){
 
 在ioa中我们尝试并实现了这个目标，即将组件视为一个相对独立的子应用，通过强大的组件继承和模块隔离机制，使得组件应用拥有和主应用完全一致的结构、功能和代码。
 
-传统的组件机制通过扩展app对象来增加新的功能，而ioa中的组件机制主要是通过继承app对象，创建新的子app。传统组件机制出于资源冲突的考虑，通常放弃了对路由的支持。但不仅仅是路由，实际上命名冲突随处可见，在同一个app对象中扩展middleware、controller等其它功能也同样面临同名资源冲突的问题。
+传统的插件机制通过扩展app对象来增加新的功能，而在ioa中的组件机制是通过继承app实例的方式，创建新的子app。
 
-与众不同的是ioa组件机制利用node.js的模块作用域特性，为每个组件单独注入独立的模块作用域，实现资源隔离与共享，使得组件中的代码与主应用代码完全一致，几乎没有额外的学习成本。
+传统插件机制出于资源冲突的考虑，通常放弃了对路由的支持。实际上不仅仅是路由，在同一个app对象中扩展middleware、controller等其它功能也同样面临同名资源冲突的问题。
+
+ioa组件机制利用node.js的模块作用域特性，为每个组件单独注入独立的模块作用域，实现资源隔离与共享，使得组件中的代码与主应用代码完全一致，几乎没有额外的学习成本。
 
 
 #### 组件继承
