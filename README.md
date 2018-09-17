@@ -64,8 +64,8 @@ project
     |    | 
     |    └─ router.js                路由配置
     |
-    |-- plugin                       组件目录（可选）
-    |    |- plugin A                 组件模块，结构与主应用完全一致
+    |-- component                       组件目录（可选）
+    |    |- component A                 组件模块，结构与主应用完全一致
     |    |     |- app
     |    |     └─ ...
     |    |- ...
@@ -178,7 +178,7 @@ DELETE | /test/:id | destroy
 
 ### 加载顺序
 
-框架约定的加载顺序依次为config > extend > plugin > models > middleware > controller
+框架约定的加载顺序依次为config > extend > models > middleware > controller
 
 
 ### 扩展

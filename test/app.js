@@ -13,7 +13,7 @@ test('app', t => {
       Controller: Function,
       Model: Function,
       config: {
-         middlewares: [Function],
+         middlewares: [String],
          port: Number,
       },
       extend: {
@@ -33,6 +33,7 @@ test('app', t => {
          cors: Function,
          token: Function
       },
+      commonMiddlewares: [Function],
       controller: {
          admin: {
             index: {
@@ -77,4 +78,4 @@ test('app', t => {
 
    t.ok(data, error)
 
-});
+})

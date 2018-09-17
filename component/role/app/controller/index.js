@@ -1,4 +1,4 @@
-const app = require('ioa')
+'use strict';
 
 class index {
    async index(ctx) {
