@@ -1,6 +1,6 @@
 {
    "name": "ioa",
-   "version": "3.0.0-alpha.14",
+   "version": "4.0.0-alpha.1",
    "description": "基于Koa 2.0轻量、易扩展的Node.js声明式、组件化框架",
    "keywords": [
       "application",

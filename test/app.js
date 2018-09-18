@@ -16,18 +16,11 @@ test('app', t => {
          middlewares: [String],
          port: Number,
       },
-      extend: {
-         debug: Object,
-         sub: {
-            a: Object,
-            b: Object,
-         },
-      },
-      debug: Object,
-      sub: {
+      other: {
          a: Object,
          b: Object,
       },
+      typea: Function,
       model: { compcerts: Object },
       middleware: {
          cors: Function,
