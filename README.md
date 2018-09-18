@@ -34,48 +34,60 @@ app.listen(8800)
 ```
 project
     |
-    |-- config                       配置文件目录
-    |    |- default.js               公用默认配置（可选）
-    |    |- development.js           开发环境配置（可选）
-    |    |- localhost.js             本地环境配置（可选）
-    |    └─ production.js            生产环境配置（可选）
-    |
     |-- app
     |    |
+    |    |-- config                  配置文件目录（可选）
+    |    |    |
+    |    |    |- default.js          公用默认配置（可选）
+    |    |    |- development.js      开发环境配置（可选）
+    |    |    |- localhost.js        本地环境配置（可选）
+    |    |    └─ production.js       生产环境配置（可选）
+    |    |
     |    |-- extend                  扩展目录（可选）
+    |    |    |
     |    |    └─ $name.js
     |    |
     |    |-- model                   模型目录（可选）
+    |    |    |
     |    |    |- $name.js
     |    |    └─ ...
     |    |
     |    |-- middleware              中间件目录 (可选)
+    |    |    |
     |    |    |- $name.js
     |    |    └─ ...
     |    |
     |    |-- controller              控制器目录（可选）
-    |    |    |-- home               多层控制器嵌套
+    |    |    |
+    |    |    |-- home               多层控制器嵌套（可选）
     |    |    |    |- $name.js
     |    |    |    └─ ...
     |    |    |- ...
+    |    |    |
     |    |    └─ index.js
     |    |
     |    |-- schedule                定时任务（可选）
     |    | 
-    |    └─ router.js                路由配置
+    |    └─ router.js                路由配置（可选）
     |
-    |-- component                       组件目录（可选）
-    |    |- component A                 组件模块，结构与主应用完全一致
+    |-- component                    组件目录（可选）
+    |    |
+    |    |- component A              组件模块，结构与主应用完全一致
+    |    |     |- app
+    |    |     └─ ...
+    |    |
+    |    |- component B 
     |    |     |- app
     |    |     └─ ...
     |    |- ...
-    |    └─ config.js                组件配置文件
+    |    |
+    |    └─ config.js                组件配置文件（可选）
     |
-    |-- logger                       日志存档（按日期分组保存）
+    |-- logger                       日志存档，按日期分组保存（可选）
     |
-    |-- static                       静态资源目录
+    |-- static                       静态资源目录（可选）
     |
-    └─  index.js                     启动入口（自由定义）
+    └─  index.js                     启动入口（可选）
 ```
 
 ### 配置文件
