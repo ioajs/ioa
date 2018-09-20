@@ -20,7 +20,8 @@
       "koa": "^2.2.0",
       "koa-bodyparser": "^4.2.1",
       "loggercc": "^1.2.10",
-      "small-tools": "^3.0.3"
+      "small-tools": "^3.0.3",
+      "type-is": "^1.6.16"
    },
    "devDependencies": {
       "@koa/cors": "^2.2.1",
