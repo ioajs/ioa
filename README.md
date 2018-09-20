@@ -43,10 +43,6 @@ project
     |    |    |- localhost.js        本地环境配置（可选）
     |    |    └─ production.js       生产环境配置（可选）
     |    |
-    |    |-- extend                  扩展目录（可选）
-    |    |    |
-    |    |    └─ $name.js
-    |    |
     |    |-- model                   模型目录（可选）
     |    |    |
     |    |    |- $name.js

@@ -1,0 +1,70 @@
+{
+  "_from": "jtf@^1.5.0",
+  "_id": "jtf@1.5.1",
+  "_inBundle": false,
+  "_integrity": "sha512-F7iGizLkJCiUb/39Pu2aDz6k9fEPGc/ML/Mm/Uzow/NXXnbK5mZel0BR/jAFcvD1NM9LTdVFsBwMbpc1XjKx2A==",
+  "_location": "/jtf",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "jtf@^1.5.0",
+    "name": "jtf",
+    "escapedName": "jtf",
+    "rawSpec": "^1.5.0",
+    "saveSpec": null,
+    "fetchSpec": "^1.5.0"
+  },
+  "_requiredBy": [
+    "#DEV:/",
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/jtf/-/jtf-1.5.1.tgz",
+  "_shasum": "1ebd33cde6975901246019a299b6a7901f0bdf3c",
+  "_spec": "jtf@^1.5.0",
+  "_where": "D:\\Nodejs\\git-project\\ioa\\ioa",
+  "author": "",
+  "bin": {
+    "jtf": "cli.js"
+  },
+  "bugs": {
+    "url": "https://github.com/xiangle/jtf/issues"
+  },
+  "bundleDependencies": false,
+  "config": {
+    "jtf": {
+      "test": {
+        "path": "test/",
+        "exclude": [
+          "helpers"
+        ],
+        "run": false
+      }
+    }
+  },
+  "dependencies": {
+    "argv-router": "^1.3.1",
+    "nft": "^1.1.0"
+  },
+  "deprecated": false,
+  "description": "毫秒级的轻量测试工具",
+  "devDependencies": {},
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "homepage": "https://github.com/xiangle/jtf#readme",
+  "license": "ISC",
+  "main": "index.js",
+  "name": "jtf",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiangle/jtf.git"
+  },
+  "scripts": {
+    "a": "node cli.js -w -a",
+    "test": "node cli.js",
+    "w": "node cli.js -w"
+  },
+  "version": "1.5.1"
+}
