@@ -1,4 +1,6 @@
-let { Controller } = require(process.cwd())
+'use strict';
+
+const { Controller } = require('ioa')
 
 class index extends Controller {
    home(ctx) {

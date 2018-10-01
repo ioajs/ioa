@@ -1,6 +1,6 @@
 'use strict';
 
-let { Controller } = require(process.cwd())
+const { Controller } = require('ioa')
 
 class rest extends Controller {
    async index(ctx) {

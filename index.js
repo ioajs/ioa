@@ -4,10 +4,10 @@
 module.exports = require('./lib/app')
 
 // 加载主框架
-require('./lib/main')
+// require('./lib/main')
 
 // 加载组件框架
-require('./lib/component')
+require('./lib/loader')
 
 // http服务
 require('./lib/http')

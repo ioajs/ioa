@@ -1,4 +1,4 @@
-let { Controller } = require(process.cwd())
+let { Controller } = require('ioa')
 
 class news extends Controller {
    home(ctx) {

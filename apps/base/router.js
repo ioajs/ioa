@@ -1,6 +1,6 @@
 'use strict';
 
-const app = require(process.cwd())
+const app = require('ioa')
 
 const { token, roles } = app.middleware
 
