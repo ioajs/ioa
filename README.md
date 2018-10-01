@@ -1,4 +1,4 @@
-基于koa 2.0轻量、易扩展的声明式、组件化框架。框架以loader模块装载器为核心，通过app对象贯穿整个应用，为项目提供便捷的功能扩展及跨模块引用等特性。
+基于koa 2.0轻量、易扩展的组件化、声明式框架。框架以loader模块装载器为核心，通过app对象贯穿整个应用，为项目提供便捷的功能扩展及跨模块引用等特性。
 
 
 ### 特色
@@ -6,8 +6,6 @@
 * 组件即应用，采用组件化、扁平架构
 
 * 每个组件拥有完全独立的作用域，一致的代码结构和功能
-
-* 通过io接口文件进行资源互访，实现强大的资源隔离和共享机制
 
 * 支持模块分级加载，可动态调整模块的装载顺序
 
@@ -191,23 +189,6 @@ DELETE | /test/:id | destroy
 ### 加载顺序
 
 框架约定的加载顺序依次为config > extend > models > middleware > controller
-
-
-### 扩展
-
-app/extend目录用于扩展app对象，该目录下的所有模块均会自动加载，将导出结果提升后挂载到app对象上，支持多级目录分组。
-
-> 文件名会被用作扩展名，使用时应避免产生命名冲突。
-
-参考示例如下：
-
-```
-app/extend/application.js 对应 app.application
-
-app/extend/helper.js 对应 app.helper
-
-app/extend/db/postgres.js 对应 app.db.postgres
-```
 
 
 ### 组件
