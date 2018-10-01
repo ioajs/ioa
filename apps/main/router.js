@@ -16,8 +16,6 @@ app.get('/sms/:id/sd/:kk', 'index.sms')
 
 app.post('/sms/:id/sd/:kk', token, 'index.sms')
 
-app.get('/admin', 'admin.index.details')
-
 ////////// REST路由 ////////////
 
 app.resources('/rest', 'rest')

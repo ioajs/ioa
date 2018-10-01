@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-   "base": {
+   "main": {
       enable: true
    },
    "role": {
