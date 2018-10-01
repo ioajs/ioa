@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = {
-   middleware: {
+   'middleware': {
       'roles': 'out'
    },
-   typea: 'in'
+   'typea': 'in'
 }
