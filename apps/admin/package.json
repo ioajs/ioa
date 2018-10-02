@@ -1,5 +1,5 @@
 {
    "ioDependencies": {
-      "role": "^1.0.0"
+      "main": "^1.0.0"
    }
 }

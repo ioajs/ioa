@@ -4,11 +4,8 @@ module.exports = {
    "main": {
       enable: true
    },
-   "role": {
-      enable: true
-   },
    "user": {
-      enable: false
+      enable: true
    },
    "admin": {
       enable: true

@@ -6,67 +6,110 @@ app.listen(8800)
 
 test('app', t => {
 
-   let { data, error } = typea.strict(app, {
+   const { data, error } = typea.strict(app, {
       version: String,
       root: String,
       NODE_ENV: String,
       Controller: Function,
       Model: Function,
-      config: {
-         middlewares: [String],
-         port: Number,
-      },
-      other: {
-         a: Object,
-         b: Object,
-      },
-      typea: Function,
-      model: { compcerts: Object },
-      middleware: {
-         cors: Function,
-         token: Function
-      },
-      commonMiddlewares: [Function],
-      controller: {
+      logger: Function,
+      default: Function,
+      components: {
+         main: {
+            config: {
+               middlewares: [String],
+               port: Number,
+            },
+            other: {
+               a: Object,
+               b: Object,
+            },
+            model: { compcerts: Object },
+            middleware: {
+               cors: Function,
+               token: Function
+            },
+            commonMiddlewares: [Function],
+            controller: {
+               index: {
+                  home: Function,
+                  sms: Function,
+                  login: Function,
+               },
+               news: {
+                  home: Function,
+                  details: Function,
+               },
+               rest: {
+                  index: Function,
+                  details: Function,
+                  create: Function,
+                  update: Function,
+                  destroy: Function
+               },
+               test: {
+                  index: Function,
+                  details: Function,
+                  create: Function,
+                  update: Function,
+                  destroy: Function
+               }
+            },
+            get: Function,
+            post: Function,
+            put: Function,
+            delete: Function,
+            resources: Function
+         },
+         user: {
+            config: {
+               middlewares: [String],
+               port: Number,
+            },
+            middleware: {
+               test: Function,
+               intercept: Function
+            },
+            commonMiddlewares: [Function],
+            controller: {
+               index: {
+                  home: Function,
+               }
+            },
+            get: Function,
+            post: Function,
+            put: Function,
+            delete: Function,
+            resources: Function
+         },
          admin: {
-            index: {
-               index: Function,
-               details: Function,
-               add: Function,
-               update: Function,
-               delete: Function
-            }
+            config: {
+               middlewares: [String],
+               port: Number,
+            },
+            model: { compcerts: Object },
+            middleware: {
+               cors: Function,
+               token: Function
+            },
+            commonMiddlewares: [Function],
+            controller: {
+               index: {
+                  index: Function,
+                  details: Function,
+                  add: Function,
+                  update: Function,
+                  delete: Function
+               }
+            },
+            get: Function,
+            post: Function,
+            put: Function,
+            delete: Function,
+            resources: Function
          },
-         index: {
-            home: Function,
-            sms: Function,
-            login: Function,
-         },
-         news: {
-            home: Function,
-            details: Function,
-         },
-         rest: {
-            index: Function,
-            details: Function,
-            create: Function,
-            update: Function,
-            destroy: Function
-         },
-         test: {
-            index: Function,
-            details: Function,
-            create: Function,
-            update: Function,
-            destroy: Function
-         }
       },
       listen: Function,
-      get: Function,
-      post: Function,
-      put: Function,
-      delete: Function,
-      resources: Function
    })
 
    t.ok(data, error)

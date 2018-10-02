@@ -1,3 +1,3 @@
 module.exports = {
-   middlewares: ['roles']
+   middlewares: []
 }
