@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-   other: {
-      level: 6
+   'sequelize.js': {
+      'level': 15
    }
 }

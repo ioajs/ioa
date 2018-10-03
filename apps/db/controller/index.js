@@ -1,6 +1,6 @@
 'use strict';
 
-const { sequelize } = require('ioa')
+const app = require('ioa')
 
 class index {
    home(ctx) {

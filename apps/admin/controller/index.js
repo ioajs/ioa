@@ -1,6 +1,6 @@
 'use strict';
 
-const { Controller } = require('ioa')
+const { Controller, Sequelize } = require('ioa')
 
 class index extends Controller {
    async index(ctx) {

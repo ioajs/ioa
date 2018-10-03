@@ -8,14 +8,14 @@ test('app', t => {
 
    const { data, error } = typea.strict(app, {
       version: String,
-      root: String,
+      cwd: String,
       NODE_ENV: String,
       Controller: Function,
       Model: Function,
       logger: Function,
       default: Function,
-      components: {
-         main: {
+      apps: {
+         base: {
             config: {
                middlewares: [String],
                port: Number,
@@ -62,13 +62,16 @@ test('app', t => {
             resources: Function
          },
          user: {
+            sequelize: Object,
+            Sequelize: Object,
             config: {
                middlewares: [String],
                port: Number,
             },
             middleware: {
                test: Function,
-               intercept: Function
+               intercept: Function,
+               cors: Function,
             },
             commonMiddlewares: [Function],
             controller: {

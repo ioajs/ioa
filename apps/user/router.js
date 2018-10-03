@@ -2,7 +2,7 @@
 
 const app = require('ioa')
 
-const { test, intercept } = app.middleware
+const { test, intercept, cors } = app.middleware
 
 app.get('/user', test, 'index.home')
 
