@@ -2,30 +2,30 @@
 
 module.exports = {
    "base": {
-      enable: true
+      "enable": true
    },
    "admin": {
-      enable: true
+      "enable": true
    },
    "db": {
-      enable: true
+      "enable": true
    },
    "other": {
-      enable: true
+      "enable": true
    },
    "user": {
-      enable: true
+      "enable": true
    },
    "sequelize": {
-      enable: false,
-      package: 'base-sequelize',
-      config: {
-         dialect: 'postgres',
-         host: "localhost",
-         database: "estate",
-         username: "postgres",
-         password: "xiangle",
-         port: 5432,
+      "enable": false,
+      "package": "base-sequelize",
+      "config": {
+         "dialect": "postgres",
+         "host": "localhost",
+         "database": "estate",
+         "username": "postgres",
+         "password": "xiangle",
+         "port": 5432
       }
-   },
+   }
 }

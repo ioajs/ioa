@@ -6,6 +6,6 @@ const { token, cors } = app.middleware
 
 // console.log(cors)
 
-app.get('/admin', 'index.index')
+app.get('/admin', cors, 'index.index')
 
-app.get('/admin/:id', 'index.details')
+app.get('/admin/:id', cors, 'index.details')
