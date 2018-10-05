@@ -1,6 +1,6 @@
 'use strict';
 
 const path = require('path')
-const base = require(path.join(process.cwd(), 'node_modules', 'base'))
+const ioa = require(path.join(process.cwd(), 'node_modules', 'ioa'))
 
-module.exports = base.component
+module.exports = ioa.component

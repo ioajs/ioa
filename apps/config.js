@@ -4,13 +4,16 @@ module.exports = {
    "base": {
       enable: true
    },
-   "user": {
-      enable: true
-   },
    "admin": {
       enable: true
    },
    "db": {
+      enable: true
+   },
+   "other": {
+      enable: true
+   },
+   "user": {
       enable: true
    },
    "sequelize": {

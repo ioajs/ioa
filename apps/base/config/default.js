@@ -1,6 +1,6 @@
 'use strict';
 
 module.exports = {
-   middlewares: ['cors'],
+   middleware: ['cors'],
    port: 8600
 }

@@ -10,14 +10,12 @@ test('app', t => {
       version: String,
       cwd: String,
       NODE_ENV: String,
-      Controller: Function,
-      Model: Function,
       logger: Function,
       default: Function,
       apps: {
          base: {
             config: {
-               middlewares: [String],
+               middleware: [String],
                port: Number,
             },
             other: {
@@ -29,7 +27,7 @@ test('app', t => {
                cors: Function,
                token: Function
             },
-            commonMiddlewares: [Function],
+            commonMiddleware: [Function],
             controller: {
                index: {
                   home: Function,
@@ -65,7 +63,7 @@ test('app', t => {
             sequelize: Object,
             Sequelize: Object,
             config: {
-               middlewares: [String],
+               middleware: [String],
                port: Number,
             },
             middleware: {
@@ -73,7 +71,7 @@ test('app', t => {
                intercept: Function,
                cors: Function,
             },
-            commonMiddlewares: [Function],
+            commonMiddleware: [Function],
             controller: {
                index: {
                   home: Function,
@@ -86,8 +84,10 @@ test('app', t => {
             resources: Function
          },
          admin: {
+            Controller: Function,
+            Model: Function,
             config: {
-               middlewares: [String],
+               middleware: [String],
                port: Number,
             },
             model: { compcerts: Object },
@@ -95,7 +95,7 @@ test('app', t => {
                cors: Function,
                token: Function
             },
-            commonMiddlewares: [Function],
+            commonMiddleware: [Function],
             controller: {
                index: {
                   index: Function,
