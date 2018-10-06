@@ -111,7 +111,7 @@ middleware | 30
 service | 40
 controller | 50
 
-除了内置目录外的所有不限层级目录、模块均支持自动装载，它们的默认装载等级均为100，即平级装载，意味着这些模块在装载阶段不因该存在依赖关系。
+除了内置目录外的所有目录、模块（不限层级）均支持自动装载，它们的默认装载等级均为100，即平级装载，意味着这些模块在装载阶段不因该存在依赖关系。
 
 #### 自定义装载等级
 
@@ -120,21 +120,18 @@ controller | 50
 ```js
 module.exports = {
    'config': {
-      level: 1
+      level: 10
    },
    'models': {
-      level: 8
-   },
-   'controllers': {
-      level: 4,
-      complete(data) {
-         console.log('controllers complete models')
+      level: 20,
+      module(data) {
+
       }
    },
-   'bb.js': {
-      level: 3,
-      import(data) {
-         console.log(data)
+   'controllers': {
+      level: 40,
+      directory(data) {
+          
       }
    },
    'role': false
@@ -184,11 +181,9 @@ module.exports = {
 
 配置文件支持系统环境变量和临时命令行参数两种方式指定环境变量配置文件，并与default配置文件合并。
 
-
 #### 系统环境变量
 
 通过配置全局的NODE_ENV变量，变量值必须与其中一个配置文件名同名。内置的配置文件名为localhost、production、development，也可以自定义，只要保证变量名与文件名一致即可。
-
 
 #### 命令行传参
 
