@@ -2,7 +2,7 @@
 
 const app = require('ioa')
 
-const { token, roles } = app.middleware
+const { token, role } = app.middleware
 
 app.get('/', 'index.home')
 
