@@ -2,6 +2,6 @@
 
 module.exports = {
    'sequelize.js': {
-      'level': 15
+      level: 11
    }
 }

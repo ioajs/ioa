@@ -4,10 +4,10 @@ module.exports = {
    "base": {
       "enable": true
    },
-   "admin": {
+   "db": {
       "enable": true
    },
-   "db": {
+   "admin": {
       "enable": true
    },
    "other": {

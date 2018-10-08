@@ -2,9 +2,9 @@ module.exports = {
    postgres: {
       dialect: 'postgres',
       host: "localhost",
-      database: "estate",
+      database: "test",
       username: "postgres",
-      password: "xiangle",
+      password: "postgres",
       port: 5432,
    }
 }
