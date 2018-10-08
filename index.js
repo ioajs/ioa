@@ -19,6 +19,7 @@ module.exports = {
    default(name) {
 
       const port = T(this.apps[name]).get('config.port')
+      
       if (port) {
          this.port = port
       }

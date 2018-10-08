@@ -15,8 +15,7 @@ test('app', t => {
       apps: {
          base: {
             config: {
-               middleware: [String],
-               port: Number,
+               middleware: [String]
             },
             other: {
                a: Object,
@@ -63,8 +62,7 @@ test('app', t => {
             sequelize: Object,
             Sequelize: Object,
             config: {
-               middleware: [String],
-               port: Number,
+               middleware: [String]
             },
             middleware: {
                test: Function,
@@ -87,8 +85,7 @@ test('app', t => {
             Controller: Function,
             Model: Function,
             config: {
-               middleware: [String],
-               port: Number,
+               middleware: [String]
             },
             model: { compcerts: Object },
             middleware: {

@@ -18,7 +18,7 @@ module.exports = {
    },
    "sequelize": {
       "enable": false,
-      "package": "base-sequelize",
+      "package": "io-db",
       "config": {
          "dialect": "postgres",
          "host": "localhost",
