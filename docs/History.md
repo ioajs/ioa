@@ -63,7 +63,7 @@
 
 ### 4.0.0-alpha.5
 
-* lloader模块升级至1.0.3，...load.js文件更名为...loader.js
+* lloader模块升级至1.0.3，...load.js文件更名为.loader.js
 
 ### 4.0.0-rc.1
 
