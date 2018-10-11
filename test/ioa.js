@@ -2,11 +2,25 @@
 
 const test = require('jtf')
 const typea = require('typea')
-const ioa = require('..')
 
-// ioa.main('admin')
+let ioa = require('..')
 
-ioa.listen()
+// const cwd = process.cwd()
+// const path = require('path')
+// const fs = require('fs-extra')
+
+// let ioa
+// try {
+//    ioa = require('ioa')
+// } catch (error) {
+//    fs.copySync(path.join(cwd, '.ioa'), path.join(cwd, 'node_modules', 'ioa'))
+//    // ioa = require('ioa')
+//    throw error
+// }
+
+ioa.main('admin')
+
+ioa.http()
 
 test('ioa', t => {
 
@@ -27,7 +41,9 @@ test('ioa', t => {
                a: Object,
                b: Object,
             },
-            model: { compcerts: Object },
+            model: {
+               compcerts: Object
+            },
             middleware: {
                cors: Function,
                token: Function
@@ -117,7 +133,7 @@ test('ioa', t => {
             resources: Function
          },
       },
-      listen: Function,
+      http: Function,
    })
 
    t.ok(data, error)

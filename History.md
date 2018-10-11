@@ -4,7 +4,7 @@
 
 * 增加环境变量配置文件
 
-* 升级small-tools依赖，为了避免混合数组导致的乱序，新的T.mixin()方法将对数组执行全覆盖操作
+* 升级依赖，为了避免混合数组导致的乱序，新的T.mixin()方法将对数组执行全覆盖操作
 
 * 完善测试用例
 
@@ -110,3 +110,9 @@
 * 将ioa.default()改为ioa.main()，供多应用模式下自定义ioa.app主节点
 
 * 新增ioa.AppsMiddleware、app.AppsMiddleware用于添加全局中间件
+
+### 4.0.0-rc.11
+
+* 更新lloader至1.4.0，使用深度混合方式合并模块
+
+* 提升package-lock.json中config配置项的优先级为顶级

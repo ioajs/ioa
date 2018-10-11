@@ -1,6 +1,11 @@
 {
    "main": {
-      "enable": true
+      "enable": true,
+      "config": {
+         "mixin": {
+            "a": 888
+         }
+      }
    },
    "db": {
       "enable": true
