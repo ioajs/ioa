@@ -1,19 +1,25 @@
+'use strict';
+
 const test = require('jtf')
 const typea = require('typea')
-const app = require('..')
+const ioa = require('..')
 
-app.listen(8800)
+// ioa.main('admin')
 
-test('app', t => {
+ioa.listen()
 
-   const { data, error } = typea.strict(app, {
+test('ioa', t => {
+
+   const { data, error } = typea.strict(ioa, {
       version: String,
       cwd: String,
       NODE_ENV: String,
       logger: Function,
-      default: Function,
+      AppsMiddleware: Array,
+      app: Object,
       apps: {
-         base: {
+         main: {
+            apps: Object,
             config: {
                middleware: [String]
             },
@@ -26,7 +32,7 @@ test('app', t => {
                cors: Function,
                token: Function
             },
-            commonMiddleware: [Function],
+            AppMiddleware: [Function],
             controller: {
                index: {
                   home: Function,
@@ -59,6 +65,7 @@ test('app', t => {
             resources: Function
          },
          user: {
+            apps: Object,
             sequelize: Object,
             Sequelize: Object,
             config: {
@@ -69,7 +76,7 @@ test('app', t => {
                intercept: Function,
                cors: Function,
             },
-            commonMiddleware: [Function],
+            AppMiddleware: [Function],
             controller: {
                index: {
                   home: Function,
@@ -82,6 +89,7 @@ test('app', t => {
             resources: Function
          },
          admin: {
+            apps: Object,
             Controller: Function,
             Model: Function,
             config: {
@@ -92,7 +100,7 @@ test('app', t => {
                cors: Function,
                token: Function
             },
-            commonMiddleware: [Function],
+            AppMiddleware: [Function],
             controller: {
                index: {
                   index: Function,

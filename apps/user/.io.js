@@ -3,7 +3,7 @@ module.exports = {
       'Sequelize': true,
       'sequelize': true
    },
-   'base': {
+   'main': {
       'middleware': {
          'cors': true
       }

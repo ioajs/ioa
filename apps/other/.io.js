@@ -1,11 +1,9 @@
-'use strict';
-
 module.exports = {
    'db': {
       'Sequelize': true,
       'sequelize': true
    },
-   'base': {
+   'main': {
       'middleware': {
          'cors': true
       }

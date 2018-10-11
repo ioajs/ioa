@@ -1,28 +1,29 @@
 'use strict';
 
-const T = require('small-tools')
 const logger = require('loggercc')
 const { version } = require('./package.json')
 
 // 由于根模块内部存在相互引用，需要提前导出app依赖
 module.exports = {
    version,
-   port: 8800,
-   cwd: process.cwd(),
-   NODE_ENV: process.env.NODE_ENV || 'production',
    logger,
    apps: {},
+   AppsMiddleware: [],
+   cwd: process.cwd(),
+   NODE_ENV: process.env.NODE_ENV || 'production',
    /**
-    * 设置默认app
-    * @param {String} name 
+    * 设置主应用
+    * @param {String} name 主应用名称
     */
-   default(name) {
+   main(name) {
 
-      const port = T(this.apps[name]).get('config.port')
+      const app = this.apps[name]
       
-      if (port) {
-         this.port = port
+      if (app) {
+         this.app = app
       }
+
+      return this
 
    }
 }

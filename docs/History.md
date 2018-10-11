@@ -102,3 +102,11 @@
 ### 4.0.0-rc.9
 
 * 增加npm发布组件的支持
+
+### 4.0.0-rc.10
+
+* 将config.js从app、apps中移出，放置于顶层目录，重命名为package-io.json
+
+* 将ioa.default()改为ioa.main()，供多应用模式下自定义ioa.app主节点
+
+* 新增ioa.AppsMiddleware、app.AppsMiddleware用于添加全局中间件

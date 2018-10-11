@@ -2,7 +2,7 @@
 
 const app = require('ioa')
 
-const { token, cors } = app.middleware
+const { cors } = app.middleware
 
 app.get('/admin', cors, 'index.index')
 

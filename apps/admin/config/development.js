@@ -1,5 +1,3 @@
 'use strict';
 
-module.exports = {
-   port: 8600
-}
+module.exports = {}
