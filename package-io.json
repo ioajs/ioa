@@ -23,12 +23,17 @@
       "enable": false,
       "package": "io-db",
       "config": {
-         "dialect": "postgres",
-         "host": "localhost",
-         "database": "estate",
-         "username": "postgres",
-         "password": "xiangle",
-         "port": 5432
+         "postgres": {
+            "host": "localhost",
+            "database": "test",
+            "username": "postgres",
+            "password": "postgres"
+         }
+      },
+      "env": {
+         "localhost": {},
+         "development": {},
+         "production": {}
       }
    }
 }
