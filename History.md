@@ -14,7 +14,7 @@
 
 ### 3.0.0-alpha.1
 
-* 重构代码，增加组件支持
+* 重构代码，增加模块化支持
 
 ### 3.0.0-alpha.3
 
@@ -105,7 +105,7 @@
 
 ### 4.0.0-rc.10
 
-* 将config.js从app、apps中移出，放置于顶层目录，重命名为package-io.json
+* 将config.js从app、apps中移出，放置于顶层目录，重命名为package-app.json
 
 * 将ioa.default()改为ioa.main()，供多应用模式下自定义ioa.app主节点
 
@@ -116,3 +116,11 @@
 * 更新lloader至1.4.0，使用深度混合方式合并模块
 
 * 提升package-lock.json中config配置项的优先级为顶级
+
+### 4.0.0
+
+* 发布正式版
+
+### 4.1.0
+
+* 将package-io.json更名为package-app.json

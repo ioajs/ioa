@@ -1,5 +1,3 @@
 'use strict';
 
-module.exports = {
-   middleware: ['cors']
-}
+module.exports = {}

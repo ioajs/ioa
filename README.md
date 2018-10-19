@@ -102,7 +102,7 @@ project
     |
     |-- static                         静态资源目录
     |    
-    |-- package-io.json                组件配置文件
+    |-- package-app.json                组件配置文件
     |
     └─  index.js                       启动入口
 ```
@@ -153,7 +153,7 @@ project
     |
     |-- static                    静态资源目录
     |
-    |-- package-io.json           组件配置文件
+    |-- package-app.json           组件配置文件
     |
     └─  index.js                  启动入口
 ```
