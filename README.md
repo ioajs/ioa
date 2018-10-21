@@ -88,7 +88,7 @@ project
     |    |    |
     |    |    |-- .loader.js           分级装载配置文件，支持任意子目录
     |    |    |
-    |    |    |-- .import.js               依赖关系配置文件
+    |    |    |-- .import.js           依赖关系配置文件
     |    |    | 
     |    |    └─ router.js             路由配置文件
     |    |
@@ -145,7 +145,7 @@ project
     |    |
     |    |-- .loader.js           分级装载配置文件，支持任意子目录
     |    |
-    |    |-- .import.js               依赖关系配置文件
+    |    |-- .import.js           依赖关系配置文件
     |    | 
     |    └─ router.js             路由配置文件
     |
