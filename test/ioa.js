@@ -3,7 +3,7 @@
 const test = require('jtf')
 const typea = require('typea')
 
-let ioa = require('..')
+const ioa = require('..')
 
 // const cwd = process.cwd()
 // const path = require('path')
@@ -18,7 +18,7 @@ let ioa = require('..')
 //    throw error
 // }
 
-ioa.main('admin')
+// ioa.main('admin')
 
 ioa.http()
 

@@ -51,7 +51,7 @@ ioa同时支持单点和多点两种应用模式，结构如下：
 
 #### 多点应用
 
-在多点应用模式下，框架会为每个子应用注入独立的模块作用域，实现资源隔离，同时通过.io.js配置文件进行资源共享。
+在多点应用模式下，框架会为每个子应用注入独立的模块作用域，实现资源隔离，同时通过.import.js配置文件进行资源共享。
 
 ```
 project
@@ -88,7 +88,7 @@ project
     |    |    |
     |    |    |-- .loader.js           分级装载配置文件，支持任意子目录
     |    |    |
-    |    |    |-- .io.js               依赖关系配置文件
+    |    |    |-- .import.js               依赖关系配置文件
     |    |    | 
     |    |    └─ router.js             路由配置文件
     |    |
@@ -102,7 +102,7 @@ project
     |
     |-- static                         静态资源目录
     |    
-    |-- package-app.json                组件配置文件
+    |-- package-app.json               组件配置文件
     |
     └─  index.js                       启动入口
 ```
@@ -145,7 +145,7 @@ project
     |    |
     |    |-- .loader.js           分级装载配置文件，支持任意子目录
     |    |
-    |    |-- .io.js               依赖关系配置文件
+    |    |-- .import.js               依赖关系配置文件
     |    | 
     |    └─ router.js             路由配置文件
     |
@@ -153,7 +153,7 @@ project
     |
     |-- static                    静态资源目录
     |
-    |-- package-app.json           组件配置文件
+    |-- package-app.json          组件配置文件
     |
     └─  index.js                  启动入口
 ```
@@ -169,7 +169,6 @@ ioa中引入了目录和模块装载等级的概念，这使得你可以在框�
 
 directory | level
 --- | ---
-io.js | 0
 config | 10
 model | 20
 middleware | 30
@@ -225,7 +224,7 @@ ioa的装载器由lloader模块提供，它是构成ioa框架的核心库，关�
 
 ### IO依赖文件（可选）
 
-每个组件内都支持io.js接口配置文件，用于描述当前应用与其它应用之间的依赖关系。
+每个组件内都支持.import.js接口配置文件，用于描述当前应用与其它应用之间的依赖关系。
 
 ```js
 module.exports = {
@@ -279,7 +278,7 @@ app.put('/login', 'index.login')
 
 app.delele('/login', 'index.login')
 
-// 路由分组
+// 分组路由
 app.group('admin', {
     "login": ['index.login'],
     "sms": ['index.sms'],

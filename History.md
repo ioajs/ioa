@@ -124,3 +124,7 @@
 ### 4.1.0
 
 * 将package-io.json更名为package-app.json
+
+### 4.2.0
+
+* 将.io.js文件更名为.import.js
