@@ -18,8 +18,6 @@ const ioa = require('..')
 //    throw error
 // }
 
-// ioa.main('admin')
-
 ioa.http()
 
 test('ioa', t => {

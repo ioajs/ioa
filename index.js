@@ -10,22 +10,7 @@ module.exports = {
    apps: {},
    AppsMiddleware: [],
    cwd: process.cwd(),
-   NODE_ENV: process.env.NODE_ENV || 'production',
-   /**
-    * 设置主应用
-    * @param {String} name 主应用名称
-    */
-   main(name) {
-
-      const app = this.apps[name]
-      
-      if (app) {
-         this.app = app
-      }
-
-      return this
-
-   }
+   NODE_ENV: process.env.NODE_ENV || 'production'
 }
 
 // 加载应用

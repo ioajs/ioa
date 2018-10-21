@@ -128,3 +128,9 @@
 ### 4.2.0
 
 * 将.io.js文件更名为.import.js
+
+### 4.3.0
+
+* 取消ioa.main()函数，约定将main目录作为固定的主应用
+
+* package-app.json配置文件中增加path选项，可自定义组件路径
