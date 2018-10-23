@@ -134,3 +134,7 @@
 * 取消ioa.main()函数，约定将main目录作为固定的主应用
 
 * package-app.json配置文件中增加path选项，可自定义组件路径
+
+### 4.4.0
+
+* 将所有路由方法转移至app.router对象中

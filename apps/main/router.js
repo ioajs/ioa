@@ -1,23 +1,23 @@
 'use strict';
 
-const app = require('ioa')
+const { router, middleware } = require('ioa')
 
-const { token, role } = app.middleware
+const { token, role } = middleware
 
-app.get('/', 'index.home')
+router.get('/', 'index.home')
 
-app.post('/login', token, 'index.login')
+router.post('/login', token, 'index.login')
 
-app.get('/news', 'news.home')
+router.get('/news', 'news.home')
 
-app.get('/news/:id/details/:kk', token, 'news.details')
+router.get('/news/:id/details/:kk', token, 'news.details')
 
-app.get('/sms/:id/sd/:kk', 'index.sms')
+router.get('/sms/:id/sd/:kk', 'index.sms')
 
-app.post('/sms/:id/sd/:kk', token, 'index.sms')
+router.post('/sms/:id/sd/:kk', token, 'index.sms')
 
 ////////// REST路由 ////////////
 
-app.resources('/rest', 'rest')
+router.resources('/rest', 'rest')
 
-// app.get('/rest/other', 'rest.other')
+// router.get('/rest/other', 'rest.other')

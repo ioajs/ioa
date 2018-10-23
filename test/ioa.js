@@ -72,11 +72,13 @@ test('ioa', t => {
                   destroy: Function
                }
             },
-            get: Function,
-            post: Function,
-            put: Function,
-            delete: Function,
-            resources: Function
+            router: {
+               get: Function,
+               post: Function,
+               put: Function,
+               delete: Function,
+               resources: Function
+            }
          },
          user: {
             apps: Object,
@@ -96,11 +98,13 @@ test('ioa', t => {
                   home: Function,
                }
             },
-            get: Function,
-            post: Function,
-            put: Function,
-            delete: Function,
-            resources: Function
+            router: {
+               get: Function,
+               post: Function,
+               put: Function,
+               delete: Function,
+               resources: Function
+            }
          },
          admin: {
             apps: Object,
@@ -124,11 +128,13 @@ test('ioa', t => {
                   delete: Function
                }
             },
-            get: Function,
-            post: Function,
-            put: Function,
-            delete: Function,
-            resources: Function
+            router: {
+               get: Function,
+               post: Function,
+               put: Function,
+               delete: Function,
+               resources: Function
+            }
          },
       },
       http: Function,
