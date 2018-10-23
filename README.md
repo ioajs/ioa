@@ -257,7 +257,7 @@ module.exports = {
 
 ### 路由
 
-app对象中提供了get、post、put、delele路由声明方法，支持用resources批量定义RESTful路由，与egg的路由设计风格类似。
+app.router对象中提供了get、post、put、delele路由声明方法，支持用resources批量定义RESTful路由，与egg的路由设计风格类似。
 
 ioa中同时支持声明式和自动寻址两种路由模式：
 
@@ -267,20 +267,22 @@ ioa中同时支持声明式和自动寻址两种路由模式：
 声明式路由具有高度灵活和可定制url的特性。允许随意定义url格式，调用任意middleware、controller，但每个url都需要单独定义。
 
 ```js
-app.get('/', 'index.home')
+const { router } = require('ioa')
 
-app.get('/sms/:sid/sd/:id', 'index.sms')
+router.get('/', 'index.home')
 
-app.post('/sms/:sid/sd/:sid', 'index.sms')
+router.get('/sms/:sid/sd/:id', 'index.sms')
 
-app.post('/login', 'index.login')
+router.post('/sms/:sid/sd/:sid', 'index.sms')
 
-app.put('/login', 'index.login')
+router.post('/login', 'index.login')
 
-app.delele('/login', 'index.login')
+router.put('/login', 'index.login')
+
+router.delele('/login', 'index.login')
 
 // 分组路由
-app.group('admin', {
+router.group('admin', {
     "login": ['index.login'],
     "sms": ['index.sms'],
     "cc": {
@@ -296,7 +298,7 @@ app.group('admin', {
 
 ```js
 // 映射到controller/admin目录
-app.controller('admin')
+router.controller('admin')
 ```
 
 #### RESTful路由
@@ -314,7 +316,7 @@ DELETE | /test/:id | destroy
 
 ```js
 // 自动生成get、post、put、delete
-app.resources('/rest', 'rest')
+router.resources('/rest', 'rest')
 ```
 
 
@@ -329,7 +331,7 @@ app.resources('/rest', 'rest')
 ```js
 const { test, token } = app.middleware
 
-app.get('/',test, token, 'index.home')
+router.get('/', test, token, 'index.home')
 ```
 
 #### 应用级中间件
