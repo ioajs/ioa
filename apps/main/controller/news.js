@@ -6,7 +6,7 @@ class news extends Controller {
    }
    details(ctx) {
       ctx.body = {
-         parameter: ctx.parameter,
+         params: ctx.params,
          body: 'news details'
       };
    }

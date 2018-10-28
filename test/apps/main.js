@@ -57,7 +57,7 @@ test('resources post /rest', async t => {
 test('resources put /rest/:id', async t => {
    const body = { sss: 888 }
    const { data } = await axios.put("/rest/999", body)
-   t.deepEqual({ body, parameter: { id: '999' } }, data)
+   t.deepEqual({ body, params: { id: '999' } }, data)
 });
 
 

@@ -4,10 +4,10 @@ const { Controller } = require('ioa')
 
 class rest extends Controller {
    async index(ctx) {
-      ctx.body = ctx.parameter
+      ctx.body = ctx.params
    }
    async details(ctx) {
-      ctx.body = ctx.parameter
+      ctx.body = ctx.params
    }
    async create(ctx) {
       let body = ctx.request.body
@@ -17,11 +17,11 @@ class rest extends Controller {
       let body = ctx.request.body
       ctx.body = {
          body,
-         parameter: ctx.parameter
+         params: ctx.params
       }
    }
    async destroy(ctx) {
-      ctx.body = ctx.parameter
+      ctx.body = ctx.params
    }
    /**
     * 在rest中混入普通路由
