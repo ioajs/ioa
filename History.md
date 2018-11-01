@@ -150,3 +150,5 @@
 * 路由中支持字符串和函数两种方式注入controller
 
 * 完善路由定义错误时输出的错误提示信息
+
+* 将ctx.parameter参数更名为ctx.params
