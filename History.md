@@ -152,3 +152,9 @@
 * 完善路由定义错误时输出的错误提示信息
 
 * 将ctx.parameter参数更名为ctx.params
+
+### 4.5.0
+
+* 将package-app.json更名为ioa.config.json，同时支持.js格式
+
+* 增加ioa.config.json中[appName].config参数对环境变量的支持

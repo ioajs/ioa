@@ -82,8 +82,8 @@ test('ioa', t => {
          },
          user: {
             apps: Object,
+            Sequelize: Function,
             sequelize: Object,
-            Sequelize: Object,
             config: {
                middleware: [String]
             },

@@ -1,6 +1,6 @@
 {
    "name": "ioa",
-   "version": "4.4.2",
+   "version": "4.5.0",
    "description": "基于Koa 2.0轻量、易扩展的Node.js声明式、组件化框架",
    "keywords": [
       "application",
@@ -25,7 +25,8 @@
    "devDependencies": {
       "@koa/cors": "^2.2.1",
       "axios": "^0.18.0",
-      "typea": "^4.4.1"
+      "ioa-db": "^0.1.0",
+      "typea": "^4.4.3"
    },
    "files": [
       "lib",
