@@ -158,3 +158,13 @@
 * 将package-app.json更名为ioa.config.json，同时支持.js格式
 
 * 增加ioa.config.json中[appName].config参数对环境变量的支持
+
+### 4.5.2
+
+* 新增组件作用域内的ioa版本自动对比、同步功能
+
+<!-- * 完善组件配置错误提示信息 -->
+
+### 4.5.3
+
+* 修复4.5.2中的版本自动更新失败bug

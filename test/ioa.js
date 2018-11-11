@@ -5,19 +5,6 @@ const typea = require('typea')
 
 const ioa = require('..')
 
-// const cwd = process.cwd()
-// const path = require('path')
-// const fs = require('fs-extra')
-
-// let ioa
-// try {
-//    ioa = require('ioa')
-// } catch (error) {
-//    fs.copySync(path.join(cwd, '.ioa'), path.join(cwd, 'node_modules', 'ioa'))
-//    // ioa = require('ioa')
-//    throw error
-// }
-
 ioa.http()
 
 test('ioa', t => {
