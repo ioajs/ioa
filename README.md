@@ -182,9 +182,11 @@ controller | 50
 
 除了内置目录外的所有目录、模块（不限层级）均支持自动装载，它们的默认装载等级为100。多个模块在平级状态下装载时不分先后，意味着平级模块在装载阶段不因该存在依赖关系。
 
-#### 自定义装载等级
+#### .loader.js 自定义装载等级配置文件
 
-当两个平级模块间存在依赖关系，水平自动装载无法满足需求时，可通过.loader.js文件调整模块间的装载顺序，且每个子目录均支持可配置的.loader.js文件。配置示例如下：
+当两个平级模块间存在依赖关系，水平自动装载无法满足需求时，可通过.loader.js文件调整模块间的装载顺序，且每个子目录均支持可配置的.loader.js文件。
+
+.loader.js配置文件的解析、执行由lloader模块提供，更多功能和配置细节请参考[lloader](https://github.com/xiangle/lloader)，基础配置示例如下：
 
 ```js
 module.exports = {
@@ -192,18 +194,11 @@ module.exports = {
       level: 10
    },
    'models': {
-      level: 20,
-      module(data) {
-
-      }
+      level: 20
    },
    'controllers': {
-      level: 40,
-      directory(data) {
-          
-      }
-   },
-   'role': false
+      level: 40
+   }
 }
 ```
 
@@ -227,26 +222,7 @@ ioa的装载器由lloader模块提供，它是构成ioa框架的核心库，关�
 由于组件应用相互隔离，在无外部依赖的状态下，每个组件都可以作为独立应用单独运行。这种高度解耦特性使得在渐进式开发中，可以轻松的从单体应用切换到微服务化架构。
 
 
-### IO依赖文件（可选）
-
-每个组件内都支持.import.js接口配置文件，用于描述当前应用与其它应用之间的依赖关系。
-
-```js
-module.exports = {
-   'db': {
-      'Sequelize': true,
-      'sequelize': true
-   },
-   'base': {
-      'middleware': {
-         cors: true
-      }
-   }
-}
-```
-
-
-### 配置文件
+### 组件配置文件
 
 配置文件支持系统环境变量和临时命令行参数两种方式指定环境变量配置文件，并与default配置文件合并。
 
@@ -260,6 +236,19 @@ module.exports = {
 
 命令行参数的优先级要高于系统环境变量，因此可以通过命令行传参的方式重置当前命令下的环境变量。
 
+### .import.js 组件依赖配置文件（可选）
+
+每个组件内都支持可选的.import.js组件依赖配置文件，用于从其它组件中导入依赖项。
+
+```js
+module.exports = {
+   Sequelize: "db",
+   sequelize: "db",
+   middleware: {
+      cors: "main.middleware"
+   }
+}
+```
 
 ### 路由
 
