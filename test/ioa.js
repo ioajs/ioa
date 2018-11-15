@@ -15,7 +15,10 @@ test('ioa', t => {
       NODE_ENV: String,
       logger: Function,
       AppsMiddleware: Array,
-      app: Object,
+      mode: "apps",
+      main: Object,
+      user: Object,
+      admin: Object,
       apps: {
          main: {
             apps: Object,
@@ -69,8 +72,6 @@ test('ioa', t => {
          },
          user: {
             apps: Object,
-            Sequelize: Function,
-            sequelize: Object,
             config: {
                middleware: [String]
             },

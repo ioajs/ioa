@@ -48,6 +48,10 @@ const ioa = require('ioa')
 ioa.http()
 ```
 
+### 应用模式
+
+ioa支持多点和单点两种应用模式，框架会根据目录结构自动进行模式匹配。
+
 ### 多点应用
 
 在多点应用模式下以main作为默认应用目录，框架会自动为每个子应用注入独立的模块作用域，实现资源隔离，同时通过.import.js配置文件实现资源共享。
@@ -163,7 +167,6 @@ project
     └─  index.js                  启动入口
 ```
 
-
 ### 装载等级
 
 ioa中引入了目录和模块装载等级的概念，这使得你可以在框架装载的任意阶段创建无限个平级或上下级装载点，自由管理装载流程。
@@ -184,9 +187,11 @@ controller | 50
 
 #### .loader.js 自定义装载等级配置文件
 
-当两个平级模块间存在依赖关系，水平自动装载无法满足需求时，可通过.loader.js文件调整模块间的装载顺序，且每个子目录均支持可配置的.loader.js文件。
+当两个平级模块间存在依赖关系，水平自动装载无法满足需求时，可通过.loader.js文件调整模块间的装载顺序，且每个子目录均支持可选的.loader.js文件。
 
-.loader.js配置文件的解析、执行由lloader模块提供，更多功能和配置细节请参考[lloader](https://github.com/xiangle/lloader)，基础配置示例如下：
+.loader.js配置文件的解析、执行由lloader模块提供，它是构成ioa框架的核心库，关于装载器的更多功能和配置细节请参考[lloader](https://github.com/xiangle/lloader)。
+
+配置参考示例：
 
 ```js
 module.exports = {
@@ -202,9 +207,67 @@ module.exports = {
 }
 ```
 
-#### lloader
+### ioa模块作用域
 
-ioa的装载器由lloader模块提供，它是构成ioa框架的核心库，关于装载器的更多配置细节请参考[https://github.com/xiangle/lloader](https://github.com/xiangle/lloader)
+ioa模块具有动态输出特性，用于实现隔离的组件作用域，当在app、apps目录内使用require('ioa')时访问的是当前组件对象，而在app、apps目录外使用时则访问ioa对象。
+
+#### 组件对象示例
+
+```js
+{
+   apps: Object,
+   config: {
+      middleware: [String]
+   },
+   model: {
+      compcerts: Object
+   },
+   middleware: {
+      cors: Function,
+      token: Function
+   },
+   AppMiddleware: [Function],
+   controller: {
+      user: {
+         index: Function,
+         details: Function,
+         create: Function,
+         update: Function,
+         destroy: Function
+      }
+   },
+   router: {
+      get: Function,
+      post: Function,
+      put: Function,
+      delete: Function,
+      resources: Function
+   }
+}
+```
+
+#### ioa对象示例
+
+```js
+{
+   version: String,
+   cwd: String,
+   NODE_ENV: String,
+   logger: Function,
+   AppsMiddleware: Array,
+   mode: "apps",
+   main: Object,
+   user: Object,
+   admin: Object,
+   apps: {
+      main: {},
+      user: {},
+      admin: {},
+   },
+   http: Function,
+}
+```
+
 
 ### 组件化
 
@@ -230,7 +293,7 @@ ioa的装载器由lloader模块提供，它是构成ioa框架的核心库，关�
 
 通过配置全局的NODE_ENV环境变量，可实现不同运行环境下的差异化配置。默认的环境变量名称为localhost、development、production，缺省状态下以production作为环境变量。
 
-框架并没有限制必须使用指定的环境变量名，实际上你可以自由的定义环境变量名和增加任意数量的环境变量配置文件，只要确保环境变量名与配置文件名命名一致即可。
+框架并没有限制必须使用指定的环境变量名，实际上你可以自由的定义环境变量名和增加任意数量的环境变量配置文件，只要确保环境变量名与配置文件名命名一致即可自动装载对应的配置文件。
 
 #### 命令行传参
 
