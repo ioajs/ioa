@@ -19,6 +19,7 @@ test('ioa', t => {
       main: Object,
       user: Object,
       admin: Object,
+      port: Number,
       apps: {
          main: {
             apps: Object,

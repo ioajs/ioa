@@ -10,7 +10,8 @@ module.exports = {
    apps: {},
    AppsMiddleware: [],
    cwd: process.cwd(),
-   NODE_ENV: process.env.NODE_ENV || 'production'
+   NODE_ENV: process.env.NODE_ENV || 'production',
+   port: process.env.PORT
 }
 
 // 加载应用

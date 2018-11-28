@@ -1,8 +1,9 @@
 'use strict';
 
 const axios = require('axios')
+const { port } = require('../../')
 
-axios.defaults.baseURL = 'http://localhost:8800';
+axios.defaults.baseURL = `http://localhost:${port}`;
 
 module.exports = {
    axios
