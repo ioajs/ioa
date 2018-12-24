@@ -14,6 +14,7 @@ test('ioa', t => {
       cwd: String,
       NODE_ENV: String,
       logger: Function,
+      loader: Function,
       AppsMiddleware: Array,
       mode: "apps",
       main: Object,
