@@ -1,6 +1,6 @@
 'use strict';
 
-const { Controller } = require('ioa')
+const { Controller } = require('@app')
 
 class test extends Controller {
    async index(ctx) {

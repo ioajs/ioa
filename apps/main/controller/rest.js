@@ -1,6 +1,6 @@
 'use strict';
 
-const { Controller } = require('ioa')
+const { Controller } = require('@app')
 
 class rest extends Controller {
    async index(ctx) {

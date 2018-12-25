@@ -1,4 +1,4 @@
-let { Controller } = require('ioa')
+let { Controller } = require('@app')
 
 class news extends Controller {
    home(ctx) {

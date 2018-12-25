@@ -1,6 +1,6 @@
 'use strict';
 
-const { router, middleware, controller } = require('ioa')
+const { router, middleware, controller } = require('@app')
 
 const { token, role } = middleware
 
