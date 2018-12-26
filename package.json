@@ -12,7 +12,7 @@
    "scripts": {
       "start": "node index.js",
       "dev": "node index.js",
-      "test": "jtf -w"
+      "test": "jtf"
    },
    "main": "index.js",
    "dependencies": {
