@@ -2,12 +2,15 @@
 
 module.exports = {
    "admin": {
-      "enable": true
+      "enable": true,
+      "worker": true
    },
    "other": {
-      "enable": true
+      "enable": true,
+      "worker": true
    },
    "user": {
-      "enable": true
+      "enable": true,
+      "worker": true
    }
 }
