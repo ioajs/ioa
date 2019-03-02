@@ -18,8 +18,6 @@ test('ioa', t => {
       AppsMiddleware: Array,
       mode: "apps",
       main: Object,
-      user: Object,
-      admin: Object,
       port: Number,
       apps: {
          main: {
