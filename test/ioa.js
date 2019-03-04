@@ -5,7 +5,7 @@ const typea = require('typea')
 
 const ioa = require('..')
 
-ioa.http()
+ioa.http();
 
 test('ioa', t => {
 

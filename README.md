@@ -316,6 +316,35 @@ CMD
 set NODE_ENV='production' & node index.js
 ```
 
+### ioa.config.js 组件配置文件
+
+组件配置文件用于定义组件名称、组件类型、管理组件状态以及如何装载组件。
+
+* $name `String` - 组件名称（当package、path属性均为缺省状态时，$name对应apps目录中的组件名）
+
+   * enable `Boolean` - 是否启用当前组件
+
+   * package `String` - 指定npm组件名，框架以npm模块方式加载组件
+
+   * path `String` - 通过绝对路径加载组件，路径中需要包含应用名
+
+#### 示例
+
+```js
+module.exports = {
+   "admin": {
+      "enable": true
+   },
+   "other": {
+      "enable": true
+   },
+   "user": {
+      "enable": true,
+      "path": "D:/Nodejs/Project/user"
+   }
+}
+```
+
 ### .import.js 组件依赖配置文件（可选）
 
 每个组件内都支持可选的.import.js组件依赖配置文件，用于从其它组件中导入依赖项。
