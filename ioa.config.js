@@ -1,16 +1,19 @@
 'use strict';
 
 module.exports = {
-   "admin": {
+   '@ioa/http': {
       "enable": true,
-      "worker": true
    },
-   "other": {
-      "enable": true,
-      "worker": true
+   "./apps/admin": {
+      "name": "admin",
+      "enable": true
    },
-   "user": {
-      "enable": true,
-      "worker": true
-   }
+   "./apps/othern": {
+      "name": "othern",
+      "enable": true
+   },
+   "./apps/user": {
+      "name": "user",
+      "enable": true
+   },
 }

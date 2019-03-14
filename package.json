@@ -16,13 +16,12 @@
    },
    "main": "index.js",
    "dependencies": {
-      "koa": "^2.2.0",
-      "koa-bodyparser": "^4.2.1",
       "lloader": "^2.0.0",
       "loggercc": "^1.3.1",
       "ttools": "^3.0.5"
    },
    "devDependencies": {
+      "@ioa/http": "0.0.1",
       "@koa/cors": "^2.2.1",
       "axios": "^0.18.0",
       "typea": "^4.4.3"

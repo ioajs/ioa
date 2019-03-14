@@ -304,16 +304,25 @@ PORT环境变量优先级高于配置文件中的app.config.port值
 
 #### 配置示例
 
-命令行参数的优先级要高于系统环境变量，因此可以通过命令行传参的方式重置当前命令下的环境变量。
+命令行中临时环境变量的优先级要高于系统环境变量，因此可以通过命令行传参的方式覆盖系统环境变量。
+
+#### 示例
+
+在生产环境下临时切换到本地环境
+
+Linux
+```sh
+NODE_ENV=localhost node index.js
+```
 
 PowerShell
 ```ps
-$env:NODE_ENV='production'; node index.js
+$env:NODE_ENV='localhost'; node index.js
 ```
 
 CMD
-```sh
-set NODE_ENV='production' & node index.js
+```ps
+set NODE_ENV='localhost' & node index.js
 ```
 
 ### ioa.config.js 组件配置文件

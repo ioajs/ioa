@@ -2,10 +2,16 @@
 
 const test = require('jtf')
 const typea = require('typea')
+const axios = require('axios')
+const ioa = require('..');
 
-const ioa = require('..')
+ioa.loader()
 
-ioa.http();
+ioa.http()
+
+let { port } = ioa
+
+axios.defaults.baseURL = `http://localhost:${port}`;
 
 test('ioa', t => {
 
