@@ -1,6 +1,6 @@
 'use strict';
 
-const loader = require('D:/Nodejs/Project/ioa/@ioa/http/loader');
+const loader = require('@ioa/http/loader');
 
 module.exports = {
    ...loader,

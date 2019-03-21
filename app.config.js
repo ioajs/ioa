@@ -1,9 +1,12 @@
 'use strict';
 
 module.exports = {
-   'D:/Nodejs/Project/ioa/@ioa/http': {
+   'D:/Nodejs/Project/ioa/@ioa-http': {
       "enable": true,
    },
+   // '@ioa/http': {
+   //    "enable": true,
+   // },
    "./component/admin": {
       "enable": true
    },

@@ -22,10 +22,10 @@ test('ioa', t => {
       logger: Function,
       loader: Function,
       Middleware: Array,
-      app: Object,
+      main: Object,
       port: Number,
       apps: {
-         app: {
+         main: {
             apps: Object,
             config: {},
             other: {
