@@ -1,8 +1,6 @@
 'use strict';
 
-const { Controller } = require('@app')
-
-class rest extends Controller {
+class rest {
    async index(ctx) {
       ctx.body = ctx.params
    }

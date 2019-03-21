@@ -1,6 +1,6 @@
-let { Controller } = require('@app')
+'use strict';
 
-class news extends Controller {
+class news {
    home(ctx) {
       ctx.body = 'news home';
    }

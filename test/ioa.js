@@ -1,15 +1,15 @@
 'use strict';
 
-const test = require('jtf')
-const typea = require('typea')
-const axios = require('axios')
+const test = require('jtf');
+const typea = require('typea');
+const axios = require('axios');
 const ioa = require('..');
 
-ioa.loader()
+ioa.loader();
 
-ioa.http()
+ioa.http();
 
-let { port } = ioa
+let { port } = ioa;
 
 axios.defaults.baseURL = `http://localhost:${port}`;
 
@@ -21,16 +21,13 @@ test('ioa', t => {
       NODE_ENV: String,
       logger: Function,
       loader: Function,
-      AppsMiddleware: Array,
-      mode: "apps",
-      main: Object,
+      Middleware: Array,
+      app: Object,
       port: Number,
       apps: {
-         main: {
+         app: {
             apps: Object,
-            config: {
-               middleware: [String]
-            },
+            config: {},
             other: {
                a: Object,
                b: Object,
@@ -42,9 +39,9 @@ test('ioa', t => {
                cors: Function,
                token: Function
             },
-            AppMiddleware: [Function],
+            Middleware: [Function],
             controller: {
-               index: {
+               home: {
                   home: Function,
                   sms: Function,
                   login: Function,
@@ -83,12 +80,11 @@ test('ioa', t => {
             },
             middleware: {
                test: Function,
-               intercept: Function,
-               cors: Function,
+               intercept: Function
             },
-            AppMiddleware: [Function],
+            Middleware: [Function],
             controller: {
-               index: {
+               home: {
                   home: Function,
                }
             },
@@ -102,19 +98,16 @@ test('ioa', t => {
          },
          admin: {
             apps: Object,
-            Controller: Function,
-            Model: Function,
             config: {
                middleware: [String]
             },
             model: { compcerts: Object },
             middleware: {
-               cors: Function,
                token: Function
             },
-            AppMiddleware: [Function],
+            Middleware: [Function],
             controller: {
-               index: {
+               home: {
                   index: Function,
                   details: Function,
                   add: Function,
@@ -134,6 +127,6 @@ test('ioa', t => {
       http: Function,
    })
 
-   t.ok(data, error)
+   t.ok(data, error);
 
 })

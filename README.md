@@ -112,7 +112,7 @@ project
     |
     |-- static                         静态资源目录
     |    
-    |-- ioa.config.js                  组件配置文件，支持.json格式
+    |-- app.config.js                  组件配置文件，支持.json格式
     |
     └─  index.js                       启动入口
 ```
@@ -166,7 +166,7 @@ project
     |
     |-- static                    静态资源目录
     |
-    |-- ioa.config.js             组件配置文件，支持.json格式
+    |-- app.config.js             组件配置文件，支持.json格式
     |
     └─  index.js                  启动入口
 ```
@@ -325,7 +325,7 @@ CMD
 set NODE_ENV='localhost' & node index.js
 ```
 
-### ioa.config.js 组件配置文件
+### app.config.js 组件配置文件
 
 组件配置文件用于定义组件名称、组件类型、管理组件状态以及如何装载组件。
 

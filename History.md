@@ -155,9 +155,9 @@
 
 ### 4.5.0
 
-* 将package-app.json更名为ioa.config.json，同时支持.js格式
+* 将package-app.json更名为app.config.json，同时支持.js格式
 
-* 增加ioa.config.json中[appName].config参数对环境变量的支持
+* 增加app.config.json中[appName].config参数对环境变量的支持
 
 ### 4.5.2
 

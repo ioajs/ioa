@@ -1,8 +1,6 @@
 'use strict';
 
-const { Controller } = require('@app')
-
-class index extends Controller {
+class index {
    async index(ctx) {
       ctx.body = 'admin index'
    }

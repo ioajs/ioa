@@ -1,8 +1,6 @@
 'use strict';
 
-const { Controller } = require('@app')
-
-class index extends Controller {
+class index {
    home(ctx) {
       ctx.body = 'home';
    }
