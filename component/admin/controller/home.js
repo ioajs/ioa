@@ -1,21 +1,21 @@
 'use strict';
 
-class index {
+class Index {
    async index(ctx) {
-      ctx.body = 'admin index'
+      ctx.body = 'admin index';
    }
    async details(ctx) {
-      ctx.body = 'admin details'
+      ctx.body = 'admin details';
    }
    async add(ctx) {
-      ctx.body = 'admin add'
+      ctx.body = 'admin add';
    }
    async update(ctx) {
-      ctx.body = 'admin update'
+      ctx.body = 'admin update';
    }
    async delete(ctx) {
-      ctx.body = 'admin delete'
+      ctx.body = 'admin delete';
    }
 }
 
-module.exports = index
+module.exports = Index;

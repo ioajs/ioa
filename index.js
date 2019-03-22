@@ -23,5 +23,5 @@ const ioa = {
    }
 }
 
-module.exports = ioa
+module.exports = ioa;
 

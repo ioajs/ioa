@@ -2,4 +2,6 @@
 
 const loader = require('@ioa/http/loader');
 
-module.exports = loader;
+module.exports = {
+   ...loader
+}

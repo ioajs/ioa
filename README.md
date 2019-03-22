@@ -284,20 +284,6 @@ module.exports = {
 }
 ```
 
-### .import.js 组件依赖配置文件（可选）
-
-每个组件内都支持可选的.import.js组件依赖配置文件，用于从其它组件中导入依赖项。
-
-```js
-module.exports = {
-   Sequelize: "db",
-   sequelize: "db",
-   middleware: {
-      cors: "main.middleware"
-   }
-}
-```
-
 ### 路由
 
 app.router对象中提供了get、post、put、delele路由声明方法，支持用resources批量定义RESTful路由，与egg的路由设计风格类似。

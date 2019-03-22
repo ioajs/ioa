@@ -9,7 +9,7 @@ ioa.loader();
 
 ioa.http();
 
-let { port } = ioa;
+const { port } = ioa;
 
 axios.defaults.baseURL = `http://localhost:${port}`;
 
@@ -27,7 +27,20 @@ test('ioa', t => {
       apps: {
          main: {
             apps: Object,
-            config: {},
+            config: {
+               "port": Number,
+               "mixin": {
+                  a: 666
+               },
+               '@apps': {
+                  'user': {
+                     'abs': 12
+                  },
+                  'http': {
+                     'gnt': 548
+                  }
+               }
+            },
             other: {
                a: Object,
                b: Object,
@@ -73,33 +86,10 @@ test('ioa', t => {
                resources: Function
             }
          },
-         user: {
-            apps: Object,
-            config: {
-               middleware: [String]
-            },
-            middleware: {
-               test: Function,
-               intercept: Function
-            },
-            Middleware: [Function],
-            controller: {
-               home: {
-                  home: Function,
-               }
-            },
-            router: {
-               get: Function,
-               post: Function,
-               put: Function,
-               delete: Function,
-               resources: Function
-            }
-         },
          admin: {
             apps: Object,
             config: {
-               middleware: [String]
+               base: String
             },
             model: { compcerts: Object },
             middleware: {
@@ -123,9 +113,32 @@ test('ioa', t => {
                resources: Function
             }
          },
+         user: {
+            apps: Object,
+            config: {
+               port: Number
+            },
+            middleware: {
+               test: Function,
+               intercept: Function
+            },
+            Middleware: [Function],
+            controller: {
+               home: {
+                  home: Function,
+               }
+            },
+            router: {
+               get: Function,
+               post: Function,
+               put: Function,
+               delete: Function,
+               resources: Function
+            }
+         },
       },
       http: Function,
-   })
+   });
 
    t.ok(data, error);
 

@@ -1,5 +1,9 @@
 'use strict';
 
+const { config } = require('../../loader');
 const loader = require('@ioa/http/loader');
 
-module.exports = loader;
+module.exports = {
+   config,
+   ...loader
+}
