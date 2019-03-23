@@ -21,7 +21,7 @@ test('ioa', t => {
       NODE_ENV: String,
       logger: Function,
       loader: Function,
-      Middleware: Array,
+      beforeMiddleware: Array,
       main: Object,
       port: Number,
       apps: {
@@ -52,7 +52,7 @@ test('ioa', t => {
                cors: Function,
                token: Function
             },
-            Middleware: [Function],
+            beforeMiddleware: [Function],
             controller: {
                home: {
                   home: Function,
@@ -95,7 +95,7 @@ test('ioa', t => {
             middleware: {
                token: Function
             },
-            Middleware: [Function],
+            beforeMiddleware: [Function],
             controller: {
                home: {
                   index: Function,
@@ -122,7 +122,7 @@ test('ioa', t => {
                test: Function,
                intercept: Function
             },
-            Middleware: [Function],
+            beforeMiddleware: [Function],
             controller: {
                home: {
                   home: Function,

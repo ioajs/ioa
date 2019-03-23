@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('jtf')
-const { axios } = require('../helpers')
+const axios = require('axios');
 
 test('get', async t => {
    const { data } = await axios.get("/user")

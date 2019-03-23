@@ -34,29 +34,27 @@ module.exports = {
        */
       after(app) {
 
-         if (app.name === 'main') {
+         if (app.name !== 'main') return;
 
-            const appsConfig = app.config['@apps'];
+         if (app.config === undefined) return;
 
-            if (appsConfig) {
+         const appsConfig = app.config['@apps'];
 
-               const { apps } = app;
+         if (appsConfig === undefined) return;
 
-               for (const name in appsConfig) {
+         const { apps } = app;
 
-                  const expandApp = apps[name];
+         for (const name in appsConfig) {
 
-                  if (expandApp) {
+            const expandApp = apps[name];
 
-                     const mixinConfig = appsConfig[name];
-                     if (expandApp.config) {
-                        T(expandApp.config).object({ mixin: mixinConfig });
-                     } else {
-                        expandApp.config = mixinConfig;
-                     }
+            if (expandApp) {
 
-                  }
-
+               const mixinConfig = appsConfig[name];
+               if (expandApp.config) {
+                  T(expandApp.config).object({ mixin: mixinConfig });
+               } else {
+                  expandApp.config = mixinConfig;
                }
 
             }
