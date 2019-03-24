@@ -47,6 +47,7 @@ ioa.loader();
 project
     |
     |-- main
+    |    |
     |    |-- config               配置文件目录
     |    |    |- default.js       公用默认配置
     |    |    |- localhost.js     本地环境配置
@@ -94,17 +95,17 @@ project
 虽然开发者通过.loader.js可以自由的定义每个应用内的目录结构，但是遵循统一的约定可以避免很多不必要的混乱。
 
 
-### app.config.js 组件配置文件
+### app.config.js 配置文件
 
-组件配置文件用于声明要装载的组件及如何装载。
+应用配置文件用于声明要装载的应用及如何装载。
 
-* $path `String` - 组件路径，支持相对路径、绝对路径、模块路径
+* $path `String` - 应用路径，支持相对路径、绝对路径、模块路径
 
-   * name `String` - 自定义组件名，缺省状态下会从$path值中截取尾段作为name值
+   * name `String` - 自定义应用名，缺省状态下会从$path值中截取尾段作为name值
 
-   * enable `Boolean` - 是否启用组件
+   * enable `Boolean` - 是否启用应用
 
-   * options `Function` - 用于提取当前组件内置的.loader.js配置项，汇入ioa.options
+   * options `Function` - 用于提取当前应用内置的.loader.js配置项，汇入app.options
    
 
 #### 示例
