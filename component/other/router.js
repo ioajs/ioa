@@ -1,12 +1,9 @@
 'use strict';
 
-const { main } = require('ioa');
-const { router } = require('@app');
+const { router, apps } = require('@app');
 
-const { cors } = main.middleware;
+const { cors } = apps.main.middleware;
 
-// logger.log(cors)
+router.get('/other', cors, 'home.index')
 
-router.get('/other', 'home.index')
-
-router.get('/other/:id', 'home.details')
+router.get('/other/:id', cors, 'home.details')

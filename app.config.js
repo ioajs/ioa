@@ -3,9 +3,12 @@
 module.exports = {
    '@ioa/http': {
       "enable": true,
+      options(ioa, options) {
+         Object.assign(ioa.options, options);
+      }
    },
    "./component/admin": {
-      "enable": true
+      "enable": true,
    },
    "./component/other": {
       "enable": true

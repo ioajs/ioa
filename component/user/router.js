@@ -1,10 +1,9 @@
 'use strict';
 
-const { main } = require('ioa');
-const { router, middleware } = require('@app');
+const { router, middleware, apps } = require('@app');
 
 const { test, intercept } = middleware;
-const { cors } = main.middleware;
+const { cors } = apps.main.middleware;
 
 router.get('/user', cors, test, 'home.home');
 

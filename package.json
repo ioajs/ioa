@@ -1,6 +1,6 @@
 {
    "name": "ioa",
-   "version": "6.0.0-alpha.2",
+   "version": "6.0.0-alpha.4",
    "description": "Node.js多应用水平扩展、组件化框架，基于Koa 2.0",
    "keywords": [
       "application",
@@ -21,15 +21,14 @@
       "ttools": "^3.0.5"
    },
    "devDependencies": {
-      "@ioa/http": "^0.0.5",
+      "@ioa/http": "0.0.7",
       "@koa/cors": "^2.2.1",
       "axios": "^0.18.0",
       "typea": "^4.4.3"
    },
    "files": [
       "lib",
-      "index.js",
-      "loader.js"
+      "index.js"
    ],
    "author": "",
    "license": "ISC",

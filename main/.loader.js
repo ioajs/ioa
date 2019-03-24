@@ -1,11 +1,9 @@
 'use strict';
 
-const { config } = require('../loader');
-const loader = require('@ioa/http/loader');
+const { options } = require('@app');
 
 module.exports = {
-   config,
-   ...loader,
+   ...options,
    other: {
       level: 16
    }

@@ -1,14 +1,13 @@
 ## ioa
 
-基于组件化、声明式的全新Node.js框架。
+基于组件化、声明式的全新Node.js应用分级装载器。
 
-ioa中的组件由多个平级应用构成，每个应用都拥有独立的模块作用域，通过声明式的依赖配置模型实现跨应用资源共享。
+不同于常规框架的是ioa.js更像是一个可定制的应用装载器，它可以在隔离环境下装载多个应用，从而避免资源冲突。通过分级装载策略实现装载生命周期内的任意阶段载入指定模块。
 
-不同于常规框架的是ioa更像是一个可定制的应用装载器，它可以在隔离环境下装载多个应用，从而避免资源冲突。通过分级装载策略实现装载生命周期内的任意阶段载入指定模块。
+ioa中的组件由多个平行应用构成，每个应用都拥有独立的模块作用域，通过声明式的依赖配置模型实现跨应用资源共享。包含主应用、扩展应用、npm组件三种应用模式，在三种模式下均可获得一致的代码结构、同步的生命周期和开发体验，避免产生额外的学习和迁移成本。
 
-包含主应用、扩展应用、npm组件三种应用模式，在三种模式下均可获得一致的代码结构、同步的生命周期和开发体验，避免产生额外的学习和迁移成本。
+ioa遵循按需引入原则，因此其核心功能足够的精简，甚至不包含任何http相关的服务。@ioa/http组件提供了基于koa.js、路由及相关的配套服务。
 
-ioa框架遵循按需引入原则，其核心部分足够的精简，即使http服务也是以组件扩展的方式按需引入的。
 
 ### 特性
 
@@ -16,19 +15,11 @@ ioa框架遵循按需引入原则，其核心部分足够的精简，即使http�
 
 * 每个组件拥有完全独立的模块作用域、一致的代码结构和功能
 
-* 支持模块分级同步装载，可动态调整模块的装载顺序，实现框架全生命周期管理
-
-<!-- * 支持异步模块装载，减少async/await异步函数链，优化异步编程体验 -->
-
-* 可通过依赖配置文件进行资源互访，实现强大的资源隔离与共享机制
-
-* 应用间使用只读的单向数据流传递依赖，减少跨组件污染
+* 支持模块分级平行装载，可灵活调整模块的装载顺序，实现框架全生命周期管理
 
 * 支持使用npm发布、管理组件间的版本和依赖关系
 
 * 支持渐进式开发，从单点、多点应用再到微服务化、分布式架构，满足弹性扩张需求
-
-* 在应用隔离机制下可以轻松过渡到微服务化架构
 
 * 多功能路由支持，可自由选择声明式或自动寻址路由
 
@@ -47,7 +38,7 @@ npm install ioa
 ```js
 const ioa = require('ioa')
 
-ioa.http()
+ioa.loader();
 ```
 
 ### 目录结构
@@ -86,8 +77,6 @@ project
     |    |-- schedule             定时任务
     |    |
     |    |-- .loader.js           分级装载配置文件，支持任意子目录
-    |    |
-    |    |-- .import.js           依赖关系配置文件
     |    | 
     |    └─ router.js             路由配置文件
     |
@@ -99,6 +88,47 @@ project
     |
     └─  index.js                  启动入口
 ```
+
+框架以main目录作为主应用，扩展应用的命名和位置不受限，所有扩展应用的配置项需要在主应用中配置，然后转发给对应扩展应用。
+
+虽然开发者通过.loader.js可以自由的定义每个应用内的目录结构，但是遵循统一的约定可以避免很多不必要的混乱。
+
+
+### app.config.js 组件配置文件
+
+组件配置文件用于声明要装载的组件及如何装载。
+
+* $path `String` - 组件路径，支持相对路径、绝对路径、模块路径
+
+   * name `String` - 自定义组件名，缺省状态下会从$path值中截取尾段作为name值
+
+   * enable `Boolean` - 是否启用组件
+
+   * options `Function` - 用于提取当前组件内置的.loader.js配置项，汇入ioa.options
+   
+
+#### 示例
+
+```js
+module.exports = {
+   '@ioa/http': {
+      "enable": true,
+      options(ioa, options) {
+         Object.assign(ioa.options, options);
+      }
+   },
+   "@ioa/model": {
+      "enable": true
+   },
+   "./component/admin": {
+      "enable": true,
+   },
+   "./user": {
+      "enable": true,
+   }
+}
+```
+
 
 ### 分级装载
 
@@ -123,8 +153,7 @@ middleware | 30
 service | 40
 controller | 50
 
-
-#### .loader.js 自定义装载等级配置文件
+#### .loader.js 装载等级配置文件
 
 当两个平级模块间存在依赖关系，水平自动装载无法满足需求时，可通过.loader.js文件调整模块间的装载顺序，且每个子目录均支持可选的.loader.js文件。
 
@@ -134,26 +163,32 @@ controller | 50
 
 ```js
 module.exports = {
-   'config': {
-      level: 10
+   "model": {
+      "level": 20,
    },
-   'models': {
-      level: 20
+   "middleware": {
+      "level": 30
    },
-   'controllers': {
-      level: 40
-   }
+   "controller": {
+      "level": 50,
+      module(func) {
+         if (func.prototype) {
+            return new func();
+         }
+         return func;
+      }
+   },
 }
 ```
 
 ### 组件作用域
 
-框架在启动时会为每个组件生成私有的@app引用模块，用于访问当前组件级对象。
+框架在启动时会自动为每个组件生成私有的@app引用模块，作为当前组件的容器。
 
 @app模块仅用于组件作用域内使用，在组件作用域外应该使用ioa模块。
 
 ```js
-const { middleware } = require('@app')
+const { middleware } = require('@app');
 ```
 
 #### 组件对象示例
@@ -255,146 +290,13 @@ CMD
 set NODE_ENV='localhost' & node index.js
 ```
 
-### app.config.js 组件配置文件
 
-组件配置文件用于定义组件名称、组件类型、管理组件状态以及如何装载组件。
+### 相关组件及模块
 
-* $name `String` - 组件名称（当package、path属性均为缺省状态时，$name对应apps目录中的组件名）
+* [@ioa/http](https://github.com/ioajs/ioa-http) - 集成koa.js、路由及相关配套服务的http组件
 
-   * enable `Boolean` - 是否启用当前组件
+* [@ioa/model](https://github.com/ioajs/ioa-model) - Ormv.js库数据库模型封装
 
-   * package `String` - 指定npm组件名，框架以npm模块方式加载组件
+* [@ioa/rest](https://github.com/ioajs/ioa-rest) - 客户端查询数据库通用Rest Aip组件
 
-   * path `String` - 通过绝对路径加载组件，路径中需要包含应用名
-
-#### 示例
-
-```js
-module.exports = {
-   "admin": {
-      "enable": true
-   },
-   "other": {
-      "enable": true
-   },
-   "user": {
-      "enable": true,
-      "path": "D:/Nodejs/Project/user"
-   }
-}
-```
-
-### 路由
-
-app.router对象中提供了get、post、put、delele路由声明方法，支持用resources批量定义RESTful路由，与egg的路由设计风格类似。
-
-ioa中同时支持声明式和自动寻址两种路由模式：
-
-
-#### 声明式路由
-
-声明式路由具有高度灵活和可定制url的特性。允许随意定义url格式，调用任意middleware、controller，但每个url都需要单独定义。
-
-```js
-const { router } = require('@app')
-
-router.get('/', 'index.home')
-
-router.get('/sms/:sid/sd/:id', 'index.sms')
-
-router.post('/sms/:sid/sd/:sid', 'index.sms')
-
-router.post('/login', 'index.login')
-
-router.put('/login', 'index.login')
-
-router.delele('/login', 'index.login')
-
-// 分组路由
-router.group('admin', {
-    "login": ['index.login'],
-    "sms": ['index.sms'],
-    "cc": {
-        "xx": ['index.xx'],
-        "jj": ['index.jj']
-    },
-})
-```
-
-#### 自动寻址路由
-
-指定一个controller目录，路由解析器根据目录结构自动寻址，不再需要单独配置每个路由。这对于常规、标准化路由的定义非常方便，但是缺乏灵活性。
-
-```js
-// 映射到controller/admin目录
-router.controller('admin')
-```
-
-#### RESTful路由
-
-RESTful路由与Controller的映射关系
-
-Method | Path |  Controller.Action
---- | --- | ---:
-GET | /test | index
-GET | /test/:id | details
-POST | /test | create
-PUT | /test/:id | update
-DELETE | /test/:id | destroy
-
-
-```js
-// 自动生成get、post、put、delete
-router.resources('/rest', 'rest')
-```
-
-
-### 中间件
-
-在$app/middleware目录下添加中间件文件，框架自动载入并进行类型检测。
-
-#### 路由中间件
-
-在路由中使用中间件时，通过app.middleware引用中间件，插入到配置项中。
-
-```js
-const { test, token } = app.middleware
-
-router.get('/', test, token, 'index.home')
-```
-
-#### 应用级中间件
-
-应用级中间件的作用域仅在当前应用内有效，通过config/$.js文件中的middleware数组中进行配置，在数组中添加中间件名称，框架按顺序调用中间件。
-
-```js
-module.exports = {
-   middleware: ['cors', 'a', 'b']
-}
-```
-
-
-#### 全局中间件
-
-当需要使用全局中间件时，通过app.AppsMiddleware数组进行添加。
-
-```js
-const cors = require('@koa/cors')
-
-app.AppsMiddleware.push(cors({ origin: '*' }))
-```
-
-
-### model
-
-在$app/model目录下创建模型配置文件，框架自动载入并进行类型检测，在controller中通过app.model访问模型，支持多级目录分组。
-
-
-### controller
-
-在$app/controller目录下创建控制器文件，框架自动载入并进行类型检测，支持多级目录分组。
-
-
-### 日志
-
-日志功能由loggercc模块提供，参考链接：https://github.com/xiangle/loggercc
+* [loggercc](https://github.com/xiangle/loggercc) - ioa.js集成的日志、console、debug模块

@@ -1,7 +1,11 @@
 'use strict';
 
-const loader = require('@ioa/http/loader');
+const { options } = require('@app');
+
+const { controller, middleware, router } = options;
 
 module.exports = {
-   ...loader
-}
+   controller,
+   middleware,
+   router,
+};

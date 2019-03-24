@@ -1,9 +1,8 @@
 'use strict';
 
-const { main } = require('ioa');
-const { router } = require('@app');
+const { router, apps } = require('@app');
 
-const { cors } = main.middleware;
+const { cors } = apps.main.middleware;
 
 // router.befor(cors);
 
