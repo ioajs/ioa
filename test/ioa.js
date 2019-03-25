@@ -22,7 +22,7 @@ test('ioa', t => {
       logger: Function,
       loader: Function,
       beforeMiddleware: Array,
-      main: Object,
+      $main: Object,
       port: Number,
       apps: {
          main: {
@@ -32,14 +32,7 @@ test('ioa', t => {
                "mixin": {
                   a: 666
                },
-               '@apps': {
-                  'user': {
-                     'abs': 12
-                  },
-                  'http': {
-                     'gnt': 548
-                  }
-               }
+               '@components': Object
             },
             other: {
                a: Object,
@@ -93,7 +86,8 @@ test('ioa', t => {
             },
             model: { compcerts: Object },
             middleware: {
-               token: Function
+               auth: Function,
+               role: Function,
             },
             beforeMiddleware: [Function],
             controller: {

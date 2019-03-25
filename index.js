@@ -9,6 +9,7 @@ const ioa = {
    version,
    logger,
    apps: {},
+   components: {},
    cwd: process.cwd(),
    NODE_ENV,
    port: process.env.PORT,
@@ -26,4 +27,3 @@ console.log('');
 logger.log(`NODE_ENV = ${NODE_ENV}`);
 
 module.exports = ioa;
-

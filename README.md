@@ -4,9 +4,11 @@
 
 不同于常规框架的是ioa.js更像是一个可定制的应用装载器，它可以在隔离环境下装载多个应用，从而避免资源冲突。通过分级装载策略实现装载生命周期内的任意阶段载入指定模块。
 
-ioa中的组件由多个平行应用构成，每个应用都拥有独立的模块作用域，通过声明式的依赖配置模型实现跨应用资源共享。包含主应用、扩展应用、npm组件三种应用模式，在三种模式下均可获得一致的代码结构、同步的生命周期和开发体验，避免产生额外的学习和迁移成本。
+ioa中的组件由多个平行应用构成，每个应用都拥有独立的模块作用域，通过声明式的依赖配置模型实现跨应用资源共享。
 
 ioa遵循按需引入原则，因此其核心功能足够的精简，甚至不包含任何http相关的服务。@ioa/http组件提供了基于koa.js、路由及相关的配套服务。
+
+组件可分为应用类组件和扩展类组件，扩展组件以npm包的方式引入。
 
 
 ### 特性
@@ -42,6 +44,8 @@ ioa.loader();
 ```
 
 ### 目录结构
+
+以下目录结构仅为约定，ioa框架本身并不限制目录结构。虽然开发者通过.loader.js文件可以自由定义每个应用的目录结构，但是遵循统一的约定可以避免很多不必要的混乱。
 
 ```
 project
@@ -90,43 +94,44 @@ project
     └─  index.js                  启动入口
 ```
 
-框架以main目录作为主应用，扩展应用的命名和位置不受限，所有扩展应用的配置项需要在主应用中配置，然后转发给对应扩展应用。
-
-虽然开发者通过.loader.js可以自由的定义每个应用内的目录结构，但是遵循统一的约定可以避免很多不必要的混乱。
-
 
 ### app.config.js 配置文件
 
-应用配置文件用于声明要装载的应用及如何装载。
+应用配置文件用于声明要装载的应用及如何装载，ioa以app.config.js文件中的第一个应用配置作为主应用，扩展组件的配置项统一在主应用的config目录中配置，框架自动分发到对应的扩展组件。
 
-* $path `String` - 应用路径，支持相对路径、绝对路径、模块路径
-
-   * name `String` - 自定义应用名，缺省状态下会从$path值中截取尾段作为name值
+* $path `String` - 应用路径，支持相对路径或绝对路径
 
    * enable `Boolean` - 是否启用应用
 
-   * options `Function` - 用于提取当前应用内置的.loader.js配置项，汇入app.options
+   * components `Object` - 应用依赖的组件
    
 
 #### 示例
 
 ```js
 module.exports = {
-   '@ioa/http': {
+   "./main": {
       "enable": true,
-      options(ioa, options) {
-         Object.assign(ioa.options, options);
-      }
-   },
-   "@ioa/model": {
-      "enable": true
+      "components": {
+         "@ioa/http": {
+            "enable": true
+         },
+         "@ioa/model": {
+            "enable": true,
+         },
+      },
    },
    "./component/admin": {
       "enable": true,
+      "components": {
+         "@ioa/http": {
+            "enable": true
+         },
+         "@ioa/model": {
+            "enable": true,
+         },
+      },
    },
-   "./user": {
-      "enable": true,
-   }
 }
 ```
 

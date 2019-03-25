@@ -5,15 +5,20 @@ module.exports = {
    "mixin": {
       a: 666
    },
-   '@apps': {
-      'admin': {
-         'tts': 689
+   '@components': {
+      "@ioa/model": {
+         "host": "localhost",
+         "port": 5432,
+         "database": "test",
+         "username": "postgres",
+         "password": "postgres",
+         "logger": true
       },
-      'user': {
-         'abs': 12
-      },
-      'http': {
+      '@ioa/http': {
          'gnt': 548
+      },
+      "@ioa/auth": {
+         "authKey": "test"
       }
    }
 }

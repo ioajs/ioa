@@ -1,8 +1,8 @@
 'use strict';
 
-const { router, apps } = require('@app');
+const { router, $main } = require('@app');
 
-const { cors } = apps.main.middleware;
+const { cors } = $main.middleware;
 
 router.get('/other', cors, 'home.index')
 
