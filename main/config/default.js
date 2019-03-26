@@ -14,9 +14,6 @@ module.exports = {
          "password": "postgres",
          "logger": true
       },
-      '@ioa/http': {
-         'gnt': 548
-      },
       "@ioa/auth": {
          "authKey": "test"
       }

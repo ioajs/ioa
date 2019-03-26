@@ -39,7 +39,7 @@ test('ioa', t => {
                b: Object,
             },
             model: {
-               compcerts: Object
+               document: Object
             },
             middleware: {
                cors: Function,
@@ -88,6 +88,7 @@ test('ioa', t => {
             middleware: {
                auth: Function,
                role: Function,
+               token: Function,
             },
             beforeMiddleware: [Function],
             controller: {
@@ -130,6 +131,11 @@ test('ioa', t => {
                resources: Function
             }
          },
+      },
+      components: {
+         "@ioa/http": Object,
+         "@ioa/model": Object,
+         "@ioa/auth": Object,
       },
       http: Function,
    });

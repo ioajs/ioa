@@ -12,14 +12,11 @@ const ioa = {
    components: {},
    cwd: process.cwd(),
    NODE_ENV,
-   port: process.env.PORT,
    /**
     * 加载应用
     */
    loader() {
-
       require('./lib/loader');
-
    }
 }
 
