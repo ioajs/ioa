@@ -7,5 +7,5 @@ const { controller, middleware, router } = options;
 module.exports = {
    controller,
    middleware,
-   router,
+   // router,
 };

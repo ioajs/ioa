@@ -22,21 +22,24 @@ test('ioa', t => {
       logger: Function,
       loader: Function,
       beforeMiddleware: Array,
-      $main: Object,
+      main: Object,
       port: Number,
       apps: {
          main: {
-            apps: Object,
+            $beforeMiddleware: [Function],
+            router: {
+               get: Function,
+               post: Function,
+               put: Function,
+               delete: Function,
+               resources: Function
+            },
             config: {
                "port": Number,
                "mixin": {
                   a: 666
                },
                '@components': Object
-            },
-            other: {
-               a: Object,
-               b: Object,
             },
             model: {
                document: Object
@@ -45,7 +48,6 @@ test('ioa', t => {
                cors: Function,
                token: Function
             },
-            beforeMiddleware: [Function],
             controller: {
                home: {
                   home: Function,
@@ -71,16 +73,20 @@ test('ioa', t => {
                   destroy: Function
                }
             },
+            other: {
+               a: Object,
+               b: Object,
+            },
+         },
+         admin: {
+            $beforeMiddleware: [Function],
             router: {
                get: Function,
                post: Function,
                put: Function,
                delete: Function,
                resources: Function
-            }
-         },
-         admin: {
-            apps: Object,
+            },
             config: {
                base: String
             },
@@ -90,7 +96,6 @@ test('ioa', t => {
                role: Function,
                token: Function,
             },
-            beforeMiddleware: [Function],
             controller: {
                home: {
                   index: Function,
@@ -100,16 +105,16 @@ test('ioa', t => {
                   delete: Function
                }
             },
+         },
+         user: {
+            $beforeMiddleware: [Function],
             router: {
                get: Function,
                post: Function,
                put: Function,
                delete: Function,
                resources: Function
-            }
-         },
-         user: {
-            apps: Object,
+            },
             config: {
                port: Number
             },
@@ -117,18 +122,10 @@ test('ioa', t => {
                test: Function,
                intercept: Function
             },
-            beforeMiddleware: [Function],
             controller: {
                home: {
                   home: Function,
                }
-            },
-            router: {
-               get: Function,
-               post: Function,
-               put: Function,
-               delete: Function,
-               resources: Function
             }
          },
       },
