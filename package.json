@@ -1,6 +1,6 @@
 {
    "name": "ioa",
-   "version": "6.3.0-alpha.2",
+   "version": "6.3.0",
    "description": "Node.js多应用水平扩展、组件化框架，基于Koa 2.0",
    "keywords": [
       "application",
@@ -16,7 +16,7 @@
    },
    "main": "index.js",
    "dependencies": {
-      "lloader": "^3.1.0-alpha.0",
+      "lloader": "^3.1.1-alpha.0",
       "loggercc": "^1.3.1",
       "ttools": "^3.0.5"
    },

@@ -89,15 +89,25 @@ project
     |
     |-- static                    静态资源目录
     |
-    |-- app.config.js             组件配置文件，支持.json格式
-    |
     └─  index.js                  启动入口
 ```
 
 
-### app.config.js 配置文件
+### ioa.loader([config]) 配置参数
 
-应用配置文件用于声明要装载的应用及如何装载，ioa以app.config.js文件中的第一个应用配置作为主应用，扩展组件的配置项统一在主应用的config目录中配置，框架自动分发到对应的扩展组件。
+应用配置参数用于声明要装载的应用及如何装载。
+
+config中的第一个配置项被视为主应用，扩展组件的配置项在主应用的config目录中统一配置，框架自动分发到对应的扩展组件。
+
+默认状态下将./main目录作为主应用，配置如下：
+
+```js
+{
+   "./main": {
+      "enable": true,
+   },
+}
+```
 
 * $path `String` - 应用路径，支持相对路径或绝对路径
 
@@ -109,7 +119,7 @@ project
 #### 示例
 
 ```js
-module.exports = {
+{
    "./main": {
       "enable": true,
       "components": {

@@ -5,7 +5,52 @@ const typea = require('typea');
 const axios = require('axios');
 const ioa = require('..');
 
-ioa.loader();
+ioa.loader({
+   "./main": {
+      "enable": true,
+      "components": {
+         "@ioa/http": {
+            "enable": true
+         },
+         "@ioa/model": {
+            "enable": true,
+         },
+         "@ioa/auth": {
+            "enable": true,
+         },
+      },
+   },
+   "./component/admin": {
+      "enable": true,
+      "components": {
+         "@ioa/http": {
+            "enable": true
+         },
+         "@ioa/model": {
+            "enable": true,
+         },
+         "@ioa/auth": {
+            "enable": true,
+         },
+      },
+   },
+   "./component/other": {
+      "enable": true,
+      "components": {
+         "@ioa/http": {
+            "enable": true
+         },
+      },
+   },
+   "./component/user": {
+      "enable": true,
+      "components": {
+         "@ioa/http": {
+            "enable": true
+         },
+      },
+   },
+});
 
 ioa.http();
 

@@ -1,6 +1,7 @@
 'use strict';
 
 const logger = require('loggercc');
+const loader = require('./lib/loader.js');
 const { version } = require('./package.json');
 
 const NODE_ENV = process.env.NODE_ENV || 'production';
@@ -12,12 +13,7 @@ const ioa = {
    components: {},
    cwd: process.cwd(),
    NODE_ENV,
-   /**
-    * 加载应用
-    */
-   loader() {
-      require('./lib/loader');
-   }
+   loader
 }
 
 console.log('');
