@@ -13,7 +13,7 @@ ioa遵循按需引入原则，因此其核心功能足够的精简，甚至不�
 
 * 组件即应用，采用组件化、水平扩展架构
 
-* 每个组件拥有完全独立的模块作用域、一致的代码结构和功能
+* 每个组件拥有完全独立的组件作用域、一致的代码结构和功能
 
 * 支持模块分级平行装载，可灵活调整模块的装载顺序，实现框架全生命周期管理
 
@@ -210,42 +210,6 @@ module.exports = {
 ```js
 const { middleware } = require('@app');
 ```
-
-#### 组件对象示例
-
-```js
-{
-   apps: Object,
-   config: {
-      middleware: [String]
-   },
-   model: {
-      compcerts: Object
-   },
-   middleware: {
-      cors: Function,
-      token: Function
-   },
-   AppMiddleware: [Function],
-   controller: {
-      user: {
-         index: Function,
-         details: Function,
-         create: Function,
-         update: Function,
-         destroy: Function
-      }
-   },
-   router: {
-      get: Function,
-      post: Function,
-      put: Function,
-      delete: Function,
-      resources: Function
-   }
-}
-```
-
 
 ### 组件化
 
