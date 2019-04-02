@@ -10,12 +10,10 @@ test('get /', async t => {
 });
 
 
-
 test('get /news', async t => {
    const { data } = await axios.get("/news")
    t.ok(data)
 });
-
 
 
 test('get /sms/:id/sd/:kk', async t => {

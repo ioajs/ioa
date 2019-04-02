@@ -52,8 +52,6 @@ ioa.loader({
    },
 });
 
-ioa.http();
-
 const { port } = ioa;
 
 axios.defaults.baseURL = `http://localhost:${port}`;
@@ -179,7 +177,6 @@ test('ioa', t => {
          "@ioa/model": Object,
          "@ioa/auth": Object,
       },
-      http: Function,
    });
 
    t.ok(data, error);

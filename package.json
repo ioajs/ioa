@@ -22,7 +22,7 @@
    },
    "devDependencies": {
       "@ioa/auth": "^6.3.0-alpha.0",
-      "@ioa/http": "^6.3.0-alpha.1",
+      "@ioa/http": "^6.3.0",
       "@ioa/model": "^6.3.0-alpha.1",
       "@koa/cors": "^2.2.1",
       "axios": "^0.18.0",
