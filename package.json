@@ -1,6 +1,6 @@
 {
    "name": "ioa",
-   "version": "6.3.1",
+   "version": "6.3.2",
    "description": "Node.js多应用水平扩展、组件化框架，基于Koa 2.0",
    "keywords": [
       "application",
@@ -10,8 +10,9 @@
       "ioa"
    ],
    "scripts": {
-      "start": "node index.js",
-      "dev": "node index.js",
+      "start": "set NODE_ENV=production & node index.js",
+      "dev": "set NODE_ENV=development & node index.js",
+      "env": "set NODE_ENV=test & node index.js",
       "test": "jtf"
    },
    "main": "index.js",
