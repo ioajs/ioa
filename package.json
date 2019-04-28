@@ -1,6 +1,6 @@
 {
    "name": "ioa",
-   "version": "6.3.2",
+   "version": "7.0.0-alpha.2",
    "description": "Node.js多应用水平扩展、组件化框架，基于Koa 2.0",
    "keywords": [
       "application",
@@ -22,9 +22,9 @@
       "ttools": "^3.0.5"
    },
    "devDependencies": {
-      "@ioa/auth": "^6.3.0-alpha.0",
-      "@ioa/http": "^6.3.0",
-      "@ioa/model": "^6.3.0-alpha.1",
+      "@ioa/auth": "^7.0.0-alpha.0",
+      "@ioa/http": "^7.0.0-alpha.0",
+      "@ioa/model": "^7.0.0-alpha.1",
       "@koa/cors": "^2.2.1",
       "axios": "^0.18.0",
       "typea": "^4.4.3"

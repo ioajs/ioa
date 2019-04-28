@@ -1,8 +1,8 @@
 'use strict';
 
-const { options } = require('@app');
+const { levels } = require('@app');
 
-const { controller, middleware, router } = options;
+const { controller, middleware, router } = levels;
 
 module.exports = {
    controller,

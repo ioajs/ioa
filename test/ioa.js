@@ -10,7 +10,7 @@ ioa.loader({
       "enable": true,
       "components": {
          "@ioa/http": {
-            "enable": true
+            "enable": true,
          },
          "@ioa/model": {
             "enable": true,
@@ -82,7 +82,7 @@ test('ioa', t => {
                "mixin": {
                   a: 666
                },
-               '@components': Object
+               'components': Object
             },
             model: {
                document: Object

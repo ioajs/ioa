@@ -5,7 +5,7 @@ module.exports = {
    "mixin": {
       a: 666
    },
-   '@components': {
+   'components': {
       "@ioa/model": {
          "host": "localhost",
          "port": 5432,

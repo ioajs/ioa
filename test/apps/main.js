@@ -6,13 +6,13 @@ const axios = require('axios');
 
 test('get /', async t => {
    const { data } = await axios.get("/")
-   t.ok(data)
+   t.deepEqual(data, 'home')
 });
 
 
 test('get /news', async t => {
    const { data } = await axios.get("/news")
-   t.ok(data)
+   t.deepEqual(data, 'news home')
 });
 
 
