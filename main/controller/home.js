@@ -1,8 +1,8 @@
 'use strict';
 
-class index {
-   home(ctx) {
-      ctx.body = 'home';
+class Home {
+   index(ctx) {
+      ctx.body = 'index';
    }
    sms(ctx) {
       ctx.body = ctx.params;
@@ -16,4 +16,4 @@ class index {
    }
 }
 
-module.exports = index
+module.exports = Home;

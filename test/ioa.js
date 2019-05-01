@@ -93,12 +93,12 @@ test('ioa', t => {
             },
             controller: {
                home: {
-                  home: Function,
+                  index: Function,
                   sms: Function,
                   login: Function,
                },
                news: {
-                  home: Function,
+                  index: Function,
                   details: Function,
                },
                rest: {

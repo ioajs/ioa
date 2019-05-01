@@ -1,8 +1,8 @@
 'use strict';
 
 class news {
-   home(ctx) {
-      ctx.body = 'news home';
+   index(ctx) {
+      ctx.body = 'news index';
    }
    details(ctx) {
       ctx.body = {

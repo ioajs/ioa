@@ -19,7 +19,22 @@ const ioa = {
    components: {},
    cwd: process.cwd(),
    NODE_ENV,
-   loader
+   loader,
+   shared(key, value) {
+
+      const { apps } = this;
+
+      for (const name in apps) {
+
+         const app = apps[name];
+         const node = app[key];
+         if (node) {
+            Object.assign(node, value);
+         }
+
+      }
+
+   }
 }
 
 console.log('');

@@ -10,11 +10,11 @@ const { home, news } = controller;
 
 // router.befor(cors);
 
-router.get('/', home.home);
+router.get('/', home.index);
 
 router.post('/login', token, home.login);
 
-router.get('/news', news.home);
+router.get('/news', news.index);
 
 router.get('/news/:id/details/:kk', token, 'news.details');
 

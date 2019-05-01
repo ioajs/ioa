@@ -1,5 +1,11 @@
 'use strict';
 
+const app = require('@app');
+
+const { controller } = app;
+
+// console.log(controller)
+
 class rest {
    async index(ctx) {
       ctx.body = ctx.params
