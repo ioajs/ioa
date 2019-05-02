@@ -54,7 +54,7 @@ project
     |
     |-- main
     |    |
-    |    | -- .loader.js         分级装载配置文件
+    |    | -- .loader.js          分级装载配置文件
     |    |
     |    10 -- config             配置文件目录
     |    |    |- default.js       公用默认配置
@@ -85,7 +85,7 @@ project
     |    |
     |    60 -- schedule           定时任务
     |    | 
-    |    80 -- router.js           路由配置文件
+    |    80 -- router.js          路由配置文件
     |
     |-- logger                    日志存档，按日期分组保存
     |
