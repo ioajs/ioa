@@ -6,7 +6,7 @@
 
 ioa中的组件由多个平行应用构成，每个应用都拥有独立的模块作用域，从而避免资源冲突，通过声明式的依赖配置模型实现跨应用共享组件资源。
 
-ioa遵循按需引入原则，因此其核心功能足够的精简，甚至不包含任何http相关的服务。@ioa/http组件提供了基于koa.js、路由及相关的配套服务。
+ioa遵循按需引入原则，因此其核心功能足够的精简，甚至不包含任何http相关的服务。@ioa/http组件集成了基于koa.js、middleware、controller、路由及相关的配套服务。
 
 
 ### 特性
@@ -54,26 +54,28 @@ project
     |
     |-- main
     |    |
-    |    |-- config               配置文件目录
+    |    | -- .loader.js         分级装载配置文件
+    |    |
+    |    10 -- config             配置文件目录
     |    |    |- default.js       公用默认配置
     |    |    |- localhost.js     本地环境配置
     |    |    |- development.js   开发环境配置
     |    |    └─ production.js    生产环境配置
     |    |    └─ $name.js         自定义环境配置
     |    |
-    |    |-- model                模型目录
+    |    20 -- model              模型目录
     |    |    |- $name.js
     |    |    └─ ...
     |    |
-    |    |-- middleware           中间件目录
+    |    30 -- middleware         中间件目录
     |    |    |- $name.js
     |    |    └─ ...
     |    |
-    |    |-- service              抽象服务层
+    |    40 -- service            抽象服务层
     |    |    |- $name.js
     |    |    └─ ...
     |    |
-    |    |-- controller           控制器目录
+    |    50 -- controller         控制器目录
     |    |    |-- home            多层控制器嵌套
     |    |    |    |- $name.js
     |    |    |    └─ ...
@@ -81,11 +83,9 @@ project
     |    |    |
     |    |    └─ $name.js
     |    |
-    |    |-- schedule             定时任务
-    |    |
-    |    |-- .loader.js           分级装载配置文件，支持任意子目录
+    |    60 -- schedule           定时任务
     |    | 
-    |    └─ router.js             路由配置文件
+    |    80 -- router.js           路由配置文件
     |
     |-- logger                    日志存档，按日期分组保存
     |
@@ -161,15 +161,16 @@ ioa中使用模块分级装载策略来管理生命周期，这使得你可以�
 
 为了在多个组件间建立统一的加载生命周期，实现跨组件兼容，需要按约定来加载模块。
 
-ioa约定了几个常见目录的装载等级如下：
+ioa约定了几个常见目录、模块的装载等级如下：
 
-directory | level
+Node | Level
 --- | ---
 config | 10
 model | 20
 middleware | 30
 service | 40
 controller | 50
+router.js | 80
 
 #### .loader.js 装载等级配置文件
 
