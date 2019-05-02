@@ -82,8 +82,6 @@ project
     |    |    |- ...
     |    |    |
     |    |    └─ $name.js
-    |    |
-    |    60 -- schedule           定时任务
     |    | 
     |    80 -- router.js          路由配置文件
     |
