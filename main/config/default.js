@@ -1,11 +1,13 @@
 'use strict';
 
 module.exports = {
-   "port": 8600,
    "mixin": {
       a: 666
    },
    'components': {
+      "@ioa/http": {
+         "port": 8600
+      },
       "@ioa/model": {
          "host": "localhost",
          "port": 5432,

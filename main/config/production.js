@@ -1,5 +1,9 @@
 'use strict';
 
 module.exports = {
-   port: 5500
+   'components': {
+      "@ioa/http": {
+         "port": 5500
+      },
+   }
 }

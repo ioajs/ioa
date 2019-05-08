@@ -5,6 +5,8 @@ const typea = require('typea');
 const axios = require('axios');
 const ioa = require('..');
 
+axios.defaults.baseURL = `http://localhost:8600`;
+
 ioa.loader({
    "./main": {
       "enable": true,
@@ -52,10 +54,6 @@ ioa.loader({
    },
 });
 
-const { port } = ioa;
-
-axios.defaults.baseURL = `http://localhost:${port}`;
-
 test('ioa', t => {
 
    const { data, error } = typea.strict(ioa, {
@@ -66,7 +64,6 @@ test('ioa', t => {
       loader: Function,
       beforeMiddleware: Array,
       main: Object,
-      port: Number,
       apps: {
          main: {
             $beforeMiddleware: [Function],
@@ -78,7 +75,6 @@ test('ioa', t => {
                resources: Function
             },
             config: {
-               "port": Number,
                "mixin": {
                   a: 666
                },
@@ -158,9 +154,7 @@ test('ioa', t => {
                delete: Function,
                resources: Function
             },
-            config: {
-               port: Number
-            },
+            config: {},
             middleware: {
                test: Function,
                intercept: Function
