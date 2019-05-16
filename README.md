@@ -2,11 +2,11 @@
 
 基于组件化、声明式的全新Node.js应用分级装载器。
 
-不同于常规框架的是ioa.js更像是一个高度灵活且易于定制的应用启动流程管理器，支持启动生命周期内的任意节点挂载指定模块或目录。
+不同于常规的Web框架，ioa.js仅仅是一个应用加载器。遵循按需引入原则，其核心功能足够的轻量，不集成任何与http相关的服务。
 
-ioa中的组件由多个平行应用构成，每个应用都拥有独立的模块作用域，从而避免资源冲突，通过声明式的依赖配置模型实现跨应用共享组件资源。
+基于水平加载策略，因此开发者可以自由的管理应用启动阶段的生命周期，而不必受限于常规框架的种种约束。
 
-ioa遵循按需引入原则，因此其核心功能足够的精简，甚至不包含任何http相关的服务。@ioa/http组件集成了基于koa.js、middleware、controller、路由及相关的配套服务。
+ioa.js中的组件由多个平行应用构成，每个应用都拥有独立的模块作用域，从而避免资源冲突，通过声明式的依赖配置模型实现跨应用共享组件资源。
 
 
 ### 特性
@@ -19,11 +19,7 @@ ioa遵循按需引入原则，因此其核心功能足够的精简，甚至不�
 
 * 支持使用npm发布、管理组件间的版本和依赖关系
 
-* 支持渐进式开发，从单点、多点应用再到微服务化、分布式架构，满足弹性扩张需求
-
-* 多功能路由支持，可自由选择声明式或自动寻址路由
-
-* 简单、轻量、易扩展、高性能
+* 支持单应用、多应用、组件模式平滑过渡，满足渐进式扩展需求
 
 
 ### Install
@@ -36,7 +32,7 @@ npm install ioa
 ### Usage
 
 ```js
-const ioa = require('ioa')
+const ioa = require('ioa');
 
 ioa.loader({
    "./main": {
@@ -99,16 +95,6 @@ project
 
 config中的第一个配置项被视为主应用，扩展组件的配置项在主应用的config目录中统一配置，框架自动分发到对应的扩展组件。
 
-默认状态下将./main目录作为主应用，配置如下：
-
-```js
-{
-   "./main": {
-      "enable": true,
-   },
-}
-```
-
 * $path `String` - 应用路径，支持相对路径或绝对路径
 
    * enable `Boolean` - 是否启用应用
@@ -119,7 +105,9 @@ config中的第一个配置项被视为主应用，扩展组件的配置项在�
 #### 示例
 
 ```js
-{
+const ioa = require('ioa');
+
+ioa.loader({
    "./main": {
       "enable": true,
       "components": {
@@ -131,18 +119,15 @@ config中的第一个配置项被视为主应用，扩展组件的配置项在�
          },
       },
    },
-   "./component/admin": {
+   "./admin": {
       "enable": true,
       "components": {
-         "@ioa/http": {
-            "enable": true
-         },
          "@ioa/model": {
             "enable": true,
          },
       },
    },
-}
+});
 ```
 
 
@@ -283,3 +268,7 @@ set NODE_ENV='localhost' & node index.js
 * [@ioa/rest](https://github.com/ioajs/ioa-rest) - 客户端查询数据库通用Rest Aip组件
 
 * [loggercc](https://github.com/xiangle/loggercc) - ioa.js集成的日志、console、debug模块
+
+* [@ioa/socket](https://github.com/ioajs/ioa-socket) - socket.io服务端组件
+
+* [@ioa/socket-client](https://github.com/ioajs/ioa-socket-client) - socket.io客户端组件
