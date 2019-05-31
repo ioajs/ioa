@@ -20,6 +20,14 @@ ioa.loader({
          "@ioa/auth": {
             "enable": true,
          },
+         "./common": {
+            "enable": true,
+            "components": {
+               "@ioa/http": {
+                  "enable": true,
+               },
+            }
+         },
       },
    },
    "./component/admin": {
@@ -33,14 +41,6 @@ ioa.loader({
          },
          "@ioa/auth": {
             "enable": true,
-         },
-      },
-   },
-   "./component/other": {
-      "enable": true,
-      "components": {
-         "@ioa/http": {
-            "enable": true
          },
       },
    },
@@ -111,10 +111,6 @@ test('ioa', t => {
                   update: Function,
                   destroy: Function
                }
-            },
-            other: {
-               a: Object,
-               b: Object,
             },
          },
          admin: {

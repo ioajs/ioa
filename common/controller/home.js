@@ -2,19 +2,19 @@
 
 class index {
    async index(ctx) {
-      ctx.body = 'admin index'
+      ctx.body = 'common index'
    }
    async details(ctx) {
-      ctx.body = 'admin details'
+      ctx.body = 'common details'
    }
    async add(ctx) {
-      ctx.body = 'admin add'
+      ctx.body = 'common add'
    }
    async update(ctx) {
-      ctx.body = 'admin update'
+      ctx.body = 'common update'
    }
    async delete(ctx) {
-      ctx.body = 'admin delete'
+      ctx.body = 'common delete'
    }
 }
 
