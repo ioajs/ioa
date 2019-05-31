@@ -261,13 +261,13 @@ set NODE_ENV='localhost' & node index.js
 
 ### 相关组件及模块
 
+* [loggercc](https://github.com/xiangle/loggercc) - ioa.js集成的日志、console、debug模块
+
 * [@ioa/http](https://github.com/ioajs/ioa-http) - 集成koa.js、路由及相关配套服务的http组件
 
 * [@ioa/model](https://github.com/ioajs/ioa-model) - Ormv.js库数据库模型封装
 
 * [@ioa/rest](https://github.com/ioajs/ioa-rest) - 客户端查询数据库通用Rest Aip组件
-
-* [loggercc](https://github.com/xiangle/loggercc) - ioa.js集成的日志、console、debug模块
 
 * [@ioa/socket](https://github.com/ioajs/ioa-socket) - socket.io服务端组件
 
