@@ -8,11 +8,11 @@ const { token, cors } = middleware;
 
 const { home, news } = controller;
 
-// router.befor(cors);
+router.befor(cors);
 
 router.get('/', home.index);
 
-router.post('/login', token, home.login);
+router.post('/login', token, 'home.login');
 
 router.get('/news', news.index);
 

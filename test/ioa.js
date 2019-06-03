@@ -11,7 +11,7 @@ ioa.loader({
    "./main": {
       "enable": true,
       "components": {
-         "@ioa/http": {
+         "@ioa/koa": {
             "enable": true,
          },
          "@ioa/model": {
@@ -22,18 +22,13 @@ ioa.loader({
          },
          "./common": {
             "enable": true,
-            "components": {
-               "@ioa/http": {
-                  "enable": true,
-               },
-            }
          },
       },
    },
-   "./component/admin": {
+   "./admin": {
       "enable": true,
       "components": {
-         "@ioa/http": {
+         "@ioa/koa": {
             "enable": true
          },
          "@ioa/model": {
@@ -44,10 +39,10 @@ ioa.loader({
          },
       },
    },
-   "./component/user": {
+   "./user": {
       "enable": true,
       "components": {
-         "@ioa/http": {
+         "@ioa/koa": {
             "enable": true
          },
       },
@@ -163,7 +158,7 @@ test('ioa', t => {
          },
       },
       components: {
-         "@ioa/http": Object,
+         "@ioa/koa": Object,
          "@ioa/model": Object,
          "@ioa/auth": Object,
       },

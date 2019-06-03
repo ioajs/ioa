@@ -111,7 +111,7 @@ ioa.loader({
    "./main": {
       "enable": true,
       "components": {
-         "@ioa/http": {
+         "@ioa/koa": {
             "enable": true
          },
          "@ioa/model": {
@@ -263,7 +263,7 @@ set NODE_ENV='localhost' & node index.js
 
 * [loggercc](https://github.com/xiangle/loggercc) - ioa.js集成的日志、console、debug模块
 
-* [@ioa/http](https://github.com/ioajs/ioa-http) - 集成koa.js、路由及相关配套服务的http组件
+* [@ioa/koa](https://github.com/ioajs/ioa-koa) - 集成koa.js、路由及相关配套服务的http组件
 
 * [@ioa/model](https://github.com/ioajs/ioa-model) - Ormv.js库数据库模型封装
 

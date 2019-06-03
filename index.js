@@ -20,6 +20,11 @@ const ioa = {
    cwd: process.cwd(),
    NODE_ENV,
    loader,
+   /**
+    * 全局共享属性
+    * @param {*} key 属性名
+    * @param {*} value 属性值
+    */
    shared(key, value) {
 
       const { apps } = this;

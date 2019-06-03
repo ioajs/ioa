@@ -5,7 +5,7 @@ module.exports = {
       a: 666
    },
    'components': {
-      "@ioa/http": {
+      "@ioa/koa": {
          "port": 8600
       },
       "@ioa/model": {
