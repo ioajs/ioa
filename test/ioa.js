@@ -55,7 +55,6 @@ test('ioa', t => {
       version: String,
       cwd: String,
       NODE_ENV: String,
-      logger: Function,
       loader: Function,
       beforeMiddleware: Array,
       main: Object,
@@ -122,8 +121,7 @@ test('ioa', t => {
             },
             model: { compcerts: Object },
             middleware: {
-               auth: Function,
-               role: Function,
+               auth: Object,
                token: Function,
             },
             controller: {

@@ -14,7 +14,6 @@ if (NODE_ENV) {
 
 const ioa = {
    version,
-   logger,
    apps: {},
    components: {},
    cwd: process.cwd(),
@@ -22,7 +21,7 @@ const ioa = {
    loader,
    /**
     * 全局共享属性
-    * @param {*} key 属性名
+    * @param {String} key 属性名
     * @param {*} value 属性值
     */
    shared(key, value) {
