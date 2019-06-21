@@ -1,6 +1,6 @@
 {
    "name": "ioa",
-   "version": "8.0.1",
+   "version": "8.0.2",
    "description": "Node.js多应用水平扩展、组件化框架，基于Koa 2.0",
    "keywords": [
       "application",
