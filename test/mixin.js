@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('jtf');
-const logger = require('loggercc');
+const consoln = require('consoln');
 const mixin = require('../lib/mixin.js');
 
 test('mixin', async t => {
@@ -40,7 +40,7 @@ test('mixin', async t => {
 
    if (result) {
 
-      logger.error(new Error(`data${result}存在合并冲突`));
+      consoln.error(new Error(`data${result}存在合并冲突`));
 
    }
 

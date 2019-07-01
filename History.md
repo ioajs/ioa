@@ -206,3 +206,11 @@
 * 将npm组件约定app目录名改为lib
 
 * 开发环境下改用软链接代替ioa引用模块
+
+### 9.0.0
+
+* 将loggercc替换为consoln，提高扩展性和性能
+
+* 修改before、after钩子参数结构
+
+* config配置文件由全加载改为按需加载

@@ -1,6 +1,6 @@
 {
    "name": "ioa",
-   "version": "8.0.2",
+   "version": "9.0.1",
    "description": "Node.js多应用水平扩展、组件化框架，基于Koa 2.0",
    "keywords": [
       "application",
@@ -17,18 +17,18 @@
    },
    "main": "index.js",
    "dependencies": {
-      "ioa-router": "^0.2.1",
-      "lloader": "^4.0.0",
-      "loggercc": "^1.3.2",
+      "consoln": "^1.0.2",
+      "lloader": "^4.2.0",
       "ttools": "^3.1.0"
    },
    "devDependencies": {
-      "@ioa/auth": "^8.0.1",
-      "@ioa/koa": "^8.0.3",
-      "@ioa/model": "^8.0.1",
+      "@ioa/auth": "^9.0.1",
+      "@ioa/koa": "^9.0.0",
+      "@ioa/model": "^9.0.0",
       "@koa/cors": "^2.2.3",
       "axios": "^0.18.1",
-      "typea": "^4.4.4"
+      "ioa-router": "^9.0.0",
+      "typea": "^4.4.5"
    },
    "files": [
       "lib",

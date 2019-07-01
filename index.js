@@ -1,6 +1,6 @@
 'use strict';
 
-const logger = require('loggercc');
+const consoln = require('consoln');
 const loader = require('./lib/loader.js');
 const { version } = require('./package.json');
 
@@ -43,6 +43,6 @@ const ioa = {
 
 console.log('');
 
-logger.log(`NODE_ENV = '${NODE_ENV}'`);
+consoln.log(`NODE_ENV = '${NODE_ENV}'`);
 
 module.exports = ioa;

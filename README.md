@@ -267,7 +267,7 @@ set NODE_ENV='localhost' & node index.js
 
 ### 相关组件及模块
 
-* [loggercc](https://github.com/xiangle/loggercc) - ioa.js集成的日志、console、debug模块
+* [consoln](https://github.com/xiangle/consoln) - ioa.js集成的日志、console、debug模块
 
 * [@ioa/koa](https://github.com/ioajs/ioa-koa) - 集成koa.js、路由及相关配套服务的http组件
 
