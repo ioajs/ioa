@@ -24,7 +24,7 @@ const ioa = {
     * @param {String} key 属性名
     * @param {*} value 属性值
     */
-   shared(key, value) {
+   emit(key, value) {
 
       const { apps } = this;
 

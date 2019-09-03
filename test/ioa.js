@@ -11,40 +11,24 @@ ioa.loader({
    "./main": {
       "enable": true,
       "components": {
-         "@ioa/koa": {
-            "enable": true,
-         },
-         "@ioa/model": {
-            "enable": true,
-         },
-         "@ioa/auth": {
-            "enable": true,
-         },
-         "./common": {
-            "enable": true,
-         },
+         "@ioa/koa": true,
+         "@ioa/model": true,
+         "@ioa/auth": true,
+         "./common/": true,
       },
    },
    "./admin": {
       "enable": true,
       "components": {
-         "@ioa/koa": {
-            "enable": true
-         },
-         "@ioa/model": {
-            "enable": true,
-         },
-         "@ioa/auth": {
-            "enable": true,
-         },
+         "@ioa/koa": true,
+         "@ioa/model": true,
+         "@ioa/auth": true,
       },
    },
    "./user": {
       "enable": true,
       "components": {
-         "@ioa/koa": {
-            "enable": true
-         },
+         "@ioa/koa": true,
       },
    },
 });
@@ -71,8 +55,7 @@ test('ioa', t => {
             config: {
                "mixin": {
                   a: 666
-               },
-               'components': Object
+               }
             },
             model: {
                document: Object

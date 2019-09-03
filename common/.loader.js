@@ -1,20 +1,15 @@
 'use strict';
 
-const component = require('@app');
+const app = require('@app');
 
-component.loader({
-   "@ioa/koa": {
-      "enable": true,
-   },
-   '@ioa/auth': {
-      "enable": true
-   },
-});
+app.on('@ioa/koa');
 
-const { levels } = component;
+app.on('@ioa/auth');
+
+const { loads } = app;
 
 module.exports = {
-   ...levels,
+   ...loads,
    "roles.js": {
       'level': 22
    },
