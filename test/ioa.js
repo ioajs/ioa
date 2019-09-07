@@ -7,31 +7,11 @@ const ioa = require('..');
 
 axios.defaults.baseURL = `http://localhost:8600`;
 
-ioa.loader({
-   "./main": {
-      "enable": true,
-      "components": {
-         "@ioa/koa": true,
-         "@ioa/model": true,
-         "@ioa/auth": true,
-         "./common/": true,
-      },
-   },
-   "./admin": {
-      "enable": true,
-      "components": {
-         "@ioa/koa": true,
-         "@ioa/model": true,
-         "@ioa/auth": true,
-      },
-   },
-   "./user": {
-      "enable": true,
-      "components": {
-         "@ioa/koa": true,
-      },
-   },
-});
+ioa.loader(
+   "./main",
+   "./admin",
+   "./user"
+);
 
 test('ioa', t => {
 
@@ -104,7 +84,7 @@ test('ioa', t => {
             },
             model: { compcerts: Object },
             middleware: {
-               auth: Object,
+               verify: Function,
                token: Function,
             },
             controller: {

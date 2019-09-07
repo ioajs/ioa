@@ -19,6 +19,7 @@ const ioa = {
    cwd: process.cwd(),
    NODE_ENV,
    loader,
+   loaders: [],
    /**
     * 全局共享属性
     * @param {String} key 属性名

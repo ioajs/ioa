@@ -40,11 +40,7 @@ npm install ioa
 ```js
 const ioa = require('ioa');
 
-ioa.loader({
-   "./main": {
-      "enable": true,
-   },
-});
+ioa.loader("./main");
 ```
 
 ### 目录结构
@@ -129,21 +125,10 @@ config中的第一个配置项被视为主应用，扩展组件的配置项在�
 ```js
 const ioa = require('ioa');
 
-ioa.loader({
-   "./main": {
-      "enable": true,
-      "components": {
-         "@ioa/koa": true,
-         "@ioa/model": true,
-      },
-   },
-   "./admin": {
-      "enable": true,
-      "components": {
-         "@ioa/model": true,
-      },
-   },
-});
+ioa.loader(
+   "./main",
+   "./admin"
+);
 ```
 
 
