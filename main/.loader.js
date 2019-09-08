@@ -7,10 +7,7 @@ app.on('@ioa/model');
 app.on('@ioa/auth');
 app.on('./common');
 
-const { loads } = app;
-
 module.exports = {
-   ...loads,
    other: {
       level: 16
    }
