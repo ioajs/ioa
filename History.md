@@ -214,3 +214,7 @@
 * 修改before、after钩子参数结构
 
 * config配置文件由全加载改为按需加载
+
+### 9.4.1
+
+* 修复不同环境变量下config mixin混合失效的bug
