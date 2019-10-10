@@ -3,5 +3,10 @@
 const app = require('@app');
 
 app.on('@ioa/koa');
-app.on('@ioa/model');
 app.on('@ioa/auth');
+
+module.exports = {
+   "model": {
+      "level": 20,
+   },
+}

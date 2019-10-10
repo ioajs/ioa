@@ -120,7 +120,6 @@ test('ioa', t => {
       },
       components: {
          "@ioa/koa": Object,
-         "@ioa/model": Object,
          "@ioa/auth": Object,
       },
    });
