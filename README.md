@@ -252,7 +252,9 @@ set NODE_ENV='localhost' & node index.js
 
 * [consoln](https://github.com/xiangle/consoln) - ioa.js集成的日志、console、debug模块
 
-* [@ioa/koa](https://github.com/ioajs/ioa-koa) - 集成koa.js、路由及相关配套服务的http组件
+* [@ioa/config](https://github.com/ioajs/ioa-config) - ioa.js config组件，用于加载config目录下的配置文件
+
+* [@ioa/koa](https://github.com/ioajs/ioa-koa) - 集成koa.js、路由、中间件、controller的http配套组件
 
 * [@ioa/model](https://github.com/ioajs/ioa-model) - Ormv.js库数据库模型封装
 
