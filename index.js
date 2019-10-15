@@ -16,10 +16,10 @@ const ioa = {
    version,
    apps: {},
    components: {},
-   cwd: process.cwd(),
+   loaders: [],
    NODE_ENV,
    loader,
-   loaders: [],
+   cwd: process.cwd(),
    /**
     * 全局共享属性
     * @param {String} key 属性名
@@ -39,7 +39,7 @@ const ioa = {
 
       }
 
-   }
+   },
 }
 
 console.log('');
