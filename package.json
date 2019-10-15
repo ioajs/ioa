@@ -15,7 +15,14 @@
       "consoln": "^1.0.2",
       "lloader": "^4.3.1"
    },
-   "devDependencies": {},
+   "devDependencies": {
+      "@ioa/auth": "^9.5.0",
+      "@ioa/config": "^9.5.0",
+      "@ioa/koa": "^9.5.0",
+      "@koa/cors": "^2.2.3",
+      "axios": "^0.18.1",
+      "typea": "^4.4.5"
+   },
    "files": [
       "lib",
       "index.js"
