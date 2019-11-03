@@ -6,8 +6,8 @@ app.on('@ioa/config');
 app.on('@ioa/koa');
 app.on('@ioa/auth');
 
-module.exports = {
+app.loader({
    "model": {
       "level": 20,
    },
-}
+})

@@ -2,7 +2,7 @@
 
 const test = require('jtf');
 const consoln = require('consoln');
-const mixin = require('ioa/lib/mixin.js');
+const mixin = require('../lib/mixin.js');
 
 test('mixin', async t => {
 

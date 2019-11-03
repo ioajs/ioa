@@ -7,11 +7,11 @@ app.on('@ioa/koa');
 app.on('@ioa/auth');
 app.on('./common');
 
-module.exports = {
+app.loader({
    "other": {
       level: 30
    },
    "model": {
       "level": 20,
    },
-}
+})
