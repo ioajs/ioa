@@ -161,7 +161,12 @@ index.js文件的解析、执行由lloader模块提供，它是构成ioa框架�
 配置参考示例：
 
 ```js
-module.exports = {
+const app = require('@app');
+
+app.on('@ioa/config');
+app.on('@ioa/koa');
+
+app.loader({
    "model": {
       "level": 20,
    },
@@ -177,7 +182,7 @@ module.exports = {
          return func;
       }
    },
-}
+})
 ```
 
 ### 组件作用域
