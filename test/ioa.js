@@ -15,7 +15,7 @@ ioa.loader(
 
 test('ioa', t => {
 
-   const { data, error } = typea.strict(ioa, {
+   const schema = typea({
       version: String,
       cwd: String,
       NODE_ENV: String,
@@ -49,6 +49,9 @@ test('ioa', t => {
                   index: Function,
                   sms: Function,
                   login: Function,
+               },
+               index: {
+                  test: Function,
                },
                news: {
                   index: Function,
@@ -122,7 +125,9 @@ test('ioa', t => {
          "@ioa/koa": Object,
          "@ioa/auth": Object,
       },
-   });
+   })
+
+   const { data, error } = schema.strictVerify(ioa)
 
    t.ok(data, error);
 

@@ -241,3 +241,7 @@
 ### 9.7.1
 
 新增 app.loader() api 代替 module.exports 导出，降低理解难度。
+
+### 9.7.3
+
+- 移除目录index模块的特殊加载方式，index文件名不再具有特权。
