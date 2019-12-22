@@ -8,7 +8,7 @@ const { token, cors } = middleware;
 
 const { home, news } = controller;
 
-router.befor(cors);
+router.global(cors);
 
 router.get('/', home.index);
 
