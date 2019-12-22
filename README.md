@@ -106,20 +106,16 @@ project
 ```
 
 
-### ioa.loader([config]) 配置参数
+### ioa.loader(path, ...) 配置参数
 
 应用配置参数用于声明要装载的应用及如何装载。
 
-config中的第一个配置项被视为主应用，扩展组件的配置项在主应用的config目录中统一配置，框架自动分发到对应的扩展组件。
+第一个path被视为主应用，子组件的配置项在主应用的config目录中统一配置，框架自动分发到对应的子组件。
 
-* $path `String` - 应用路径，支持相对路径或绝对路径
-
-   * enable `Boolean` - 是否启用应用
-
-   * components `Object` - 应用依赖的组件
+* path `String` - 应用路径，支持相对路径或绝对路径
    
 
-#### 启动配置示例
+#### 配置示例
 
 ```js
 const ioa = require('ioa');
