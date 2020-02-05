@@ -12,38 +12,17 @@ if (NODE_ENV) {
    NODE_ENV = 'production';
 }
 
-const ioa = {
+console.log('');
+
+consoln.log(`Ioa Framework V${version}`);
+consoln.log(`NODE_ENV = '${NODE_ENV}'`);
+
+module.exports = {
    version,
    apps: {},
    components: {},
    loaders: [],
    NODE_ENV,
    loader,
-   cwd: process.cwd(),
-   /**
-    * 全局共享属性
-    * @param {String} key 属性名
-    * @param {*} value 属性值
-    */
-   emit(key, value) {
-
-      const { apps } = this;
-
-      for (const name in apps) {
-
-         const app = apps[name];
-         const node = app[key];
-         if (node) {
-            Object.assign(node, value);
-         }
-
-      }
-
-   },
-}
-
-console.log('');
-
-consoln.log(`NODE_ENV = '${NODE_ENV}'`);
-
-module.exports = ioa;
+   cwd: process.cwd()
+};
