@@ -8,10 +8,10 @@ app.on('@ioa/auth');
 app.on('./common');
 
 app.loader({
-   "other": {
-      level: 30
-   },
    "model": {
       "level": 20,
+   },
+   "other": {
+      level: 30
    },
 })

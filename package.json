@@ -18,7 +18,7 @@
    "devDependencies": {
       "@ioa/auth": "^9.5.0",
       "@ioa/config": "^9.5.0",
-      "@ioa/koa": "^9.7.3",
+      "@ioa/koa": "^9.7.8",
       "@koa/cors": "^2.2.3",
       "axios": "^0.18.1",
       "typea": "^5.0.1"
