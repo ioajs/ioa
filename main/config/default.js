@@ -2,7 +2,7 @@
 
 module.exports = {
    "@ioa/koa": {
-      "port": 8600
+      "port": 8600,
    },
    "@ioa/auth": {
       "password": "test"

@@ -17,12 +17,27 @@ console.log('');
 consoln.log(`Ioa Framework V${version}`);
 consoln.log(`NODE_ENV = '${NODE_ENV}'`);
 
+// argv参数解析
+const [, , ...processArgv] = process.argv;
+
+let key = '';
+const argv = {};
+for (const item of processArgv) {
+   if (item[0] === '-') {
+      key = item.replace(/^-{1,2}/, '');
+      argv[key] = [];
+   } else {
+      argv[key].push(item);
+   }
+}
+
 module.exports = {
    version,
    apps: {},
    components: {},
    loaders: [],
-   NODE_ENV,
    loader,
-   cwd: process.cwd()
+   NODE_ENV,
+   cwd: process.cwd(),
+   argv,
 };
