@@ -21,12 +21,12 @@ consoln.log(`Ioa Framework V${version}`);
 consoln.log(`NODE_ENV = '${NODE_ENV}'`);
 
 module.exports = {
-   version,
+   argv,
    apps: {},
    components: {},
    loaders: [],
    loader,
    NODE_ENV,
    cwd: process.cwd(),
-   argv,
+   version
 };
