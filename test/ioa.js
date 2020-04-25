@@ -7,7 +7,7 @@ const ioa = require('ioa');
 
 axios.defaults.baseURL = `http://localhost:8600`;
 
-ioa.loader(
+ioa.app(
   "./main",
   "./admin",
   "./user"

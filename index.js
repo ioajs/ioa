@@ -1,8 +1,8 @@
 'use strict';
 
 const consoln = require('consoln');
-const loader = require('./lib/loader.js');
 const argv = require('./lib/argv.js');
+const loaderApp = require('./lib/loaderApp.js');
 const { version } = require('./package.json');
 
 let { NODE_ENV } = process.env;
@@ -25,7 +25,8 @@ module.exports = {
    apps: {},
    components: {},
    loaders: [],
-   loader,
+   app: loaderApp,
+   loader: loaderApp,
    NODE_ENV,
    cwd: process.cwd(),
    version
