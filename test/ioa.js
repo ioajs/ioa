@@ -127,7 +127,10 @@ test('ioa', t => {
     },
   })
 
-  const { data, error } = schema.strictVerify(ioa)
+  console.log(Object.keys(ioa.apps));
+
+  const { data, error } = schema.strictVerify(ioa);
+
 
   t.ok(data, error);
 
