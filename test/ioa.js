@@ -20,7 +20,7 @@ test('ioa', t => {
     version: String,
     cwd: String,
     NODE_ENV: String,
-    loader: Function,
+    app: Function,
     main: Object,
     apps: {
       main: {
@@ -126,8 +126,6 @@ test('ioa', t => {
       "@ioa/auth": Object,
     },
   })
-
-  console.log(Object.keys(ioa.apps));
 
   const { data, error } = schema.strictVerify(ioa);
 

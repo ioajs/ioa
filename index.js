@@ -26,7 +26,6 @@ module.exports = {
    components: {},
    loaders: [],
    app: loaderApp,
-   loader: loaderApp,
    NODE_ENV,
    cwd: process.cwd(),
    version
