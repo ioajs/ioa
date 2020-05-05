@@ -124,6 +124,7 @@ test('ioa', t => {
     components: {
       "@ioa/koa": Object,
       "@ioa/auth": Object,
+      "@common": Object,
     },
   })
 
