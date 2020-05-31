@@ -24,6 +24,12 @@ test('ioa', t => {
     main: Object,
     apps: {
       main: {
+        components: {
+          '@ioa/config': Object,
+          '@ioa/koa': Object,
+          '@ioa/auth': Object,
+          '@common': Object,
+        },
         $beforeMiddleware: [Function],
         router: {
           get: Function,
@@ -74,6 +80,7 @@ test('ioa', t => {
         },
       },
       admin: {
+        components: Object,
         $beforeMiddleware: [Function],
         router: {
           get: Function,
@@ -101,6 +108,7 @@ test('ioa', t => {
         },
       },
       user: {
+        components: Object,
         $beforeMiddleware: [Function],
         router: {
           get: Function,

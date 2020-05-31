@@ -1,6 +1,6 @@
 'use strict';
 
-const ioa = require('ioa');
+const app = require('@app');
 
 module.exports = {
    test(){

@@ -2,5 +2,5 @@
 
 const app = require('@app');
 
-app.on('@ioa/config');
-app.on('@ioa/koa');
+app.use('@ioa/config');
+app.use('@ioa/koa');
