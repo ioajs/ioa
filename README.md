@@ -39,7 +39,7 @@ npm install ioa
 ```js
 const ioa = require('ioa');
 
-ioa.loader("./main");
+ioa.app("./main");
 ```
 
 ### 目录结构
@@ -106,9 +106,7 @@ project
 ```
 
 
-### ioa.loader(path, ...) 配置参数
-
-应用配置参数用于声明要装载的应用及如何装载。
+### ioa.app(path, ...)
 
 第一个path被视为主应用，子组件的配置项在主应用的config目录中统一配置，框架自动分发到对应的子组件。
 
@@ -120,7 +118,7 @@ project
 ```js
 const ioa = require('ioa');
 
-ioa.loader("./main", "./admin");
+ioa.app("./main", "./admin");
 ```
 
 
@@ -159,8 +157,8 @@ index.js文件的加载、执行由lloader模块提供，它是构成ioa框架�
 ```js
 const app = require('@app');
 
-app.on('@ioa/config');
-app.on('@ioa/koa');
+app.use('@ioa/config');
+app.use('@ioa/koa');
 
 app.loader({
    "model": {
