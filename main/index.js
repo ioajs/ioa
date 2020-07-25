@@ -5,7 +5,7 @@ const app = require('@app');
 app.use('@ioa/config');
 app.use('@ioa/koa');
 app.use('@ioa/auth');
-app.use('./@common/');
+app.use('./@common');
 
 app.loader({
    "model": {

@@ -1,17 +1,8 @@
 'use strict';
 
-const test = require('jtf');
+const test = require('jmr');
 const typea = require('typea');
-const axios = require('axios');
 const ioa = require('ioa');
-
-axios.defaults.baseURL = `http://localhost:8600`;
-
-ioa.app(
-  "./main",
-  "./admin",
-  "./user"
-);
 
 test('ioa', t => {
 
@@ -30,7 +21,7 @@ test('ioa', t => {
           '@ioa/auth': Object,
           '@common': Object,
         },
-        $beforeMiddleware: [Function],
+        beforeMiddleware: [Function],
         router: {
           get: Function,
           post: Function,
@@ -81,7 +72,7 @@ test('ioa', t => {
       },
       admin: {
         components: Object,
-        $beforeMiddleware: [Function],
+        beforeMiddleware: [Function],
         router: {
           get: Function,
           post: Function,
@@ -109,7 +100,7 @@ test('ioa', t => {
       },
       user: {
         components: Object,
-        $beforeMiddleware: [Function],
+        beforeMiddleware: [Function],
         router: {
           get: Function,
           post: Function,

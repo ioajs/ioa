@@ -1,6 +1,6 @@
 'use strict';
 
-const test = require('jtf');
+const test = require('jmr');
 const consoln = require('consoln');
 const mixin = require('../lib/mixin.js');
 

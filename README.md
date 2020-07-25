@@ -221,7 +221,7 @@ ioa支持NODE_ENV和PORT两个外部环境变量，可选择全局持久化环�
 
 通过配置全局的NODE_ENV环境变量，实现不同运行环境下的差异化配置。
 
-NODE_ENV通常被定义为全局变量，如果需要临时切换环境变量配置文件，则应该使用零时变量。
+NODE_ENV通常被定义为全局变量，如果需要临时切换环境变量配置文件，则应该使用临时变量。
 
 #### 配置示例
 
@@ -257,12 +257,9 @@ set NODE_ENV='localhost' & node index.js
 
 * [@ioa/ormv](https://github.com/ioajs/ioa-ormv) - pgsql数据库模型封装
 
-* [@ioa/rdb](https://github.com/ioajs/ioa-rdb) - 客户端查询数据库通用Rest Aip组件
-
 * [@ioa/socket](https://github.com/ioajs/ioa-socket) - socket.io服务端组件
 
 * [@ioa/socket-client](https://github.com/ioajs/ioa-socket-client) - socket.io客户端组件
 
 * [@ioa/ioa-upload](https://github.com/ioajs/ioa-upload) - 文件上传
 
-* [@ioa/swagger](https://github.com/ioajs/ioa-swagger) - swagger.json 生成器

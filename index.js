@@ -22,10 +22,10 @@ consoln.log(`NODE_ENV = '${NODE_ENV}'`);
 
 module.exports = {
    argv,
+   app: loaderApp,
    apps: {},
    components: {},
    loaders: [],
-   app: loaderApp,
    NODE_ENV,
    cwd: process.cwd(),
    version

@@ -72,7 +72,7 @@
 
 ### 4.6.4
 
-- 升级 lloader 模块至 1.4.1，暴露 ioa.loader、app.loader 函数对象
+- 升级 lloader 模块至 1.4.1，暴露 ioa.app、app.loader 函数对象
 
 ### 4.6.3
 
