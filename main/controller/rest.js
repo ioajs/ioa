@@ -6,7 +6,7 @@ const { controller } = app;
 
 // console.log(controller)
 
-class rest {
+module.exports = class Rest {
    async index(ctx) {
       ctx.body = ctx.params;
    }
@@ -34,6 +34,4 @@ class rest {
    async other(ctx) {
       ctx.body = 'other';
    }
-}
-
-module.exports = rest
+};

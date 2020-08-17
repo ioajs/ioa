@@ -1,6 +1,6 @@
 'use strict';
 
-class news {
+module.exports = class News {
    index(ctx) {
       ctx.body = 'news index';
    }
@@ -11,5 +11,3 @@ class news {
       };
    }
 }
-
-module.exports = news

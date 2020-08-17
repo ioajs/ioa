@@ -1,6 +1,6 @@
 'use strict';
 
-class test {
+module.exports = class Test {
    async index(ctx) {
       ctx.body = 'index'
    }
@@ -17,5 +17,3 @@ class test {
       ctx.body = 'destroy'
    }
 }
-
-module.exports = test
