@@ -146,7 +146,8 @@ model | 20
 middleware | 30
 service | 40
 controller | 50
-router.js | 80
+event | 60
+router | 80
 
 #### index.js 装载项目入口文件
 
