@@ -69,6 +69,7 @@ test('ioa', t => {
             destroy: Function
           }
         },
+        test: 666
       },
       admin: {
         components: Object,

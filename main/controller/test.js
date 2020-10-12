@@ -1,5 +1,13 @@
 'use strict';
 
+
+const app = require('@app');
+
+// const { controller, config } = app;
+
+// console.log(controller)
+// console.log(config)
+
 module.exports = class {
    async index(ctx) {
       ctx.body = 'index'

@@ -14,4 +14,10 @@ app.loader({
    "other": {
       level: 30
    },
+   "test": {
+      level: 30,
+      action() {
+         return 666;
+      }
+   },
 })

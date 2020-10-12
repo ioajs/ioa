@@ -1,11 +1,5 @@
 'use strict';
 
-const app = require('@app');
-
-const { controller } = app;
-
-// console.log(controller)
-
 module.exports = class Rest {
    async index(ctx) {
       ctx.body = ctx.params;
