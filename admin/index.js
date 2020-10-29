@@ -10,4 +10,10 @@ app.loader({
    "model": {
       "level": 20,
    },
+   "xxx": {
+      level: 30,
+      action() {
+         return 666;
+      }
+   },
 })
