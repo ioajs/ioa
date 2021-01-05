@@ -1,6 +1,6 @@
 'use strict';
 
-class index {
+module.exports = class index {
    async index(ctx) {
       ctx.body = 'common index'
    }
@@ -17,5 +17,3 @@ class index {
       ctx.body = 'common delete'
    }
 }
-
-module.exports = index

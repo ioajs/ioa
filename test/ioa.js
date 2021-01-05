@@ -18,7 +18,6 @@ test('ioa', t => {
         components: {
           '@ioa/config': Object,
           '@ioa/koa': Object,
-          '@ioa/auth': Object,
           '@common': Object,
         },
         beforeMiddleware: [Function],
@@ -86,7 +85,6 @@ test('ioa', t => {
         },
         model: { compcerts: Object },
         middleware: {
-          verify: Function,
           token: Function,
         },
         controller: {
@@ -123,7 +121,6 @@ test('ioa', t => {
     },
     components: {
       "@ioa/koa": Object,
-      "@ioa/auth": Object,
       "@common": Object,
     },
   })
