@@ -10,6 +10,9 @@ app.loader({
    "model": {
       "level": 20,
    },
+   "extend": {
+      "level": 20,
+   },
    "other": {
       level: 30
    },

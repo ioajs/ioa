@@ -3,9 +3,3 @@
 const app = require('@app');
 
 app.use('@ioa/koa');
-
-// app.loader({
-//    "roles.js": {
-//       'level': 22
-//    },
-// })

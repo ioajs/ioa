@@ -1,7 +1,12 @@
 'use strict';
 
-module.exports = class {
+const { extend } = require('@app');
+
+const { Controller, Base } = extend;
+
+class Home extends Controller {
    index(ctx) {
+      this.test();
       ctx.body = 'index';
    }
    sms(ctx) {
@@ -15,3 +20,5 @@ module.exports = class {
       };
    }
 };
+
+module.exports = Home;

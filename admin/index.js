@@ -10,7 +10,7 @@ app.loader({
       "level": 20,
    },
    "xxx": {
-      level: 30,
+      "level": 30,
       action() {
          return 666;
       }

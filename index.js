@@ -2,7 +2,7 @@
 
 const consoln = require('consoln');
 const argv = require('./lib/argv.js');
-const loaderApp = require('./lib/loaderApp.js');
+const loadApp = require('./lib/loadApp.js');
 const { version } = require('./package.json');
 
 let { NODE_ENV } = process.env;
@@ -22,7 +22,7 @@ consoln.log(`NODE_ENV = '${NODE_ENV}'`);
 
 module.exports = {
    argv,
-   app: loaderApp,
+   app: loadApp,
    apps: {},
    components: {},
    loaders: [],

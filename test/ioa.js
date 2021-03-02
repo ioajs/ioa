@@ -123,10 +123,9 @@ test('ioa', t => {
       "@ioa/koa": Object,
       "@common": Object,
     },
-  })
+  });
 
   const { data, error } = schema.strictVerify(ioa);
-
 
   t.ok(data, error);
 
