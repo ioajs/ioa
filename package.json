@@ -1,0 +1,42 @@
+{
+   "name": "ioa",
+   "version": "11.0.4-rc",
+   "type": "module",
+   "description": "Node.js多应用水平扩展、组件化框架",
+   "keywords": [
+      "application",
+      "framework",
+      "middleware",
+      "koa",
+      "ioa"
+   ],
+   "scripts": {
+      "test": "jmr"
+   },
+   "main": "index.js",
+   "dependencies": {
+      "consoln": "^1.0.3"
+   },
+   "devDependencies": {
+      "@ioa/config": "^11.0.1",
+      "@ioa/koa": "^10.0.2",
+      "@koa/cors": "^3.1.0",
+      "axios": "^0.21.1",
+      "typea": "^5.2.0"
+   },
+   "types": "index.d.ts",
+   "files": [
+      "lib",
+      "index.js",
+      "index.d.ts"
+   ],
+   "author": "",
+   "license": "ISC",
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/ioajs/ioa.git"
+   },
+   "engines": {
+      "node": ">= 15.0.0"
+   }
+}
