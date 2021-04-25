@@ -1,6 +1,6 @@
 {
    "name": "ioa",
-   "version": "11.0.5-rc",
+   "version": "11.0.6-rc",
    "type": "module",
    "description": "Node.js多应用水平扩展、组件化框架",
    "keywords": [
@@ -37,6 +37,6 @@
       "node": ">= 15.0.0"
    },
    "dependencies": {
-      "consoln": "^2.0.1"
+      "consoln": "^2.0.2"
    }
 }
