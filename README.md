@@ -39,9 +39,9 @@ npm install ioa
 ### Usage
 
 ```js
-const ioa = require("ioa");
+import ioa from 'ioa';
 
-ioa.app("./main");
+ioa.loadApp("./main");
 ```
 
 ### 目录结构
@@ -117,9 +117,9 @@ project
 #### 多应用配置示例
 
 ```js
-const ioa = require("ioa");
+import ioa from 'ioa';
 
-ioa.app("./main", "./admin");
+ioa.loadApp("./main", "./admin");
 ```
 
 ### 分级装载
@@ -155,7 +155,9 @@ index.js 文件的加载、执行由 lloader 模块提供，它是构成 ioa 框
 配置参考示例：
 
 ```js
-const app = require("@app");
+import ioa from 'ioa';
+
+const { app } = ioa;
 
 app.use("@ioa/config");
 app.use("@ioa/koa");
@@ -192,7 +194,9 @@ app.loader({
 @app 模块仅用于组件作用域内使用，在组件作用域外应该使用 ioa 模块。
 
 ```js
-const { middleware } = require("@app");
+import ioa from 'ioa';
+
+const { middleware } = ioa.app;
 ```
 
 ### 组件化
