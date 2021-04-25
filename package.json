@@ -1,6 +1,6 @@
 {
    "name": "ioa",
-   "version": "11.0.4-rc",
+   "version": "11.0.5-rc",
    "type": "module",
    "description": "Node.js多应用水平扩展、组件化框架",
    "keywords": [
@@ -19,7 +19,7 @@
    },
    "devDependencies": {
       "@ioa/config": "^11.0.1",
-      "@ioa/koa": "^10.0.2",
+      "@ioa/koa": "^11.0.0",
       "@koa/cors": "^3.1.0",
       "axios": "^0.21.1",
       "typea": "^5.2.0"
