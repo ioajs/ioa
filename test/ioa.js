@@ -10,14 +10,13 @@ test('ioa', t => {
     cwd: String,
     NODE_ENV: String,
     loadApp: Function,
-    main: Object,
+    components: {
+      '@ioa/config': Object,
+      '@ioa/koa': Object,
+      '@common': Object,
+    },
     apps: {
       main: {
-        components: {
-          '@ioa/config': Object,
-          '@ioa/koa': Object,
-          '@common': Object,
-        },
         beforeMiddleware: [Function],
         router: {
           get: Function,
@@ -69,7 +68,6 @@ test('ioa', t => {
         test: 666
       },
       admin: {
-        components: Object,
         beforeMiddleware: [Function],
         router: {
           get: Function,
@@ -81,7 +79,7 @@ test('ioa', t => {
         config: {
           base: String
         },
-        model: { compcerts: Object },
+        model: { compcerts: undefined },
         middleware: {
           token: Function,
         },
@@ -96,7 +94,6 @@ test('ioa', t => {
         },
       },
       user: {
-        components: Object,
         beforeMiddleware: [Function],
         router: {
           get: Function,
@@ -117,10 +114,7 @@ test('ioa', t => {
         }
       },
     },
-    components: {
-      "@ioa/koa": Object,
-      "@common": Object,
-    },
+    main: Object,
   });
 
   const { data, error } = schema.strictVerify(ioa);

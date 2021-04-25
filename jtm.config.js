@@ -6,7 +6,7 @@ test.axios = axios;
 
 axios.defaults.baseURL = `http://localhost:8600`;
 
-ioa.loadApp(
+await ioa.loadApp(
   "./main",
   "./admin",
   "./user"
