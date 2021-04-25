@@ -14,12 +14,9 @@
       "test": "jmr"
    },
    "main": "index.js",
-   "dependencies": {
-      "consoln": "^1.0.3"
-   },
    "devDependencies": {
       "@ioa/config": "^11.0.1",
-      "@ioa/koa": "^11.0.0",
+      "@ioa/koa": "^11.0.1",
       "@koa/cors": "^3.1.0",
       "axios": "^0.21.1",
       "typea": "^5.2.0"
@@ -38,5 +35,8 @@
    },
    "engines": {
       "node": ">= 15.0.0"
+   },
+   "dependencies": {
+      "consoln": "^2.0.1"
    }
 }
