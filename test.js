@@ -1,8 +1,8 @@
 console.time('test')
 
-import ioa from 'ioa';
+import { loadApp } from 'ioa';
 
-await ioa.loadApp(
+await loadApp(
   "./main",
   "./admin",
   "./user"

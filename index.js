@@ -1,6 +1,6 @@
 import fs from 'fs';
 import consoln from 'consoln';
-import argv from './lib/argv.js';
+import ioa from './lib/ioa.js';
 import loadApp from './lib/loadApp.js';
 
 const url = new URL('package.json', import.meta.url);
@@ -23,34 +23,12 @@ console.log('');
 consoln.log(`Ioa Framework V${version}`);
 consoln.log(`NODE_ENV = '${NODE_ENV}'`);
 
-const cwd = process.cwd();
+ioa.NODE_ENV = NODE_ENV;
+ioa.version = version;
+ioa.loadApp = loadApp;
 
-export default {
-   argv,
-   loadApp,
-   apps: {},
-   paths: {},
-   components: {},
-   loaders: [],
-   NODE_ENV,
-   cwd,
-   version,
-   // 获取当前动态app
-   get app() {
+export { NODE_ENV, version, loadApp };
 
-      const { stack } = new Error();
-      const atPath = stack.split('\n')[2];
-      const [filePath] = atPath.match(/(\/[^\/]+)+/);
-      const pathSplit = decodeURI(filePath).split('/');
+export * from "./lib/ioa.js";
 
-      for (let i = pathSplit.length - 2; i > 0; i--) {
-         pathSplit.pop();
-         const path = pathSplit.join('/');
-         const app = this.paths[path];
-         if (app) {
-            return app;
-         }
-      }
-
-   }
-};
+export default ioa;
