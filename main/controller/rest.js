@@ -26,4 +26,4 @@ export default class Rest {
    async other(ctx) {
       ctx.body = 'other';
    }
-};
+}

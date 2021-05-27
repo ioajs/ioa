@@ -19,6 +19,6 @@ class Home extends Controller {
          body
       };
    }
-};
+}
 
 export default Home;
