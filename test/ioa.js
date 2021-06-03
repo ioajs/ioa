@@ -17,7 +17,7 @@ test('ioa', t => {
     },
     apps: {
       main: {
-        beforeMiddleware: [Function],
+        middlewareBefore: [Function],
         router: {
           get: Function,
           post: Function,
@@ -68,7 +68,7 @@ test('ioa', t => {
         test: 666
       },
       admin: {
-        beforeMiddleware: [Function],
+        middlewareBefore: [Function],
         router: {
           get: Function,
           post: Function,
@@ -94,7 +94,7 @@ test('ioa', t => {
         },
       },
       user: {
-        beforeMiddleware: [Function],
+        middlewareBefore: [Function],
         router: {
           get: Function,
           post: Function,
