@@ -19,6 +19,11 @@ test('get /sms/:id/sd/:kk', async t => {
    t.deepEqual(data, { id: '666', kk: '888' })
 });
 
+test('get /inline', async t => {
+   const { data } = await axios.get("/inline")
+   t.deepEqual(data, 'router controller')
+});
+
 
 test('post /login', async t => {
    const body = { xx: 666 }

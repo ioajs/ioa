@@ -1,7 +1,8 @@
 import fs from 'fs';
 import consoln from 'consoln';
-import ioa from './lib/ioa.js';
 import loadApp from './lib/loadApp.js';
+import component from './lib/component.js';
+import { ioa, components, apps } from './lib/common.js';
 
 const url = new URL('package.json', import.meta.url);
 const packagePath = decodeURI(url.pathname);
@@ -9,15 +10,43 @@ const packagePath = decodeURI(url.pathname);
 const packageUtf8 = fs.readFileSync(packagePath, { encoding: 'utf8' });
 const { version } = JSON.parse(packageUtf8);
 
-console.log('');
-consoln.log(`Ioa Framework V${version}`);
-consoln.log(`NODE_ENV = '${ioa.NODE_ENV}'`);
+// argv参数解析
+const [, , ...processArgv] = process.argv;
+const argv = { default: [] };
 
+let key = 'default';
+for (const item of processArgv) {
+  if (item[0] === '-') {
+    key = item.replace(/^-{1,2}/, '');
+    argv[key] = [];
+  } else {
+    argv[key].push(item);
+  }
+}
+
+let { NODE_ENV } = process.env;
+
+if (NODE_ENV) {
+  NODE_ENV = NODE_ENV.trim();
+} else if (argv.env) {
+  NODE_ENV = argv.env[0];
+} else {
+  NODE_ENV = 'production';
+}
+
+ioa.argv = argv;
 ioa.version = version;
+ioa.NODE_ENV = NODE_ENV;
+ioa.component = component;
 ioa.loadApp = loadApp;
 
-export { version, loadApp };
+console.log('');
+consoln.log(`Ioa Framework V${version}`);
+consoln.log(`NODE_ENV = ${NODE_ENV}`);
 
-export * from "./lib/ioa.js";
+export {
+  components,
+  apps,
+};
 
 export default ioa;
