@@ -149,11 +149,11 @@ ioa 约定了几个常见目录、模块的装载等级如下：
 ### 装载项目入口文件 index.js
 
 ```ts
-app.use(name: string);
+app.component(name: string);
 
-app.loader(options: object);
+app.import(options: object);
 
-app.emit(name: string, value: void);
+app.export(name: string, value: void);
 ```
 
 *  `options` *Object*
@@ -195,10 +195,10 @@ import ioa from "ioa";
 
 const { app } = ioa;
 
-app.use("@ioa/config");
-app.use("@ioa/koa");
+app.component("@ioa/config");
+app.component("@ioa/koa");
 
-app.loader({
+app.import({
   model: {
     level: 20,
   },

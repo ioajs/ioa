@@ -22,7 +22,7 @@ interface App {
   components: object;
 
   /** 
-   * 安装组件，支持npm组件、相对路径和绝对路径组件
+   * 注册组件，支持npm组件、相对路径和绝对路径组件
    * @param {string} path 组件名称或路径 
    */
    component(path: string): void;

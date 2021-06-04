@@ -7,7 +7,6 @@ test('ioa', t => {
   const schema = typea({
     argv: Object,
     version: String,
-    cwd: String,
     NODE_ENV: String,
     apps: Function,
     components: {

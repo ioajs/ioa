@@ -28,7 +28,7 @@
 
 ### 9.7.1
 
-新增 app.loader() api 代替 module.exports 导出，降低理解难度。
+新增 app.import() api 代替 module.exports 导出，降低理解难度。
 
 ### 9.7.0
 

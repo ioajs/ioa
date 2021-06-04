@@ -11,7 +11,7 @@
       "ioa"
    ],
    "scripts": {
-      "test": "jmr"
+      "test": "jtm"
    },
    "main": "index.js",
    "devDependencies": {
