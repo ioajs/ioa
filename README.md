@@ -150,7 +150,9 @@ ioa 约定了几个常见目录、模块的装载等级如下：
 
 ```ts
 app.use(name: string);
+
 app.loader(options: object);
+
 app.emit(name: string, value: void);
 ```
 
