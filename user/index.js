@@ -2,5 +2,5 @@ import ioa from 'ioa';
 
 const { app } = ioa;
 
-app.use('@ioa/config');
-app.use('@ioa/koa');
+app.component('@ioa/config');
+app.component('@ioa/koa');

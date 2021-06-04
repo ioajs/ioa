@@ -15,6 +15,7 @@ const [, , ...processArgv] = process.argv;
 const argv = { default: [] };
 
 let key = 'default';
+
 for (const item of processArgv) {
   if (item[0] === '-') {
     key = item.replace(/^-{1,2}/, '');

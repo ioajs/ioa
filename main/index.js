@@ -1,25 +1,24 @@
-import ioa from 'ioa';
-
-const { app } = ioa;
-
-app.use('@ioa/config');
-app.use('@ioa/koa');
-app.use('./@common');
-
-app.loader({
-   "model": {
+export default {
+  components: [
+    "@ioa/config",
+    "@ioa/koa",
+    "./@common"
+  ],
+  import: {
+    "model": {
       "level": 20,
-   },
-   "extend": {
+    },
+    "extend": {
       "level": 20,
-   },
-   "other": {
+    },
+    "other": {
       level: 30
-   },
-   "test": {
+    },
+    "test": {
       level: 30,
       action() {
-         return 666;
+        return 666;
       }
-   },
-});
+    },
+  }
+}
