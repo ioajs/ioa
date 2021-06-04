@@ -34,7 +34,7 @@
       "url": "git+https://github.com/ioajs/ioa.git"
    },
    "engines": {
-      "node": ">= 15.0.0"
+      "node": ">= 16.0.0"
    },
    "dependencies": {
       "consoln": "^2.0.2"

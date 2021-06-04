@@ -146,9 +146,45 @@ ioa 约定了几个常见目录、模块的装载等级如下：
 | event      | 60    |
 | router     | 80    |
 
-#### index.js 装载项目入口文件
+### 装载项目入口文件 index.js
 
-index.js 文件的加载、执行由 lloader 模块提供，它是构成 ioa 框架的核心库，关于装载器的更多功能和配置细节请参考[lloader](https://github.com/xiangle/lloader)。
+```ts
+app.use(name: string);
+app.loader(options: object);
+app.emit(name: string, value: void);
+```
+
+*  `options` *Object*
+
+      *  `$name` *Object, Boolean* - 装载选项，$name对应目录名称或包含.js、.json后缀的文件名。当值为false时表示不装载该目录或模块
+
+         *  `level` *Number* - 加载等级
+
+         *  `before(options)` *Function* - 当前等级下所有目录、模块在加载前执行的钩子函数（仅在当前层级触发，不对子集继承）
+
+               *  `data` * - 当前目录、模块导出数据
+
+               *  `dirList` *Array* - 当前目录下的文件名列表
+
+               *  `parents` *Object* - 父节点
+
+               *  `root` *Object* - 根节点
+
+         *  `module(data, name)` *Function* - 模块加载完毕的回调函数，this指向当前层级容器。如果无数据返回，则该模块输出为空。
+
+               *  `data` * - 当前模块导出数据
+
+               *  `name` *String* - 当前模块名称，不含后缀
+
+         *  `directory(data, name)` *Function* - 目录加载完毕的回调函数，支持子集继承。如果无数据返回，则该目录结构不会被创建。
+
+               *  `data` *Object* - 当前目录下所有子集导出数据集合
+
+               *  `name` *String* - 当前目录名称
+
+         *  `action(options)` *Function* - 函数加载项，不需要关联目录和文件的纯函数虚拟加载点
+
+         *  `after(options)` *Function* - 当前等级下所有目录、模块在加载后执行的钩子函数（仅在当前层级触发，不对子集继承），参数与before(options)一致
 
 配置参考示例：
 
