@@ -39,7 +39,7 @@ npm install ioa
 ```js
 import ioa from "ioa";
 
-ioa.loadApp("./main");
+ioa.apps("./main");
 ```
 
 ### 目录结构
@@ -106,7 +106,7 @@ project
     |
 ```
 
-### ioa.app(path, ...)
+### ioa.apps(path, ...)
 
 第一个 path 被视为主应用，子组件的配置项在主应用的 config 目录中统一配置，框架自动分发到对应的子组件。
 
@@ -117,7 +117,7 @@ project
 ```js
 import ioa from "ioa";
 
-ioa.loadApp("./main", "./admin");
+ioa.apps("./main", "./admin");
 ```
 
 ### 分级装载

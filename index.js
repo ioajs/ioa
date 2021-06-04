@@ -1,8 +1,8 @@
 import fs from 'fs';
 import consoln from 'consoln';
-import loadApp from './lib/loadApp.js';
+import apps from './lib/apps.js';
 import component from './lib/component.js';
-import { ioa, components, apps } from './lib/common.js';
+import { ioa, components, applications } from './lib/common.js';
 
 const url = new URL('package.json', import.meta.url);
 const packagePath = decodeURI(url.pathname);
@@ -39,7 +39,7 @@ ioa.argv = argv;
 ioa.version = version;
 ioa.NODE_ENV = NODE_ENV;
 ioa.component = component;
-ioa.loadApp = loadApp;
+ioa.apps = apps;
 
 console.log('');
 consoln.log(`Ioa Framework V${version}`);
@@ -47,7 +47,7 @@ consoln.log(`NODE_ENV = ${NODE_ENV}`);
 
 export {
   components,
-  apps,
+  applications,
 };
 
 export default ioa;

@@ -25,18 +25,18 @@ interface App {
    * 安装组件，支持npm组件、相对路径和绝对路径组件
    * @param {string} path 组件名称或路径 
    */
-  //  function use(path: string): void
-
-  /**
-   * 向订阅组件发送资源
-   */
-  //  function emit(key: string, value: any): void
+   component(path: string): void;
 
   /**
  * 模块、目录分级加载规则配置
  * @param {Object} options 
  */
-  //  function loader(options: object): void
+  import(options: object): void
+
+  /**
+  * 向订阅组件发送资源
+  */
+  export(key: string, value: any): void
 
 }
 
@@ -46,7 +46,7 @@ declare module 'ioa' {
    * 加载一个或多个应用
    * @param {string} path 要加载的应用路径
    */
-  export function loadApp(...path: Array<string>): void
+  export function apps(...path: Array<string>): void
 
   /** 命令行参数 */
   export const argv: object
@@ -54,18 +54,18 @@ declare module 'ioa' {
   /** 环境变量 */
   export const NODE_ENV: string
 
-  /** 应用集合 */
-  export const apps: Object
-
   /** 组件集合 */
   export const components: object
+
+  /** 应用集合 */
+  export const applications: Object
 
   /** 主应用 */
   export const main: {
     components: object
   }
 
-  /** 获取当前动态app */
+  /** 动态获取当前 app 组件 */
   export const app: App
 
 }

@@ -9,13 +9,13 @@ test('ioa', t => {
     version: String,
     cwd: String,
     NODE_ENV: String,
-    loadApp: Function,
+    apps: Function,
     components: {
       '@ioa/config': Object,
       '@ioa/koa': Object,
       '@common': Object,
     },
-    apps: {
+    applications: {
       main: {
         middlewareBefore: [Function],
         router: {

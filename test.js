@@ -2,7 +2,7 @@ console.time('test')
 
 import ioa from 'ioa';
 
-await ioa.loadApp(
+await ioa.apps(
   "./main",
   "./admin",
   "./user"
