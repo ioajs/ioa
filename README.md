@@ -158,35 +158,35 @@ app.export(name: string, value: void);
 
 * `options` *Object*
 
-      * `$name` *Object, Boolean* - Load option, $name corresponds to a directory name or a file name containing a .js, .json suffix. A value of false means that the directory or module will not be loaded
+    * `$name` *Object, Boolean* - Load option, $name corresponds to a directory name or a file name containing a .js, .json suffix. A value of false means that the directory or module will not be loaded
 
-         * `level` *Number* - the load level
+        * `level` *Number* - the load level
 
-         * `action(options)` *Function* - function load item, a pure function load point without associated directories and files
-         
-         * `module(data, name)` *Function* - Callback function when the module is finished loading, this points to the current level container. If no data is returned, the output of the module is empty.
+        * `action(options)` *Function* - function load item, a pure function load point without associated directories and files
+        
+        * `module(data, name)` *Function* - Callback function when the module is finished loading, this points to the current level container. If no data is returned, the output of the module is empty.
 
-               * `data` * - The data exported by the current module
+              * `data` * - The data exported by the current module
 
-               * `name` *String* - the name of the current module, without the suffix
+              * `name` *String* - the name of the current module, without the suffix
 
-         * `directory(data, name)` *Function* - Callback function for when the directory is loaded, with support for subset inheritance. If no data is returned, the directory structure will not be created.
+        * `directory(data, name)` *Function* - Callback function for when the directory is loaded, with support for subset inheritance. If no data is returned, the directory structure will not be created.
 
-               * `data` *Object* - A collection of all subsets of exported data in the current directory
+              * `data` *Object* - A collection of all subsets of exported data in the current directory
 
-               * `name` *String* - the name of the current directory
+              * `name` *String* - the name of the current directory
 
-         * `before(options)` *Function* - hook function to be executed before loading for all directories and modules under the current hierarchy (only triggered at the current level, not inherited for subsets)
+        * `before(options)` *Function* - hook function to be executed before loading for all directories and modules under the current hierarchy (only triggered at the current level, not inherited for subsets)
 
-               * `data` * - Exported data for the current directory, module
+              * `data` * - Exported data for the current directory, module
 
-               * `dirList` *Array* - list of filenames in the current directory
+              * `dirList` *Array* - list of filenames in the current directory
 
-               * `parents` *Object* - parent node
+              * `parents` *Object* - parent node
 
-               * `root` *Object* - root node
+              * `root` *Object* - root node
 
-         * `after(options)` *Function* - hook function to be executed after loading all directories and modules at the current level (triggered only at the current level, no inheritance for subsets), same arguments as before(options)
+        * `after(options)` *Function* - hook function to be executed after loading all directories and modules at the current level (triggered only at the current level, no inheritance for subsets), same arguments as before(options)
 
 Example configuration reference:
 
