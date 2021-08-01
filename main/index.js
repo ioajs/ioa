@@ -1,10 +1,10 @@
 export default {
-  components: [
+  "components": [
     "@ioa/config",
     "@ioa/koa",
     "./@common"
   ],
-  import: {
+  "import": {
     "model": {
       "level": 20,
     },

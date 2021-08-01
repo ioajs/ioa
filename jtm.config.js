@@ -6,7 +6,7 @@ test.axios = axios;
 
 axios.defaults.baseURL = `http://localhost:8600`;
 
-console.time('test')
+console.time('test');
 
 await ioa.apps(
   "./main",

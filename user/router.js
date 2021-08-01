@@ -1,8 +1,8 @@
 import ioa from 'ioa';
 
-const { main, app } = ioa;
+const { main } = ioa;
 
-const { router, middleware } = app;
+const { router, middleware } = ioa.app();
 
 const { cors } = main.middleware;
 const { test, intercept } = middleware;

@@ -1,6 +1,6 @@
 import ioa from 'ioa';
 
-const { extend } = ioa.app;
+const { extend } = ioa.app();
 
 const { Controller, Base } = extend;
 

@@ -46,6 +46,8 @@ consoln.log(`Ioa Framework V${version}`);
 consoln.log(`NODE_ENV = ${NODE_ENV}`);
 
 export {
+  apps,
+  component,
   components,
   applications,
 };

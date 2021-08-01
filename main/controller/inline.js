@@ -1,6 +1,6 @@
 import ioa from 'ioa';
 
-const { router, middleware } = ioa.app;
+const { router, middleware } = ioa.app();
 
 const { token } = middleware;
 
