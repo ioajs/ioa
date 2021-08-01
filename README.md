@@ -193,7 +193,7 @@ Example configuration reference:
 ```js
 import ioa from "ioa";
 
-const { app } = ioa;
+const app = ioa.app();
 
 app.component("@ioa/config");
 app.component("@ioa/koa");
@@ -232,7 +232,7 @@ The @app module is only used within the component scope and the ioa module shoul
 ```js
 import ioa from "ioa";
 
-const { middleware } = ioa.app;
+const { middleware } = ioa.app();
 ```
 
 ### Componentisation

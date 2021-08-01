@@ -193,7 +193,7 @@ app.export(name: string, value: void);
 ```js
 import ioa from "ioa";
 
-const { app } = ioa;
+const app = ioa.app();
 
 app.component("@ioa/config");
 app.component("@ioa/koa");
@@ -232,7 +232,7 @@ app.import({
 ```js
 import ioa from "ioa";
 
-const { middleware } = ioa.app;
+const { middleware } = ioa.app();
 ```
 
 ### 组件化
