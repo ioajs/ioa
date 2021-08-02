@@ -153,7 +153,7 @@ app.component(name: string);
 
 app.import(options: object);
 
-app.export(name: string, value: void);
+app.export(options: object);
 ```
 
 * `options` *Object*

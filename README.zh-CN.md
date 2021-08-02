@@ -153,7 +153,7 @@ app.component(name: string);
 
 app.import(options: object); // 导入依赖
 
-app.export(name: string, value: void); // 导出依赖
+app.export(options: object); // 导出依赖
 ```
 
 - `options` _Object_
