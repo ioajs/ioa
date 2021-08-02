@@ -1,6 +1,6 @@
-import ioa from 'ioa';
+import { app } from 'ioa';
 
-const { router, middleware, controller } = ioa.app();
+const { router, middleware, controller } = app();
 
 const { token, cors } = middleware;
 

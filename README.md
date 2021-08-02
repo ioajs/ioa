@@ -219,6 +219,10 @@ app.import({
     level: 50,
   },
 });
+
+app.export({
+  loads: { level: 20 },
+});
 ```
 
 ### Component scopes

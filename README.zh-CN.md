@@ -148,45 +148,45 @@ ioa 约定了几个常见目录、模块的装载等级如下：
 
 ### 装载项目入口文件 index.js
 
-```ts
+```js
 app.component(name: string);
 
-app.import(options: object);
+app.import(options: object); // 导入依赖
 
-app.export(name: string, value: void);
+app.export(name: string, value: void); // 导出依赖
 ```
 
-*  `options` *Object*
+- `options` _Object_
 
-      *  `$name` *Object, Boolean* - 装载选项，$name对应目录名称或包含.js、.json后缀的文件名。当值为false时表示不装载该目录或模块
+  - `$name` _Object, Boolean_ - 装载选项，$name 对应目录名称或包含.js、.json 后缀的文件名。当值为 false 时表示不装载该目录或模块
 
-         *  `level` *Number* - 加载等级
+    - `level` _Number_ - 加载等级
 
-         *  `action(options)` *Function* - 函数加载项，不需要关联目录和文件的纯函数加载点
-         
-         *  `module(data, name)` *Function* - 模块加载完毕的回调函数，this指向当前层级容器。如果无数据返回，则该模块输出为空。
+    - `action(options)` _Function_ - 函数加载项，不需要关联目录和文件的纯函数加载点
 
-               *  `data` * - 当前模块导出数据
+    - `module(data, name)` _Function_ - 模块加载完毕的回调函数，this 指向当前层级容器。如果无数据返回，则该模块输出为空。
 
-               *  `name` *String* - 当前模块名称，不含后缀
+      - `data` \* - 当前模块导出数据
 
-         *  `directory(data, name)` *Function* - 目录加载完毕的回调函数，支持子集继承。如果无数据返回，则该目录结构不会被创建。
+      - `name` _String_ - 当前模块名称，不含后缀
 
-               *  `data` *Object* - 当前目录下所有子集导出数据集合
+    - `directory(data, name)` _Function_ - 目录加载完毕的回调函数，支持子集继承。如果无数据返回，则该目录结构不会被创建。
 
-               *  `name` *String* - 当前目录名称
+      - `data` _Object_ - 当前目录下所有子集导出数据集合
 
-         *  `before(options)` *Function* - 当前等级下所有目录、模块在加载前执行的钩子函数（仅在当前层级触发，不对子集继承）
+      - `name` _String_ - 当前目录名称
 
-               *  `data` * - 当前目录、模块导出数据
+    - `before(options)` _Function_ - 当前等级下所有目录、模块在加载前执行的钩子函数（仅在当前层级触发，不对子集继承）
 
-               *  `dirList` *Array* - 当前目录下的文件名列表
+      - `data` \* - 当前目录、模块导出数据
 
-               *  `parents` *Object* - 父节点
+      - `dirList` _Array_ - 当前目录下的文件名列表
 
-               *  `root` *Object* - 根节点
+      - `parents` _Object_ - 父节点
 
-         *  `after(options)` *Function* - 当前等级下所有目录、模块在加载后执行的钩子函数（仅在当前层级触发，不对子集继承），参数与before(options)一致
+      - `root` _Object_ - 根节点
+
+    - `after(options)` _Function_ - 当前等级下所有目录、模块在加载后执行的钩子函数（仅在当前层级触发，不对子集继承），参数与 before(options)一致
 
 配置参考示例：
 
@@ -218,6 +218,10 @@ app.import({
   controller: {
     level: 50,
   },
+});
+
+app.export({
+  loads: { level: 20 },
 });
 ```
 

@@ -2,7 +2,7 @@ import fs from 'fs';
 import consoln from 'consoln';
 import apps from './lib/apps.js';
 import component from './lib/component.js';
-import { ioa, components, applications } from './lib/common.js';
+import { ioa, components, applications, app } from './lib/common.js';
 
 const url = new URL('package.json', import.meta.url);
 const packagePath = decodeURI(url.pathname);
@@ -46,6 +46,7 @@ consoln.log(`Ioa Framework V${version}`);
 consoln.log(`NODE_ENV = ${NODE_ENV}`);
 
 export {
+  app,
   apps,
   component,
   components,
