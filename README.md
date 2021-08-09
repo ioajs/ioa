@@ -128,7 +128,7 @@ In traditional frameworks it is common to execute code at a specific stage throu
 
 As ioa uses a custom module hierarchy loading strategy to manage the lifecycle, this allows the developer to create an unlimited number of leveled or up/down loading points at any stage of the framework loading and freely manage the loading process.
 
-> Sometimes there are still dependencies between sibling loaders, in which case you can usually just use require() to improve the load timing or add a new mount point
+> Sometimes there are still dependencies between sibling loaders, in which case you can usually just use import to improve the load timing or add a new mount point
 
 ### Conventional loading hierarchy
 

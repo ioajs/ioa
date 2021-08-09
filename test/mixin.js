@@ -4,10 +4,7 @@ import mixin from '../lib/mixin.js';
 
 test('mixin', async t => {
 
-   const sub = {
-      j: 1,
-      u: 88
-   }
+   const sub = { j: 1, u: 88 };
 
    const data = {
       a: 1,
@@ -19,7 +16,7 @@ test('mixin', async t => {
       },
       sub,
       m: 3
-   }
+   };
 
    const join = {
       // a: 1,
@@ -32,7 +29,7 @@ test('mixin', async t => {
       },
       sub,
       p: 5
-   }
+   };
 
    const result = mixin(data, join);
 
