@@ -13,7 +13,7 @@
    "scripts": {
       "test": "jtm"
    },
-   "main": "index.js",
+   "exports": "./index.js",
    "devDependencies": {
       "@ioa/config": "^12.0.0",
       "@ioa/koa": "^12.0.4",

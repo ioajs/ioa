@@ -14,6 +14,8 @@ Using ioa makes it easy to customise the framework to your liking, or to use it 
 
 - Uses ES modules, no longer compatible with CommonJS
 
+- Use pure asynchronous module loading method
+
 - Component-as-an-application, with a component-based, horizontally scalable architecture
 
 - Each component has a relatively isolated component scope, consistent code structure and functionality
@@ -225,18 +227,22 @@ app.export({
 });
 ```
 
-### Component scopes
+### Component scope
 
-Components can be divided into application components and extension components by function, and support relative paths, absolute paths and module paths for import.
+Components can be divided into application components and extension components according to their functions, and they support three import methods: relative path, absolute path and module path.
 
-The framework automatically generates a private @app reference module for each component at startup, which acts as a container for the current component.
-
-The @app module is only used within the component scope and the ioa module should be used outside the component scope.
+Use ioa.app() to get the current component scope instance, and add the name parameter to get the specified application instance.
 
 ```js
 import ioa from "ioa";
 
-const { middleware } = ioa.app();
+// Get the current component scope instance by default
+const app = ioa.app(); 
+
+// Get the specified component scope instance
+const main = ioa.app('main'); 
+
+const user = ioa.app('user');
 ```
 
 ### Componentisation

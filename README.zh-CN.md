@@ -14,6 +14,8 @@ ioa.js 中的应用由多个组件构成，每个组件都拥有独立的作用�
 
 - 使用 ES 模块，不再兼容 CommonJS
 
+- 使用纯异步模块加载方式
+
 - 组件即应用，采用组件化、水平扩展架构
 
 - 每个组件拥有相对隔离的组件作用域、一致的代码结构和功能
@@ -229,14 +231,18 @@ app.export({
 
 组件按功能可分为应用类组件和扩展类组件，支持相对路径、绝对路径、模块路径三种导入方式。
 
-框架在启动时会自动为每个组件生成私有的@app 引用模块，作为当前组件的容器。
-
-@app 模块仅用于组件作用域内使用，在组件作用域外应该使用 ioa 模块。
+使用ioa.app()可以获取当前组件作用域实例，添加name参数可获取指定的应用实例。
 
 ```js
 import ioa from "ioa";
 
-const { middleware } = ioa.app();
+// 默认获取当前组件作用域实例
+const app = ioa.app(); 
+
+// 获取指定组件作用域实例
+const main = ioa.app('main'); 
+
+const user = ioa.app('user');
 ```
 
 ### 组件化
@@ -295,18 +301,3 @@ CMD
 set NODE_ENV='localhost' & node index.js
 ```
 
-### 相关组件及模块
-
-- [consoln](https://github.com/xiangle/consoln) - 集成 console、日志、debug 模块
-
-- [@ioa/config](https://github.com/ioajs/ioa-config) - 用于加载 config 目录下的配置文件
-
-- [@ioa/koa](https://github.com/ioajs/ioa-koa) - 集成 koa.js、路由、中间件、controller 的 http 配套组件
-
-- [@ioa/ormv](https://github.com/ioajs/ioa-ormv) - pgsql 数据库模型封装
-
-- [@ioa/socket](https://github.com/ioajs/ioa-socket) - socket.io 服务端组件
-
-- [@ioa/socket-client](https://github.com/ioajs/ioa-socket-client) - socket.io 客户端组件
-
-- [@ioa/ioa-upload](https://github.com/ioajs/ioa-upload) - 文件上传
