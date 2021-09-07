@@ -300,19 +300,3 @@ CMD
 ```ps
 set NODE_ENV='localhost' & node index.js
 ```
-
-### Related components and modules
-
-- [consoln](https://github.com/xiangle/consoln) - integrates console, logging, debug modules
-
-- [@ioa/config](https://github.com/ioajs/ioa-config) - for loading configuration files in the config directory
-
-- [@ioa/koa](https://github.com/ioajs/ioa-koa) - http companion component that integrates koa.js, routing, middleware, controllers
-
-- [@ioa/ormv](https://github.com/ioajs/ioa-ormv) - pgsql database model wrapper
-
-- [@ioa/socket](https://github.com/ioajs/ioa-socket) - socket.io server-side component
-
-- [@ioa/socket-client](https://github.com/ioajs/ioa-socket-client) - socket.io client-side component
-
-- [@ioa/ioa-upload](https://github.com/ioajs/ioa-upload) - File uploads
