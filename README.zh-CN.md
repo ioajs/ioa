@@ -150,6 +150,8 @@ ioa 约定了几个常见目录、模块的装载等级如下：
 
 ### 装载项目入口文件 index.js
 
+装置配置项支持函数和声明式两种风格
+
 ```js
 app.component(name: string);
 
@@ -201,30 +203,60 @@ app.component("@ioa/config");
 app.component("@ioa/koa");
 
 app.import({
-  model: {
-    level: 20,
+  "model": {
+    "level": 20,
   },
-  middleware: {
-    level: 30,
+  "middleware": {
+    "level": 30,
   },
   "test.js": {
-    level: 30,
+    "level": 30,
   },
-  abc: {
-    level: 30,
+  "abc": {
+    "level": 30,
+    // 函数型挂载点
     action() {
-      // 函数型挂载点
       return 123;
     },
   },
-  controller: {
-    level: 50,
+  "controller": {
+    "level": 50,
   },
 });
 
 app.export({
-  loads: { level: 20 },
+  "loads": { "level": 20 },
 });
+```
+
+```js
+// 声明式示例
+export default {
+  "components": [
+    "@ioa/config",
+    "@ioa/koa"
+  ],
+  "import": {
+    "model": {
+      "level": 20,
+    },
+    "extend": {
+      "level": 20,
+    },
+    "other": {
+      "level": 30
+    },
+    "test": {
+      "level": 30,
+      action() {
+        return 666;
+      }
+    },
+  },
+  "export": {
+    "loads": { "level": 20 },
+  }
+}
 ```
 
 ### 组件作用域

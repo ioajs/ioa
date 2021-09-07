@@ -150,6 +150,8 @@ ioa defines several common directories and loading levels for modules as follows
 
 ### Load the project entry file index.js
 
+Loader configuration items support both functional and declarative styles
+
 ```ts
 app.component(name: string);
 
@@ -201,30 +203,60 @@ app.component("@ioa/config");
 app.component("@ioa/koa");
 
 app.import({
-  model: {
-    level: 20,
+  "model": {
+    "level": 20,
   },
-  middleware: {
-    level: 30,
+  "middleware": {
+    "level": 30,
   },
   "test.js": {
     level: 30,
   },
-  abc: {
+  "abc": {
     level: 30,
+    // Functional mount point
     action() {
-      // 函数型挂载点
       return 123;
     },
   },
-  controller: {
-    level: 50,
+  "controller": {
+    "level": 50,
   },
 });
 
 app.export({
-  loads: { level: 20 },
+  "loads": { "level": 20 },
 });
+```
+
+```js
+// Declarative example
+export default {
+  "components": [
+    "@ioa/config",
+    "@ioa/koa"
+  ],
+  "import": {
+    "model": {
+      "level": 20,
+    },
+    "extend": {
+      "level": 20,
+    },
+    "other": {
+      "level": 30
+    },
+    "test": {
+      "level": 30,
+      action() {
+        return 123;
+      }
+    },
+  },
+  "export": {
+    "loads": { "level": 20 },
+  }
+}
 ```
 
 ### Component scope
