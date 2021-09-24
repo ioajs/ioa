@@ -16,4 +16,3 @@ test('get 中间件拦截', async t => {
    const { data } = await axios.get("/user/intercept")
    t.deepEqual('中间件拦截', data)
 })
-

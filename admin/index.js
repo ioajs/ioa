@@ -1,5 +1,5 @@
 export default {
-  components: [
+  component: [
     "@ioa/config",
     "@ioa/koa"
   ],
@@ -7,10 +7,10 @@ export default {
     "model": {
       "level": 20,
     },
-    "xxx": {
+    "test": {
       "level": 30,
       action() {
-        return 666;
+        return 999;
       }
     },
   }

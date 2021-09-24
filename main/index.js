@@ -1,5 +1,5 @@
 export default {
-  "components": [
+  "component": [
     "@ioa/config",
     "@ioa/koa",
     "./@common"
@@ -14,10 +14,10 @@ export default {
     "other": {
       level: 30
     },
-    "test": {
+    "virtual": {
       level: 30,
       action() {
-        return 666;
+        return 888;
       }
     },
   }

@@ -232,7 +232,7 @@ app.export({
 ```js
 // Declarative example
 export default {
-  "components": [
+  "component": [
     "@ioa/config",
     "@ioa/koa"
   ],

@@ -1,6 +1,6 @@
 import test from 'jtm';
-import axios from 'axios';
 import ioa from 'ioa';
+import axios from 'axios';
 
 test.axios = axios;
 
