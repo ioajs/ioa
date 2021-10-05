@@ -1,6 +1,6 @@
 {
    "name": "ioa",
-   "version": "12.1.0",
+   "version": "12.1.1",
    "description": "Node.js多应用水平扩展、组件化框架",
    "type": "module",
    "main": "./lib/index.js",
