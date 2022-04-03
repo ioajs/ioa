@@ -203,78 +203,75 @@ app.component("@ioa/config");
 app.component("@ioa/koa");
 
 app.import({
-  "model": {
-    "level": 20,
+  model: {
+    level: 20,
   },
-  "middleware": {
-    "level": 30,
+  middleware: {
+    level: 30,
   },
   "test.js": {
-    "level": 30,
+    level: 30,
   },
-  "abc": {
-    "level": 30,
+  abc: {
+    level: 30,
     // 函数型挂载点
     action() {
       return 123;
     },
   },
-  "controller": {
-    "level": 50,
+  controller: {
+    level: 50,
   },
 });
 
 app.export({
-  "loads": { "level": 20 },
+  loads: { level: 20 },
 });
 ```
 
 ```js
 // 声明式示例
 export default {
-  "component": [
-    "@ioa/config",
-    "@ioa/koa"
-  ],
-  "import": {
-    "model": {
-      "level": 20,
+  component: ["@ioa/config", "@ioa/koa"],
+  import: {
+    model: {
+      level: 20,
     },
-    "extend": {
-      "level": 20,
+    extend: {
+      level: 20,
     },
-    "other": {
-      "level": 30
+    other: {
+      level: 30,
     },
-    "test": {
-      "level": 30,
+    test: {
+      level: 30,
       action() {
         return 666;
-      }
+      },
     },
   },
-  "export": {
-    "loads": { "level": 20 },
-  }
-}
+  export: {
+    loads: { level: 20 },
+  },
+};
 ```
 
 ### 组件作用域
 
 组件按功能可分为应用类组件和扩展类组件，支持相对路径、绝对路径、模块路径三种导入方式。
 
-使用ioa.app()可以获取当前组件作用域实例，添加name参数可获取指定的应用实例。
+使用 ioa.app()可以获取当前组件作用域实例，添加 name 参数可获取指定的应用实例。
 
 ```js
 import ioa from "ioa";
 
 // 默认获取当前组件作用域实例
-const app = ioa.app(); 
+const app = ioa.app();
 
 // 获取指定组件作用域实例
-const main = ioa.app('main'); 
+const main = ioa.app("main");
 
-const user = ioa.app('user');
+const user = ioa.app("user");
 ```
 
 ### 组件化
@@ -332,4 +329,3 @@ CMD
 ```ps
 set NODE_ENV='localhost' & node index.js
 ```
-

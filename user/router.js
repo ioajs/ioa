@@ -1,10 +1,9 @@
-import ioa from 'ioa';
+import { app, components } from 'ioa';
 
-const { cors } = ioa.main.middleware;
-
-const { router, middleware } = ioa.app();
+const { router, middleware } = app();
 
 const { test, intercept } = middleware;
+const { cors } = components['@common'].middleware;
 
 router.get('/user', cors, test, 'home.home');
 

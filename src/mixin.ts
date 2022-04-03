@@ -2,11 +2,11 @@ const { toString } = Object.prototype;
 
 /**
 * 深度合并两个对象，仅扩展原有的数据结构，只增不减
-* @param {Object} app 数据容器
-* @param {Object} join 需要加入到容器的数据
-* @returns { Undefined, String } 合并成功返回undefined，合并失败时返回冲突属性path
+* @param { object } app 数据容器
+* @param { object } join 需要加入到容器的数据
+* @returns { undefined, string } 合并成功返回 undefined，合并失败时返回冲突属性 path
 */
-export default function mixin(app, join) {
+export default function mixin(app: object, join: object): void | string {
 
   for (const name in join) {
 

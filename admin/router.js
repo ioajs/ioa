@@ -1,10 +1,8 @@
-import ioa from 'ioa';
+import { components, app } from 'ioa';
 
-const { main } = ioa;
+const { cors } = components['@common'].middleware;
 
-const { router } = ioa.app();
-
-const { cors } = main.middleware;
+const { router } = app();
 
 // router.befor(cors);
 

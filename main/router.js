@@ -1,8 +1,9 @@
-import { app } from 'ioa';
+import { main, components } from 'ioa';
 
-const { router, middleware, controller } = app();
+const { router, middleware, controller } = main;
 
-const { token, cors } = middleware;
+const { token } = middleware;
+const { cors } = components['@common'].middleware;
 
 const { home, news } = controller;
 

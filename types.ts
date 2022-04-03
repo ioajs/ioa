@@ -103,14 +103,14 @@ interface App {
   /** 发布容器 */
   $release: object
 
-  /** 加载器配置项 */
-  loads: object
-
   /** 订阅容器 */
   $subscribe: object
 
   /** 缓存发送的数据 */
   $emitData: object
+
+  /** 加载器配置项 */
+  $loads: object
 
   /** 组件集合 */
   components: object;
@@ -123,7 +123,7 @@ interface App {
 
   /**
  * 目录、模块分级加载规则配置
- * @param {Object} options 
+ * @param { object } options 
  */
   import(options: ImportOptions): void
 
@@ -132,12 +132,10 @@ interface App {
   */
   export(options: ExportOptions): void
 
-  router: Router
+  router?: Router
 
   /** 中间件集合 */
-  middleware: {
-    [name: string]: Middleware
-  }
+  middleware?: { [name: string]: Middleware }
 
 }
 
@@ -146,7 +144,7 @@ declare module 'ioa' {
    * 加载一个或多个应用
    * @param {string} path 要加载的应用路径
    */
-  export function apps(...path: Array<string>): void
+  export function createApps(...path: Array<string>): void
 
   /**
    * 动态获取当前应用实例
@@ -169,7 +167,7 @@ declare module 'ioa' {
   export const components: { [name: string]: App }
 
   /** 应用集合 */
-  export const applications: { [name: string]: App }
+  export const apps: { [name: string]: App }
 
   /** 主应用 */
   export const main: App

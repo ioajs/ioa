@@ -1,21 +1,24 @@
 import test from 'jtm';
-import typea from 'typea';
-import ioa from 'ioa';
+import types from 'typea';
+import ioa, { main as mainApp } from 'ioa';
+
+const base = {
+  $name: String,
+  $path: String,
+  $components: Object,
+  $import: Object,
+  $export: Object,
+  import: Function
+}
 
 const component = {
-  '$name': String,
-  '$path': String,
-  '$release': {},
-  '$subscribe': {},
-  '$emitData': {},
-  loads: {},
-  import: Function,
-  export: Function,
-  $indexPath: String
+  ...base,
+  $release: Object,
+  export: Function
 }
 
 const main = {
-  ...component,
+  ...base,
   middlewareBefore: [Function],
   router: {
     get: Function,
@@ -31,7 +34,6 @@ const main = {
     document: Object
   },
   middleware: {
-    cors: Function,
     token: Function
   },
   controller: {
@@ -66,7 +68,7 @@ const main = {
 }
 
 const admin = {
-  ...component,
+  ...base,
   middlewareBefore: [Function],
   router: {
     get: Function,
@@ -95,7 +97,8 @@ const admin = {
 }
 
 const user = {
-  ...component,
+  ...base,
+  config: {},
   middlewareBefore: [Function],
   router: {
     get: Function,
@@ -104,7 +107,6 @@ const user = {
     delete: Function,
     resources: Function
   },
-  config: {},
   middleware: {
     test: Function,
     intercept: Function
@@ -116,25 +118,25 @@ const user = {
   }
 }
 
-const schema = typea({
-  argv: { default: [] },
-  version: String,
-  NODE_ENV: String,
-  apps: Function,
-  components: {
-    '@ioa/config': component,
-    '@ioa/koa': component,
-    '@common': component,
-  },
-  applications: {
-    main,
-    admin,
-    user,
-  },
-  main,
-});
-
 test('ioa', t => {
+
+  const schema = types({
+    argv: { default: [] },
+    version: String,
+    NODE_ENV: String,
+    createApp: Function,
+    main,
+    apps: {
+      main,
+      admin,
+      user,
+    },
+    components: {
+      '@ioa/config': component,
+      '@ioa/koa': component,
+      '@common': component,
+    },
+  });
 
   const { data, error } = schema.strictVerify(ioa);
 

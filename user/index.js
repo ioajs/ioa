@@ -1,12 +1,13 @@
-import ioa from 'ioa';
+import { app } from 'ioa';
 
-const app = ioa.app();
+const user = app();
 
-app.component('@ioa/config');
-app.component('@ioa/koa');
+user.component('@ioa/config');
+user.component('@ioa/koa');
+user.component("./@common");
 
-app.import({
+user.import({
   "data": {
     "level": 10,
   }
-})
+});

@@ -1,0 +1,13 @@
+{
+  "sourceMaps": false,
+  "jsc": {
+    "target": "es2022",
+    "preserveAllComments": false,
+    "parser": {
+      "syntax": "typescript",
+      "tsx": false,
+      "decorators": false,
+      "dynamicImport": false
+    }
+  }
+}

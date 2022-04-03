@@ -12,10 +12,10 @@ export default {
       "level": 20,
     },
     "other": {
-      level: 30
+      "level": 30
     },
     "virtual": {
-      level: 30,
+      "level": 30,
       action() {
         return 888;
       }

@@ -1,7 +1,8 @@
 export default {
   component: [
     "@ioa/config",
-    "@ioa/koa"
+    "@ioa/koa",
+    "./@common"
   ],
   import: {
     "model": {

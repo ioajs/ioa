@@ -1,3 +1,3 @@
-import ioa from 'ioa';
+import { main } from 'ioa';
 
 export default {};

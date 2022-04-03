@@ -1,6 +1,8 @@
-import ioa from 'ioa';
+import { main, apps } from 'ioa';
 
-const { controller, config } = ioa.app();
+// console.log(apps.main === main)
+
+const { controller, config } = main;
 
 // console.log(controller)
 // console.log(config)

@@ -1,6 +1,6 @@
 import test from 'jtm';
 import consoln from 'consoln';
-import mixin from '../lib/mixin.js';
+import mixin from '../dist/mixin.js';
 
 test('mixin', async t => {
 
@@ -47,4 +47,4 @@ test('mixin', async t => {
       p: 5
    });
 
-})
+});

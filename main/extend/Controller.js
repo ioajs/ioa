@@ -1,6 +1,6 @@
 class Controller {
    test() {
-      console.log('extends Controller');
+      // console.log('extends Controller');
    }
 }
 

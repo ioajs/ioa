@@ -1,8 +1,8 @@
 import fs from 'fs';
 import consoln from 'consoln';
-import apps from './apps.js';
-import component from './component.js';
-import { components, applications, onames, paths } from './common.js';
+import createApp from './createApp.js';
+import { createComponent } from './createComponent.js';
+import { components, apps, onames, paths, type Component } from './common.js';
 
 const url = new URL('../package.json', import.meta.url);
 const packagePath = decodeURI(url.pathname);
@@ -12,7 +12,7 @@ const { version } = JSON.parse(packageUtf8);
 
 // argv参数解析
 const [, , ...processArgv] = process.argv;
-const argv = { default: [] };
+const argv: { default: string[], env?: string[] } = { default: [] };
 
 let key = 'default';
 
@@ -36,23 +36,24 @@ if (NODE_ENV) {
 }
 
 console.log('');
-consoln.log(`Ioa Framework V${version}`);
+consoln.log(`Ioa Framework v${version}`);
 consoln.log(`NODE_ENV = ${NODE_ENV}`);
 
-
 /**
- * 动态获取当前app
- * @param {String} name 应用名
+ * 获取指定应用实例，缺失状态下获取当前应用实例
+ * @param {string} name 应用名称
  */
-function app(name) {
+function app(name?: string): Component {
 
   if (name) {
-    const app = applications[name];
+
+    const app = apps[name];
     if (app) {
       return app;
     } else {
       throw new Error(`找不到应用"${name}"`);
     }
+
   } else {
 
     const { stack } = new Error();
@@ -73,26 +74,32 @@ function app(name) {
 
 }
 
+const main = {};
+
+const ioa = {
+  app,
+  apps,
+  main,
+  onames,
+  components,
+  argv,
+  NODE_ENV,
+  version,
+  createApp,
+  createComponent,
+}
+
 export {
   app,
   apps,
+  main,
   onames,
-  component,
   components,
-  applications,
   version,
   argv,
-  NODE_ENV
+  NODE_ENV,
+  createApp,
+  createComponent,
 };
 
-export default {
-  app,
-  apps,
-  onames,
-  component,
-  components,
-  applications,
-  version,
-  argv,
-  NODE_ENV
-}
+export default ioa;

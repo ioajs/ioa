@@ -1,21 +1,20 @@
+import path from 'path';
 import consoln from 'consoln';
 import loader from './loader.js';
-import Component from './component.js';
-import { applications, loaders } from './common.js';
+import { createApp, createComponent } from './createComponent.js';
+import { apps, loaders, type Components } from './common.js';
 import ioa from './index.js';
 
 /**
- * 递归装载入口文件
- * @param {*} components 
- * @returns void
+ * 使用深度优先策略，递归预装载所有组件的 index 入口文件
  */
-async function recursionIndex(components) {
+async function recursionIndex(components: Components) {
 
   const imports = {}; // 待加载组件
 
   for (const name in components) {
     const component = components[name];
-    if (!component.isInit) {
+    if (!component.$init) {
       imports[name] = component;
     }
   }
@@ -26,11 +25,13 @@ async function recursionIndex(components) {
 
     const component = imports[name];
 
-    const { default: options } = await import(component.$indexPath).catch(error => {
-      consoln.error(`“${component.$name}”组件index.js入口文件加载失败, ${component.$path}/index.js`);
+    const indexpath = path.join(component.$path, 'index.js');
+    const { default: options } = await import(indexpath).catch(error => {
+      consoln.error(`“${component.$name}”组件入口文件加载失败, "${indexpath}"`);
       throw consoln.error(error);
     });
 
+    // 模块有返回值时，表示使用了声明式对象
     if (options) {
 
       if (options.component) {
@@ -49,7 +50,7 @@ async function recursionIndex(components) {
 
     }
 
-    component.isInit = true;
+    component.$init = true;
 
   }
 
@@ -57,45 +58,37 @@ async function recursionIndex(components) {
 
     const component = imports[name];
 
-    const { $subscribe } = component;
+    const { $components } = component;
 
-    await recursionIndex($subscribe);
-
-    // loads参数合并
-    if (component.loaderOptions) {
-      Object.assign(component.loads, component.loaderOptions);
-    }
+    await recursionIndex($components);
 
   }
 
 }
 
+
 /**
- * 装载一个或多个应用
- * @param {Array} paths 应用路径
+ * 装载单个或多个应用
+ * @param {string[]} paths 应用路径
  */
-export default async function apps(...paths) {
+export default async function (...paths: string[]) {
 
   // 截取第一个path作为主节点
   const mainPath = paths.shift();
 
   if (mainPath === undefined) {
-    throw consoln.error(`ioa.apps()参数不允许为空`);
+    throw consoln.error(`createApp 参数不允许为空`);
   }
 
-  const main = Component(mainPath, null);
-
-  ioa.main = main;
-  applications[main.$name] = main;
+  createApp(mainPath, ioa.main);
 
   for (const path of paths) {
-    if (path) {
-      const app = Component(path, null);
-      applications[app.$name] = app;
-    }
+    if (path) createApp(path, {});
   }
 
-  await recursionIndex(applications);
+  await recursionIndex(apps);
+
+  /////////////// 根据加载时序，预先对应用进行分级排序 ///////////////
 
   const levels = {};
 
@@ -104,7 +97,7 @@ export default async function apps(...paths) {
       dirpath: component.$path,
       root: component,
       data: component,
-      loads: component.loads
+      imports: component.$import
     }, levels);
   }
 
@@ -113,7 +106,7 @@ export default async function apps(...paths) {
   // 显示加载时序
   for (const level in levels) {
 
-    console.log(`\x1b[32m${level} -------------------------------------------------------------`);
+    console.log(`\x1b[32m${level}›--------------------------------------------------------`);
 
     const filter = [];
     const queue = levels[level];
@@ -122,12 +115,12 @@ export default async function apps(...paths) {
 
       if (item.error === undefined) {
         filter.push(item);
-        if (item.action) {
-          console.log(`\x1b[35m*  ${item.path}/index.js ${item.name}()`);
-        } else if (item.isModule) {
+        if (item.isFile) {
           console.log(`\x1b[36m›  ${item.path}`);
-        } else {
-          console.log(`\x1b[34m#  ${item.path} [${item.children.length}]`);
+        } else if (item.children) {
+          console.log(`\x1b[34m#  ${item.path}/ [${item.children.length}]`);
+        } else if (item.action) {
+          console.log(`\x1b[35m*  ${item.path}/index.js ${item.name}()`);
         }
       } else {
         console.log(`\x1b[33m!  ${item.path}`);
@@ -141,7 +134,7 @@ export default async function apps(...paths) {
 
   console.log(`\n\x1b[32m*******************************************************************\x1b[30m\n`);
 
-
-  await loader.load(levels);
+  // 异步加载所有模块
+  await loader.loading(levels);
 
 }
