@@ -12,7 +12,7 @@ const pathRegExp = /\/([^/]+)\/?$/;
  * @param { string } oname 原始组件名或路径
  * @param { object } app 应用容器
  */
-export function createApp(oname: string, app: Omit<Component, "export">) {
+export function createApp(oname: string, app: Component) {
 
   let $path: string, $name: string;
 
@@ -41,7 +41,6 @@ export function createApp(oname: string, app: Omit<Component, "export">) {
     $path,
     $import: {}, // 加载器配置项
     $components: {}, // 关联组件依赖集合
-    $export: {}, // 导出数据的缓存
     component(name: string) {
       if (typeof name !== 'string') return;
 
@@ -49,7 +48,7 @@ export function createApp(oname: string, app: Omit<Component, "export">) {
       const error = mixin(app, dependencyComponent.$export);
 
       if (error) {
-        const mixinError = new Error(`${$name} 应用与 ${name} 依赖组件导出对象之间存在属性合并冲突，${error}`);
+        const mixinError = new Error(`"${$name}" 应用与 "${name}" 依赖组件导出对象之间存在属性合并冲突，${$name}${error}`);
         throw consoln.error(mixinError);
       }
 
@@ -60,7 +59,7 @@ export function createApp(oname: string, app: Omit<Component, "export">) {
       const error = mixin(app.$import, options);
 
       if (error) {
-        const mixinError = new Error(`${$name} 应用 import 选项中存在属性合并冲突，${error}`);
+        const mixinError = new Error(`"${$name}" 应用 import 选项中存在属性合并冲突，${$name}${error}`);
         throw consoln.error(mixinError);
       }
 
@@ -135,7 +134,7 @@ export function createComponent(oname: string, subscribe: Component): Component 
       const error = mixin(component, dependencyComponent.$export);
 
       if (error) {
-        const mixinError = new Error(`$${$name} 组件与 ${dependencyComponent.$name} 依赖组件导出对象之间存在属性合并冲突，${error}`);
+        const mixinError = new Error(`"${$name}" 组件与 "${dependencyComponent.$name}" 依赖组件导出对象之间存在属性合并冲突，${$name}${error}`);
         throw consoln.error(mixinError);
       }
 
@@ -147,7 +146,7 @@ export function createComponent(oname: string, subscribe: Component): Component 
       const error = mixin(component.$import, options);
 
       if (error) {
-        const mixinError = new Error(`${$name} 组件 import(options) 中存在属性合并冲突，${error}`);
+        const mixinError = new Error(`"${$name}" 组件 import(options) 中存在属性合并冲突，${$name}${error}`);
         throw consoln.error(mixinError);
       }
 
@@ -165,7 +164,7 @@ export function createComponent(oname: string, subscribe: Component): Component 
           const error = mixin(release, { [key]: value });
 
           if (error) {
-            const newError = new Error(`${name}组件与${$name}子组件之间存在属性合并冲突，$${error}`);
+            const newError = new Error(`"${name}" 组件与 "${$name}" 依赖组件之间存在属性合并冲突，${name}${error}`);
             throw consoln.error(newError);
           }
 

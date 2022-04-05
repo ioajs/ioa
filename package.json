@@ -9,24 +9,29 @@
    "type": "module",
    "main": "./dist/index.js",
    "module": "./dist/index.js",
+   "exports": {
+      ".": "./dist/index.js",
+      "./*": "./dist/*"
+   },
    "scripts": {
-      "start": "swc ./src/* -d ./dist && node ./index.js",
-      "dev": "swc ./src/* -d ./dist --watch",
-      "build": "swc ./src/* -d ./dist",
+      "start": "tsc && node ./dist/index.js",
+      "dev": "tsc --watch",
+      "build": "tsc",
+      "swc": "swc ./src/* -d ./dist && node ./dist/index.js",
       "test": "jtm",
-      "tsc": "tsc"
+      "jtm": "jtm ./test/function.js"
    },
    "dependencies": {
       "consoln": "^2.0.2"
    },
    "devDependencies": {
-      "@ioa/config": "^12.0.0",
-      "@ioa/koa": "^12.0.4",
+      "@ioa/config": "^13.0.0",
+      "@ioa/koa": "^13.0.0",
       "@koa/cors": "^3.1.0",
       "@types/node": "^17.0.23",
       "axios": "^0.21.1",
       "jtm": "^1.0.4",
-      "typea": "^5.3.3"
+      "typea": "^6.0.1"
    },
    "types": "types.d.ts",
    "files": [

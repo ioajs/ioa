@@ -144,7 +144,7 @@ declare module 'ioa' {
    * 加载一个或多个应用
    * @param {string} path 要加载的应用路径
    */
-  export function createApps(...path: Array<string>): void
+  export function createApp(...path: Array<string>): void
 
   /**
    * 动态获取当前应用实例

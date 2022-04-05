@@ -7,124 +7,112 @@ const base = {
   $path: String,
   $components: Object,
   $import: Object,
-  $export: Object,
-  import: Function
-}
+  import() { }
+};
 
-const component = {
-  ...base,
-  $release: Object,
-  export: Function
+const app = {
+  middlewareBefore: [function () { }],
+  router: {
+    get() { },
+    post() { },
+    put() { },
+    delete() { },
+    resources() { }
+  },
 }
 
 const main = {
   ...base,
-  middlewareBefore: [Function],
-  router: {
-    get: Function,
-    post: Function,
-    put: Function,
-    delete: Function,
-    resources: Function
-  },
+  ...app,
   config: {
     mixin: { a: 666 }
+  },
+  middleware: {
+    token() { }
   },
   model: {
     document: Object
   },
-  middleware: {
-    token: Function
-  },
   controller: {
     home: {
-      index: Function,
-      sms: Function,
-      login: Function,
+      index(a = String, b = Number) { return arguments },
+      sms() { },
+      login() { },
     },
     index: {
-      test: Function,
+      test() { },
     },
     news: {
-      index: Function,
-      details: Function,
+      index() { },
+      details() { },
     },
     rest: {
-      index: Function,
-      details: Function,
-      create: Function,
-      update: Function,
-      destroy: Function
+      index() { },
+      details() { },
+      create() { },
+      update() { },
+      destroy() { }
     },
     test: {
-      index: Function,
-      details: Function,
-      create: Function,
-      update: Function,
-      destroy: Function
+      index() { },
+      details() { },
+      create() { },
+      update() { },
+      destroy() { }
     }
   },
   virtual: 888
-}
+};
 
 const admin = {
   ...base,
-  middlewareBefore: [Function],
-  router: {
-    get: Function,
-    post: Function,
-    put: Function,
-    delete: Function,
-    resources: Function
-  },
-  config: {
-    base: String
-  },
+  ...app,
+  config: { base: String },
   model: { compcerts: undefined },
   middleware: {
-    token: Function,
+    token() { },
   },
   controller: {
     home: {
-      index: Function,
-      details: Function,
-      add: Function,
-      update: Function,
-      delete: Function
+      index() { },
+      details() { },
+      add() { },
+      update() { },
+      delete() { }
     }
   },
   test: 999
-}
+};
 
 const user = {
   ...base,
+  ...app,
   config: {},
-  middlewareBefore: [Function],
-  router: {
-    get: Function,
-    post: Function,
-    put: Function,
-    delete: Function,
-    resources: Function
-  },
   middleware: {
-    test: Function,
-    intercept: Function
+    test() { },
+    intercept() { }
   },
   controller: {
     home: {
-      home: Function,
+      home() { },
     }
   }
 }
 
 test('ioa', t => {
 
+  const component = {
+    ...base,
+    $release: Object,
+    $export: Object,
+    export() { }
+  };
+
   const schema = types({
     argv: { default: [] },
     version: String,
     NODE_ENV: String,
-    createApp: Function,
+    createApp() { },
     main,
     apps: {
       main,

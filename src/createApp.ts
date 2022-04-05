@@ -1,9 +1,9 @@
 import path from 'path';
 import consoln from 'consoln';
 import loader from './loader.js';
-import { createApp, createComponent } from './createComponent.js';
+import { createApp } from './createComponent.js';
 import { apps, loaders, type Components } from './common.js';
-import ioa from './index.js';
+import { main } from './index.js';
 
 /**
  * 使用深度优先策略，递归预装载所有组件的 index 入口文件
@@ -27,11 +27,11 @@ async function recursionIndex(components: Components) {
 
     const indexpath = path.join(component.$path, 'index.js');
     const { default: options } = await import(indexpath).catch(error => {
-      consoln.error(`“${component.$name}”组件入口文件加载失败, "${indexpath}"`);
+      consoln.error(`"${component.$name}" 组件入口文件加载失败, "${indexpath}"`);
       throw consoln.error(error);
     });
 
-    // 模块有返回值时，表示使用了声明式对象
+    // 模块有返回值时，表示使用声明式对象
     if (options) {
 
       if (options.component) {
@@ -80,7 +80,7 @@ export default async function (...paths: string[]) {
     throw consoln.error(`createApp 参数不允许为空`);
   }
 
-  createApp(mainPath, ioa.main);
+  createApp(mainPath, main);
 
   for (const path of paths) {
     if (path) createApp(path, {});

@@ -12,8 +12,6 @@ ioa.js 中的应用由多个组件构成，每个组件都拥有独立的作用�
 
 ### 特性
 
-- 使用 ES 模块，不再兼容 CommonJS
-
 - 使用纯异步模块加载方式
 
 - 组件即应用，采用组件化、水平扩展架构
@@ -39,9 +37,9 @@ npm install ioa
 ### Usage
 
 ```js
-import ioa from "ioa";
+import { createApp } from "ioa";
 
-ioa.apps("./main");
+createApp("./main");
 ```
 
 ### 目录结构
@@ -53,7 +51,7 @@ project
     |
     |─  index.js                 应用入口
     |
-    |-- $main    $app    $app    ...
+    |-- main    app    app    ...
     |    |
     |    | -- index.js           分级装载配置文件
     |    |
@@ -108,18 +106,18 @@ project
     |
 ```
 
-### ioa.apps(path, ...)
+### createApp(path, ...)
 
 第一个 path 被视为主应用，子组件的配置项在主应用的 config 目录中统一配置，框架自动分发到对应的子组件。
 
-- path `String` - 应用路径，支持相对路径或绝对路径
+- path `string` - 应用路径，支持相对路径或绝对路径
 
 #### 多应用配置示例
 
 ```js
-import ioa from "ioa";
+import { createApp } from "ioa";
 
-ioa.apps("./main", "./admin");
+createApp("./main", "./user", "./admin");
 ```
 
 ### 分级装载
@@ -160,37 +158,37 @@ app.import(options: object); // 导入依赖
 app.export(options: object); // 导出依赖
 ```
 
-- `options` _Object_
+- `options` _object_
 
-  - `$name` _Object, Boolean_ - 装载选项，$name 对应目录名称或包含.js、.json 后缀的文件名。当值为 false 时表示不装载该目录或模块
+  - `$name` _object, boolean_ - 装载选项，$name 对应目录名称或包含.js、.json 后缀的文件名。当值为 false 时表示不装载该目录或模块
 
-    - `level` _Number_ - 加载等级
+    - `level` _number_ - 加载等级
 
-    - `action(options)` _Function_ - 函数加载项，不需要关联目录和文件的纯函数加载点
+    - `action(options)` _function_ - 函数加载项，不需要关联目录和文件的纯函数加载点
 
-    - `module(data, name)` _Function_ - 模块加载完毕的回调函数，this 指向当前层级容器。如果无数据返回，则该模块输出为空。
+    - `module(data, name)` _function_ - 模块加载完毕的回调函数，this 指向当前层级容器。如果无数据返回，则该模块输出为空。
 
       - `data` \* - 当前模块导出数据
 
-      - `name` _String_ - 当前模块名称，不含后缀
+      - `name` _string_ - 当前模块名称，不含后缀
 
-    - `directory(data, name)` _Function_ - 目录加载完毕的回调函数，支持子集继承。如果无数据返回，则该目录结构不会被创建。
+    - `directory(data, name)` _function_ - 目录加载完毕的回调函数，支持子集继承。如果无数据返回，则该目录结构不会被创建。
 
-      - `data` _Object_ - 当前目录下所有子集导出数据集合
+      - `data` _object_ - 当前目录下所有子集导出数据集合
 
-      - `name` _String_ - 当前目录名称
+      - `name` _string_ - 当前目录名称
 
-    - `before(options)` _Function_ - 当前等级下所有目录、模块在加载前执行的钩子函数（仅在当前层级触发，不对子集继承）
+    - `before(options)` _function_ - 当前等级下所有目录、模块在加载前执行的钩子函数（仅在当前层级触发，不对子集继承）
 
       - `data` \* - 当前目录、模块导出数据
 
-      - `dirList` _Array_ - 当前目录下的文件名列表
+      - `dirList` _array_ - 当前目录下的文件名列表
 
-      - `parents` _Object_ - 父节点
+      - `parents` _object_ - 父节点
 
-      - `root` _Object_ - 根节点
+      - `root` _object_ - 根节点
 
-    - `after(options)` _Function_ - 当前等级下所有目录、模块在加载后执行的钩子函数（仅在当前层级触发，不对子集继承），参数与 before(options)一致
+    - `after(options)` _function_ - 当前等级下所有目录、模块在加载后执行的钩子函数（仅在当前层级触发，不对子集继承），参数与 before(options)一致
 
 配置参考示例：
 
@@ -270,7 +268,6 @@ const app = ioa.app();
 
 // 获取指定组件作用域实例
 const main = ioa.app("main");
-
 const user = ioa.app("user");
 ```
 

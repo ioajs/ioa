@@ -1,6 +1,6 @@
 import test from 'jtm';
 import consoln from 'consoln';
-import mixin from '../dist/mixin.js';
+import mixin from 'ioa/mixin.js';
 
 test('mixin', async t => {
 
