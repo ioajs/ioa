@@ -4,14 +4,22 @@ import ioa, { main as mainApp } from 'ioa';
 
 const base = {
   $name: String,
-  $path: String,
+  $base: String,
+  $entry: String,
   $components: Object,
   $import: Object,
   import() { }
 };
 
+const component = {
+  ...base,
+  $release: Object,
+  $export: Object,
+  export() { }
+};
+
 const app = {
-  middlewareBefore: [function () { }],
+  middlewareBefore: [...Function],
   router: {
     get() { },
     post() { },
@@ -101,13 +109,6 @@ const user = {
 
 test('ioa', t => {
 
-  const component = {
-    ...base,
-    $release: Object,
-    $export: Object,
-    export() { }
-  };
-
   const schema = types({
     argv: { default: [] },
     version: String,
@@ -126,7 +127,7 @@ test('ioa', t => {
     },
   });
 
-  const { data, error } = schema.strictVerify(ioa);
+  const { data, error } = schema.verify(ioa);
 
   t.ok(data, error);
 

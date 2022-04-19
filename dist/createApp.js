@@ -1,31 +1,32 @@
-import path from 'path';
 import consoln from 'consoln';
 import loader from './loader.js';
-import { createApp } from './createComponent.js';
+import { createRootComponent } from './createComponent.js';
 import { apps, loaders } from './common.js';
-import ioa from './index.js';
+import { main } from './index.js';
 /**
  * 使用深度优先策略，递归预装载所有组件的 index 入口文件
- */ async function recursionIndex(components) {
+ */
+async function recursionIndex(components) {
     const imports = {}; // 待加载组件
-    for(const name in components){
+    for (const name in components) {
         const component = components[name];
         if (!component.$init) {
             imports[name] = component;
         }
     }
-    if (Object.keys(imports).length === 0) return;
-    for(const name1 in imports){
-        const component = imports[name1];
-        const indexpath = path.join(component.$path, 'index.js');
-        const { default: options  } = await import(indexpath).catch((error)=>{
-            consoln.error(`“${component.$name}”组件入口文件加载失败, "${indexpath}"`);
+    if (Object.keys(imports).length === 0)
+        return;
+    for (const name in imports) {
+        const component = imports[name];
+        const { $entry } = component;
+        const { default: options } = await import($entry).catch(error => {
+            consoln.error(`"${component.$name}" 组件入口文件加载失败, "${$entry}"`);
             throw consoln.error(error);
         });
-        // 模块有返回值时，表示使用了声明式对象
+        // 模块有返回值时，表示使用声明式对象
         if (options) {
             if (options.component) {
-                for (const name of options.component){
+                for (const name of options.component) {
                     component.component(name);
                 }
             }
@@ -38,31 +39,33 @@ import ioa from './index.js';
         }
         component.$init = true;
     }
-    for(const name2 in imports){
-        const component = imports[name2];
-        const { $components  } = component;
+    for (const name in imports) {
+        const component = imports[name];
+        const { $components } = component;
         await recursionIndex($components);
     }
 }
 /**
  * 装载单个或多个应用
- * @param {string[]} paths 应用路径
- */ export default async function(...paths) {
+ * @param appsOptions 应用配置
+ */
+export default async function (appsOptions) {
     // 截取第一个path作为主节点
-    const mainPath = paths.shift();
-    if (mainPath === undefined) {
-        throw consoln.error(`createApp 参数不允许为空`);
-    }
-    createApp(mainPath, ioa.main);
-    for (const path1 of paths){
-        if (path1) createApp(path1, {});
+    const firstName = Object.keys(appsOptions).shift();
+    const mainPath = appsOptions[firstName];
+    delete appsOptions[firstName];
+    createRootComponent("main", mainPath, main);
+    for (const name in appsOptions) {
+        const apppath = appsOptions[name];
+        if (apppath)
+            createRootComponent(name, apppath, {});
     }
     await recursionIndex(apps);
     /////////////// 根据加载时序，预先对应用进行分级排序 ///////////////
     const levels = {};
-    for (const component of loaders){
+    for (const component of loaders) {
         loader.level({
-            dirpath: component.$path,
+            dirpath: component.$base,
             root: component,
             data: component,
             imports: component.$import
@@ -70,21 +73,25 @@ import ioa from './index.js';
     }
     console.log('\n\x1b[32m******************************** ioa loader **********************\n');
     // 显示加载时序
-    for(const level in levels){
+    for (const level in levels) {
         console.log(`\x1b[32m${level}›--------------------------------------------------------`);
         const filter = [];
         const queue = levels[level];
-        for (const item of queue){
+        for (const item of queue) {
             if (item.error === undefined) {
                 filter.push(item);
                 if (item.isFile) {
                     console.log(`\x1b[36m›  ${item.path}`);
-                } else if (item.children) {
+                }
+                else if (item.children) {
                     console.log(`\x1b[34m#  ${item.path}/ [${item.children.length}]`);
-                } else if (item.action) {
+                }
+                else if (item.action) {
                     console.log(`\x1b[35m*  ${item.path}/index.js ${item.name}()`);
                 }
-            } else {
+            }
+            else {
+                // console.error(`${item.path},`, item.error);
                 console.log(`\x1b[33m!  ${item.path}`);
             }
         }
@@ -93,4 +100,4 @@ import ioa from './index.js';
     console.log(`\n\x1b[32m*******************************************************************\x1b[30m\n`);
     // 异步加载所有模块
     await loader.loading(levels);
-};
+}

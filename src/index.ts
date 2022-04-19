@@ -2,7 +2,8 @@ import fs from 'fs';
 import consoln from 'consoln';
 import createApp from './createApp.js';
 import { createComponent } from './createComponent.js';
-import { components, apps, onames, paths, type Component } from './common.js';
+import { apps, components, onames, paths } from './common.js';
+import type { PartialComponent } from './common.js';
 
 const url = new URL('../package.json', import.meta.url);
 const packagePath = decodeURI(url.pathname);
@@ -12,13 +13,14 @@ const { version } = JSON.parse(packageUtf8);
 
 // argv参数解析
 const [, , ...processArgv] = process.argv;
-const argv: { default: string[], env?: string[] } = { default: [] };
+const argv: { default: string[], [n: string]: string[] } = { default: [] };
 
 let key = 'default';
 
 for (const item of processArgv) {
-  if (item[0] === '-') {
-    key = item.replace(/^-{1,2}/, '');
+  const [one, two] = item;
+  if (one === '-') {
+    key = (two === '-') ? item.slice(2) : item.slice(1);
     argv[key] = [];
   } else {
     argv[key].push(item);
@@ -43,7 +45,7 @@ consoln.log(`NODE_ENV = ${NODE_ENV}`);
  * 获取指定应用实例，缺失状态下获取当前应用实例
  * @param {string} name 应用名称
  */
-function app(name?: string): Component {
+function app(name?: string): PartialComponent {
 
   if (name) {
 
@@ -74,7 +76,7 @@ function app(name?: string): Component {
 
 }
 
-const main = {};
+const { main } = apps;
 
 const ioa = {
   app,

@@ -3,13 +3,16 @@
     "./src/**/*"
   ],
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "outDir": "build",
+    "target": "esnext",
+    "module": "esnext",
+    "outDir": "dist",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
-    "noEmit": true,
-  },
+    // "strict": true,
+    // "declaration": true,
+    // "emitDeclarationOnly": true,
+    // "noEmit": true,
+  }
 }

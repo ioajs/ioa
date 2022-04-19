@@ -1,6 +1,6 @@
-import { app } from 'ioa';
+import { apps } from 'ioa';
 
-const user = app();
+const { user } = apps;
 
 user.component('@ioa/config');
 user.component('@ioa/koa');

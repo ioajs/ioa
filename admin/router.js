@@ -4,7 +4,7 @@ const { cors } = components['@common'].middleware;
 
 const { router } = app();
 
-// router.befor(cors);
+router.before(cors);
 
 router.get('/admin', 'home.index');
 

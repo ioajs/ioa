@@ -7,6 +7,7 @@ const { cors } = components['@common'].middleware;
 
 const { home, news } = controller;
 
+
 router.global(cors);
 
 router.get('/', home.index);
@@ -20,6 +21,7 @@ router.get('/news/:id/details/:kk', token, 'news.details');
 router.get('/sms/:id/sd/:kk', 'home.sms');
 
 router.post('/sms/:id/sd/:kk', token, home.sms);
+
 
 ////////// REST路由 ////////////
 

@@ -8,9 +8,9 @@ interface Node {
   root: object
   data?: object
   isFile?: boolean
-  directory?: any
-  children?: any
-  parents?: any
+  directory?: unknown
+  children?: unknown
+  parents?: unknown
   error?: string
 }
 
@@ -37,8 +37,8 @@ interface LevelOptions {
 export default {
   /**
   * 按加载等级对加载项进行分组
-  * @param { object } options 组件加载器配置信息
-  * @param { object } levels 保存目录、模块分级加载结果的容器
+  * @param options 组件加载器配置信息
+  * @param levels 保存目录、模块分级加载结果的容器
   */
   level(options: LevelOptions, levels: object): void {
 
@@ -128,7 +128,7 @@ export default {
   },
   /**
    * 装载模块
-   * @param { object } options 加载选项
+   * @param options 加载选项
    */
   async module(options) {
 
@@ -148,7 +148,7 @@ export default {
   },
   /**
    * 递归装载目录
-   * @param { object } options 加载选项
+   * @param options 加载选项
    */
   async directory(options) {
 
@@ -211,7 +211,7 @@ export default {
   },
   /**
    * 按分级顺序递归加载目录、模块
-   * @param { object } levels 待加载目录、模块队列
+   * @param levels 待加载目录、模块队列
    */
   async loading(levels: object) {
 

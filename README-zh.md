@@ -39,7 +39,7 @@ npm install ioa
 ```js
 import { createApp } from "ioa";
 
-createApp("./main");
+createApp({ main: "./main" });
 ```
 
 ### 目录结构
@@ -117,7 +117,11 @@ project
 ```js
 import { createApp } from "ioa";
 
-createApp("./main", "./user", "./admin");
+createApp({
+  "main": "./main",
+  "admin": "./admin",
+  "user": "./users"
+});
 ```
 
 ### 分级装载
@@ -190,17 +194,15 @@ app.export(options: object); // 导出依赖
 
     - `after(options)` _function_ - 当前等级下所有目录、模块在加载后执行的钩子函数（仅在当前层级触发，不对子集继承），参数与 before(options)一致
 
-配置参考示例：
+### 应用配置示例：
 
 ```js
-import ioa from "ioa";
+import { main } from "ioa";
 
-const app = ioa.app();
+main.component("@ioa/config");
+main.component("@ioa/koa");
 
-app.component("@ioa/config");
-app.component("@ioa/koa");
-
-app.import({
+main.import({
   model: {
     level: 20,
   },
@@ -222,7 +224,7 @@ app.import({
   },
 });
 
-app.export({
+main.export({
   loads: { level: 20 },
 });
 ```
@@ -258,17 +260,13 @@ export default {
 
 组件按功能可分为应用类组件和扩展类组件，支持相对路径、绝对路径、模块路径三种导入方式。
 
-使用 ioa.app()可以获取当前组件作用域实例，添加 name 参数可获取指定的应用实例。
+使用 ioa.app()可以获取当前组件作用域实例，好处是在改变应用或组件名称时，无需修改代码，添加 name 参数可获取指定的应用实例。
 
 ```js
 import ioa from "ioa";
 
-// 默认获取当前组件作用域实例
-const app = ioa.app();
-
-// 获取指定组件作用域实例
-const main = ioa.app("main");
-const user = ioa.app("user");
+const app = ioa.app(); // 无参数时获取当前组件作用域实例
+const user = ioa.app("user"); // 获取指定组件作用域实例
 ```
 
 ### 组件化

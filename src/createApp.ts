@@ -1,16 +1,16 @@
-import path from 'path';
 import consoln from 'consoln';
 import loader from './loader.js';
-import { createApp } from './createComponent.js';
-import { apps, loaders, type Components } from './common.js';
+import { createRootComponent } from './createComponent.js';
+import { apps, loaders } from './common.js';
+import type { Apps, PartialComponent, Components } from './common.js';
 import { main } from './index.js';
 
 /**
  * 使用深度优先策略，递归预装载所有组件的 index 入口文件
  */
-async function recursionIndex(components: Components) {
+async function recursionIndex(components: Apps) {
 
-  const imports = {}; // 待加载组件
+  const imports: Apps = {}; // 待加载组件
 
   for (const name in components) {
     const component = components[name];
@@ -25,9 +25,9 @@ async function recursionIndex(components: Components) {
 
     const component = imports[name];
 
-    const indexpath = path.join(component.$path, 'index.js');
-    const { default: options } = await import(indexpath).catch(error => {
-      consoln.error(`"${component.$name}" 组件入口文件加载失败, "${indexpath}"`);
+    const { $entry } = component;
+    const { default: options } = await import($entry).catch(error => {
+      consoln.error(`"${component.$name}" 组件入口文件加载失败, "${$entry}"`);
       throw consoln.error(error);
     });
 
@@ -66,24 +66,25 @@ async function recursionIndex(components: Components) {
 
 }
 
-
 /**
  * 装载单个或多个应用
- * @param {string[]} paths 应用路径
+ * @param appsOptions 应用配置
  */
-export default async function (...paths: string[]) {
+export default async function (appsOptions: { [name: string]: string }) {
 
   // 截取第一个path作为主节点
-  const mainPath = paths.shift();
+  const firstName = Object.keys(appsOptions).shift();
 
-  if (mainPath === undefined) {
-    throw consoln.error(`createApp 参数不允许为空`);
-  }
+  const mainPath = appsOptions[firstName];
 
-  createApp(mainPath, main);
+  delete appsOptions[firstName];
 
-  for (const path of paths) {
-    if (path) createApp(path, {});
+  createRootComponent("main", mainPath, main);
+
+
+  for (const name in appsOptions) {
+    const apppath = appsOptions[name];
+    if (apppath) createRootComponent(name, apppath, {});
   }
 
   await recursionIndex(apps);
@@ -94,7 +95,7 @@ export default async function (...paths: string[]) {
 
   for (const component of loaders) {
     loader.level({
-      dirpath: component.$path,
+      dirpath: component.$base,
       root: component,
       data: component,
       imports: component.$import
@@ -123,6 +124,7 @@ export default async function (...paths: string[]) {
           console.log(`\x1b[35m*  ${item.path}/index.js ${item.name}()`);
         }
       } else {
+        // console.error(`${item.path},`, item.error);
         console.log(`\x1b[33m!  ${item.path}`);
       }
 

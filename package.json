@@ -1,10 +1,11 @@
 {
    "name": "ioa",
-   "version": "13.0.0",
-   "description": "Node.js多应用水平扩展、组件化框架",
+   "version": "13.0.1",
+   "description": "Node.js 多应用水平扩展、组件化框架",
    "keywords": [
       "koa",
-      "ioa"
+      "ioa",
+      "loader"
    ],
    "type": "module",
    "main": "./dist/index.js",
@@ -13,30 +14,29 @@
       ".": "./dist/index.js",
       "./*": "./dist/*"
    },
+   "types": "types/index.d.ts",
    "scripts": {
-      "start": "tsc && node ./dist/index.js",
+      "start": "node ./index.js",
       "dev": "tsc --watch",
       "build": "tsc",
+      "build:types": "tsc --emitDeclarationOnly --declaration --outDir ./types/",
       "swc": "swc ./src/* -d ./dist && node ./dist/index.js",
-      "test": "jtm",
-      "jtm": "jtm ./test/function.js"
+      "test": "jtm"
    },
    "dependencies": {
-      "consoln": "^2.0.2"
+      "consoln": "^3.0.5"
    },
    "devDependencies": {
       "@ioa/config": "^13.0.0",
-      "@ioa/koa": "^13.0.0",
-      "@koa/cors": "^3.1.0",
+      "@ioa/koa": "^13.0.1",
+      "@koa/cors": "^3.3.0",
       "@types/node": "^17.0.23",
       "axios": "^0.21.1",
-      "jtm": "^1.0.4",
-      "typea": "^6.0.1"
+      "typea": "^7.2.0"
    },
-   "types": "types.d.ts",
    "files": [
       "dist",
-      "types.d.ts",
+      "types",
       "README.md"
    ],
    "license": "ISC",

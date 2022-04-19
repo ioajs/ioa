@@ -1,11 +1,11 @@
 import { createApp } from 'ioa';
 
-// console.time('test');
+console.time('test');
 
-await createApp(
-  "./main",
-  "./admin",
-  "./user"
-);
+await createApp({
+  main: "./main",
+  admin: "./admin",
+  user: "./user"
+});
 
-// console.timeEnd('test');
+console.timeEnd('test');

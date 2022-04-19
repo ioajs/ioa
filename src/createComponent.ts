@@ -1,44 +1,40 @@
+import { accessSync } from 'fs';
 import path from 'path';
 import consoln from 'consoln';
 import mixin from './mixin.js';
 import { components, apps, paths, loaders, onames } from './common.js';
-import type { Component, ImportOptions, ExportOptions } from './common.js';
+import type { PartialComponent, Component, ImportOptions, ExportOptions } from './common.js';
 
 const cwd = process.cwd();
 const pathRegExp = /\/([^/]+)\/?$/;
 
 /**
- * 创建应用组件实例（不加载模块，仅创建空实例，建立依赖关系）
- * @param { string } oname 原始组件名或路径
+ * 创建根应用组件实例（仅创建空实例，建立依赖关系,不加载模块）
+ * @param { string } $name: 应用名称
+ * @param { string } apppath 应用路径
  * @param { object } app 应用容器
  */
-export function createApp(oname: string, app: Component) {
+export function createRootComponent($name: string, apppath: string, app: PartialComponent) {
 
-  let $path: string, $name: string;
+  let $base: string, $entry: string;
 
-  const [point] = oname[0];
+
+  const [point] = apppath[0];
 
   // 相对路径
   if (point === '.') {
-    $path = path.join(cwd, oname);
-    const [, name] = oname.match(pathRegExp);
-    $name = name;
-  }
-
-  // 绝对路径
-  else if (path.isAbsolute(oname)) {
-    $path = path.join(oname);
-    const [name] = oname.match(pathRegExp);
-    $name = name;
+    $base = path.join(cwd, apppath);
+    $entry = path.join(cwd, apppath, 'index.js');
   }
 
   else {
-    throw consoln.error(`无效的应用路径"${oname}"`);
+    throw consoln.error(`无效的应用路径"${apppath}"`);
   }
 
   Object.assign(app, {
     $name,
-    $path,
+    $base,
+    $entry,
     $import: {}, // 加载器配置项
     $components: {}, // 关联组件依赖集合
     component(name: string) {
@@ -66,22 +62,23 @@ export function createApp(oname: string, app: Component) {
     }
   })
 
-  paths[$path] = app;
-  onames[oname] = app;
-  components[$name] = app;
   apps[$name] = app;
+  paths[$base] = app;
+  onames[apppath] = app;
 
   loaders.push(app);
 
 }
 
+const cwdSplit = cwd.split('/');
+
 /**
  * 创建组件实例或导出已缓存的组件（不加载模块，仅创建空实例，建立依赖关系）
- * @param { string } oname 原始组件名或路径
+ * @param { string } oname npm 模块组件名或原始路径
  * @param { object } subscribe 订阅者
  * @returns { object } 组件实例
  */
-export function createComponent(oname: string, subscribe: Component): Component {
+export function createComponent(oname: string, subscribe: PartialComponent): Component {
 
   const cacheComponent: Component = onames[oname];
 
@@ -94,33 +91,54 @@ export function createComponent(oname: string, subscribe: Component): Component 
 
   }
 
-  let $path: string, $name: string;
+  let $base: string, $entry: string, $name: string;
 
-  const [point] = oname[0];
+  const [first] = oname[0];
 
   // 相对路径
-  if (point === '.') {
-    $path = path.join(cwd, oname);
+  if (first === '.') {
+    $base = path.join(cwd, oname);
+    $entry = path.join($base, 'index.js');
     const [, name] = oname.match(pathRegExp);
     $name = name;
   }
 
   // 绝对路径
-  else if (path.isAbsolute(oname)) {
-    $path = path.join(oname);
+  else if (first === '/') {
+    $base = path.join(oname);
+    $entry = path.join($base, 'index.js');
     const [name] = oname.match(pathRegExp);
     $name = name;
   }
 
-  // npm 组件路径，从lib目录载入
+  // npm 组件路径，沿 cwd 路径向上就近查找，约定从 lib 目录载入
   else {
-    $path = path.join(cwd, 'node_modules', oname, 'lib');
-    $name = oname;
+
+    let { length } = cwdSplit;
+    let state, basePath: string;
+    for (let index = length; index >= 0; index--) {
+      basePath = cwdSplit.slice(0, index).join('/');
+      try {
+        accessSync(path.join(basePath, 'node_modules', oname, 'package.json'));
+        state = true;
+        break;
+      } catch (e) { }
+    }
+
+    if (state) {
+      $base = path.join(basePath, 'node_modules', oname, 'lib');
+      $entry = path.join($base, 'index.js');
+      $name = oname;
+    } else {
+      throw consoln.error(new Error(`找不到 npm 模块 "${oname}"`));
+    }
+
   }
 
   const component: Component = {
     $name,
-    $path,
+    $base,
+    $entry,
     $import: {}, // 加载器配置项
     $components: {}, // 依赖组件集合
     $release: { [subscribe.$name]: subscribe }, // 被依赖组件集合
@@ -177,7 +195,7 @@ export function createComponent(oname: string, subscribe: Component): Component 
     }
   };
 
-  paths[$path] = component;
+  paths[$base] = component;
   onames[oname] = component;
   components[$name] = component;
   subscribe.$components[$name] = component;
@@ -187,5 +205,3 @@ export function createComponent(oname: string, subscribe: Component): Component 
   return component;
 
 }
-
-
