@@ -8,19 +8,17 @@ Applications in ioa.js are made up of multiple components, each with separate sc
 
 Because it is based on a hierarchical loading strategy, developers are free to manage the lifecycle of the application at launch without the constraints of conventional frameworks.
 
-Using ioa makes it easy to customise the framework to your liking, or to use it with existing frameworks. The project prefers to use koa, and this also applies to express.
+Using ioa makes it easy to customise the framework to your liking or to use it in conjunction with existing frameworks. The project prefers to use koa, and this also applies to express.
 
 ### Features
 
-- Uses ES modules, no longer compatible with CommonJS
+- uses pure asynchronous module loading
 
-- Use pure asynchronous module loading method
-
-- Component-as-an-application, with a component-based, horizontally scalable architecture
+- component-as-application, componentised, horizontally scalable architecture
 
 - Each component has a relatively isolated component scope, consistent code structure and functionality
 
-- Support for single-application, multi-application and component mode switching to meet smooth transition and incremental expansion requirements
+- Supports single-application, multi-application and component mode switching to meet smooth transition and incremental expansion requirements
 
 - Support for hierarchical module loading, flexible module loading order and full lifecycle management at startup
 
@@ -28,7 +26,7 @@ Using ioa makes it easy to customise the framework to your liking, or to use it 
 
 - The loader can be used to treat directories, js files and functions in the application as customisable tree objects
 
-- Support for npm publishing and managing versioning and dependencies between components
+- Support for npm releases, managing versions and dependencies between components
 
 ### Install
 
@@ -39,114 +37,118 @@ npm install ioa
 ### Usage
 
 ```js
-import ioa from "ioa";
+import { createApp } from "ioa";
 
-ioa.apps("./main");
+createApp({ main: ". /main" });
 ```
 
 ### Directory structure
 
-The following directory structure is by convention only. The ioa framework itself does not restrict the directory structure or loading levels. Although developers are free to define the directory structure for each application in the index.js file, the only way to achieve better sharing of component resources is to follow a consistent convention.
+The following directory structure is by convention only. The ioa framework itself does not restrict the directory structure or load level. Although developers are free to define the directory structure of each application in the index.js file, the only way to achieve better sharing of component resources is to follow a uniform convention.
 
 ```
 project
-    |
-    |─  index.js                 Application Portal
-    |
-    |-- $main    $app    $app    ...
-    |    |
-    |    | -- index.js           Graded loading profiles
-    |    |
-    |    • <--- 0
-    |    • <--- 5
-    |    |
-    |    10 -- config             Configuration file directory
-    |    |    |- default.js       Public default configuration
-    |    |    |- localhost.js     Local environment configuration
-    |    |    |- development.js   Development environment configuration
-    |    |    └─ production.js    Production environment configuration
-    |    |    └─ $name.js         Customised environment configuration
-    |    |
-    |    • <--- 15
-    |    • <--- 16
-    |    |
-    |    20 -- model              Model Directory
-    |    |    |- $name.js
-    |    |    └─ ...
-    |    |
-    |    • <--- 26
-    |    |
-    |    30 -- middleware         Middleware Directory
-    |    |    |- $name.js
-    |    |    └─ ...
-    |    |
-    |    40 -- service            Abstract Service Layer
-    |    |    |- $name.js
-    |    |    └─ ...
-    |    |
-    |    • <--- 42
-    |    • <--- 45
-    |    |
-    |    50 -- controller         Controller Directory
-    |    |    |-- home            Multi-level directory support
-    |    |    |    |- $name.js
-    |    |    |    └─ ...
-    |    |    |- ...
-    |    |    |
-    |    |    └─ $name.js
-    |    |
-    |    • <--- 60
-    |    • <--- 70
-    |    |
-    |    80 -- router.js          Routing profiles
-    |    |
-    |    ：
-    |
-    |-- logger                    Log archiving, grouped by date
-    |
-    |-- static                    Static Resource Catalogue
-    |
+    |project
+    |─ index.js Application Portal
+    |project
+    |-- main app app ...
+    |-- index.js
+    | |-- index.js cascading configuration file
+    | --- index.js
+    | --- <-- 0
+    | --- <-- 5
+    | --- 5
+    | --- 10 -- config config file directory
+    | | - default.js public default configuration
+    | |- localhost.js local environment configuration
+    | |- development.js development environment configuration
+    | └─ production.js production environment configuration
+    | └─ $name.js custom environment configuration
+    | | --- 15
+    | - <-- 15
+    | - <-- 16
+    
+    | 20 -- model model directory
+    | | |- $name.js
+    | |- $name.js
+    | | - - 26
+    | - - - - 26
+    
+    | 30 -- middleware middleware directory
+    | | |- $name.js
+    | |- $name.js
+    | | - - - - - - - middleware
+    | 40 -- service abstract service layer
+    | | |- $name.js
+    | ...
+    | ...
+    | - - - 42
+    | - - - - 45
+    
+    | 50 --- controller Controller directory
+    | | --- home Multi-level controller nesting
+    | | |- $name.js
+    | | |- ...
+    | | |- ...
+    | | |- ...
+    | |- $name.js
+    | | - - - - - - - - - - - - - - $name.js
+    | | - <-- 60
+    | | - - - - 70
+    | | - - - - - - - - - - - - $name.js
+    | 80 -- router.js routing configuration file
+    | | - - - - - - - - - - - -
+    
+    |-- logger
+    |-- logger log archive, grouped by date
+    |-- static
+    |-- static resource directory
+    |-- static
 ```
 
-### ioa.apps(path, ...)
+### createApp(path, ...)
 
-The first path is considered to be the main application and the configuration items of the child components are configured uniformly in the config directory of the main application and the framework is automatically distributed to the corresponding child components.
+The first path is treated as the main application, and the configuration items for the child components are configured uniformly in the config directory of the main application, which is automatically distributed to the corresponding child components by the framework.
 
-- path `String` - the path to the application, either relative or absolute
+- path `string` - the path to the application, either relative or absolute
 
 #### Multi-application configuration example
 
 ```js
-import ioa from "ioa";
+import { createApp } from "ioa";
 
-ioa.apps("./main", "./admin");
+createApp({
+  "main": ". /main",
+  "admin": ". /admin",
+  "user": ". /users"
+});
 ```
 
-### Graded loading
+### Hierarchical loading
 
-The concept of a directory and module loading hierarchy was introduced in ioa to manage the lifecycle of an application during the startup phase.
+The concept of directory and module loading hierarchies was introduced in ioa to manage the lifecycle of an application during the startup phase.
 
-In traditional frameworks it is common to execute code at a specific stage through hook functions. The advantage of lifecycle hooks is that they are relatively simple and easy to understand, but the disadvantage is that they are inflexible and not scalable.
+In traditional frameworks it is common to execute the code for a particular phase through hook functions. The advantage of lifecycle hooks is that they are relatively simple and easy to understand, but the disadvantage is that they lack flexibility and extensibility.
 
-As ioa uses a custom module hierarchy loading strategy to manage the lifecycle, this allows the developer to create an unlimited number of leveled or up/down loading points at any stage of the framework loading and freely manage the loading process.
+Since ioa uses a custom module hierarchical loading strategy to manage the lifecycle, this allows the developer to create an unlimited number of leveled or top and bottom load points at any stage of the framework load, freely managing the loading process.
 
-> Sometimes there are still dependencies between sibling loaders, in which case you can usually just use import to improve the load timing or add a new mount point
+> Sometimes there are still dependencies between sibling load items, in which case it is often straightforward to use import to improve the load timing, or to add new mount points
 
-### Conventional loading hierarchy
+### Constrained loading levels
 
 In order to establish a uniform loading lifecycle across multiple components and achieve cross-component compatibility, modules need to be loaded by convention.
 
-ioa defines several common directories and loading levels for modules as follows.
+ioa defines a few common directory and module load levels as follows.
 
-| Node       | Level |
+| Node | Level |
 | ---------- | ----- |
-| config     | 10    |
-| model      | 20    |
-| middleware | 30    |
-| service    | 40    |
-| controller | 50    |
-| event      | 60    |
-| router     | 80    |
+| config | 10 |
+| model | 20 |
+| middleware | 30 |
+| service | 40 |
+| controller | 50 |
+| event | 60 |
+| router | 80 |
 
 ### Load the project entry file index.js
 
@@ -259,43 +261,39 @@ export default {
 }
 ```
 
-### Component scope
 
-Components can be divided into application components and extension components according to their functions, and they support three import methods: relative path, absolute path and module path.
+### Component scopes
 
-Use ioa.app() to get the current component scope instance, and add the name parameter to get the specified application instance.
+Components can be divided into application components and extension components according to their function, and support three import methods: relative paths, absolute paths and module paths.
+
+Use ioa.app() to get the current component scope instance. The advantage is that when you change the name of the application or component, you don't need to modify the code, and you can add the name parameter to get the specified application instance.
 
 ```js
 import ioa from "ioa";
 
-// Get the current component scope instance by default
-const app = ioa.app(); 
-
-// Get the specified component scope instance
-const main = ioa.app('main'); 
-
-const user = ioa.app('user');
+const app = ioa.app(); // Get the current component scope instance with no arguments
+const user = ioa.app("user"); // Get the specified component scope instance
 ```
 
-### Componentisation
+### Componentization
 
-In our vision, we expect applications to be built more in component form to decouple functional code and achieve a plug-and-play effect. We therefore tried to implement this in ioa.js by treating each component as an independent application and creating isolation and sharing mechanisms between components.
+In our vision, we expect applications to be built more in component form to decouple functional code and achieve a plug-and-play effect. Therefore, we have tried to implement this in ioa.js by treating each component as an independent application and creating isolation and sharing mechanisms between components.
 
-Traditional frameworks typically use a single point container where all resources are mounted on a single root node. As the amount of application code grows, the project becomes bloated, dependencies become more and more ambiguous, and naming conflicts become more and more serious, putting a lot of pressure on subsequent project expansion and management. This can be greatly alleviated by further splitting and refining the business logic in ioa through the component mechanism, and developers are free to adjust the splitting granularity according to their own needs or personal preferences.
+Traditional frameworks typically use a single point container where all resources are mounted on a single root node. As the amount of application code grows, the project becomes bloated, dependencies become more and more ambiguous, and naming conflicts become more and more serious, putting a lot of pressure on subsequent project expansion and management. This can be greatly alleviated by further splitting and refining the business logic through the component mechanism in ioa, and developers are free to adjust the splitting granularity according to their own needs or personal preferences.
 
-Many mainstream frameworks often abandon support for router and controller in plugins due to resource conflict concerns, mainly because it is difficult to elegantly resolve resource conflicts in a single app container. ioa uses multiple apps and resource isolation between components, so developers only need to access the app object within the current component The componentisation automatically locates the current component scope by obtaining the stack call path.
+Many mainstream frameworks often abandon support for router and controller in plug-ins due to resource conflicts, mainly because it is difficult to elegantly resolve resource conflicts in a single app container. ioa uses multiple apps and resource isolation between components, so that developers only need to access the app object within the current component to dynamically point to the current component, avoiding the burden of The componentisation automatically locates the current component scope by obtaining the stack call path.
 
 ### Microservicing
 
-Thanks to the isolation of component applications from each other, each component can be run separately as an independent application in a state free of external dependencies. This highly decoupled nature makes it easy to switch from monolithic applications to a microservice-oriented architecture in progressive development.
+As component applications are isolated from each other, each component can be run as a standalone application without external dependencies. This highly decoupled nature makes it easy to switch from monolithic applications to a microservices-based architecture in incremental development.
 
 ### Configuration files
 
-ioa supports dynamically switching configuration files via system environment variables and merging them with the default configuration file.
+ioa supports dynamic switching of configuration files via system environment variables and merging with the default configuration file.
 
 The default environment variable names are localhost, development, and production, with production as the environment variable by default.
 
-The framework does not restrict the use of the specified environment variable names, in fact, developers are free to define environment variable names and add as many environment variable profiles as they like, as long as they ensure that the environment variable names are named the same as the profile names to automatically load the corresponding profiles.
+The framework does not restrict the use of specified environment variable names; in fact, developers are free to define environment variable names and add as many environment variable configuration files as they wish, as long as they ensure that the environment variable names match the configuration file names and that the corresponding configuration files are loaded automatically.
 
 ### System Environment Variables
 
@@ -303,9 +301,9 @@ ioa supports two external environment variables, NODE_ENV and PORT, which can be
 
 #### NODE_ENV
 
-Differentiated configuration for different runtime environments is achieved by configuring the global NODE_ENV environment variable.
+The global NODE_ENV environment variable is configured to enable differential configuration for different runtime environments.
 
-NODE_ENV is normally defined as a global variable and should be used as a temporary variable if you need to switch environment variable profiles temporarily.
+NODE_ENV is normally defined as a global variable and temporary variables should be used if temporary switching of environment variable profiles is required.
 
 #### Configuration example
 
@@ -313,7 +311,7 @@ Temporary environment variables have a higher priority than system environment v
 
 #### Example
 
-Temporary switch to local environment in production environment
+Temporary switch to local environment in a production environment
 
 Linux
 
