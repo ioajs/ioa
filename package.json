@@ -1,6 +1,6 @@
 {
    "name": "ioa",
-   "version": "13.0.1",
+   "version": "13.0.2",
    "description": "Node.js 多应用水平扩展、组件化框架",
    "keywords": [
       "koa",
@@ -28,11 +28,11 @@
    },
    "devDependencies": {
       "@ioa/config": "^13.0.0",
-      "@ioa/koa": "^13.0.1",
+      "@ioa/koa": "^13.0.2",
       "@koa/cors": "^3.3.0",
       "@types/node": "^17.0.23",
-      "axios": "^0.21.1",
-      "typea": "^7.2.0"
+      "axios": "^0.26.1",
+      "typea": "^7.4.0"
    },
    "files": [
       "dist",

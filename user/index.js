@@ -7,7 +7,5 @@ user.component('@ioa/koa');
 user.component("./@common");
 
 user.import({
-  "data": {
-    "level": 10,
-  }
+  data: { level: 10 }
 });

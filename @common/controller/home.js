@@ -1,4 +1,4 @@
-class Index {
+export default class Index {
    async index(ctx) {
       ctx.body = 'common index'
    }
@@ -14,6 +14,4 @@ class Index {
    async delete(ctx) {
       ctx.body = 'common delete'
    }
-}
-
-export default Index;
+};

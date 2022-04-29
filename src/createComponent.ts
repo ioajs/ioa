@@ -1,4 +1,4 @@
-import { accessSync } from 'fs';
+import { readFileSync } from 'fs';
 import path from 'path';
 import consoln from 'consoln';
 import mixin from './mixin.js';
@@ -111,25 +111,24 @@ export function createComponent(oname: string, subscribe: PartialComponent): Com
     $name = name;
   }
 
-  // npm 组件路径，沿 cwd 路径向上就近查找，约定从 lib 目录载入
+  // npm 组件路径，沿 cwd 路径向上就近查找 package.json 文件
   else {
 
-    let { length } = cwdSplit;
-    let state, basePath: string;
+    const { length } = cwdSplit;
     for (let index = length; index >= 0; index--) {
-      basePath = cwdSplit.slice(0, index).join('/');
+      const basePath: string = path.join(cwdSplit.slice(0, index).join('/'), 'node_modules', oname);
+      const packagePath = path.join(basePath, 'package.json');
       try {
-        accessSync(path.join(basePath, 'node_modules', oname, 'package.json'));
-        state = true;
+        const packageString: string = readFileSync(packagePath, { encoding: 'utf8' });
+        const packageObject = JSON.parse(packageString);
+        $entry = path.join(basePath, packageObject.main || "lib/index.js");
+        $base = path.join($entry, '..');
+        $name = oname;
         break;
       } catch (e) { }
     }
 
-    if (state) {
-      $base = path.join(basePath, 'node_modules', oname, 'lib');
-      $entry = path.join($base, 'index.js');
-      $name = oname;
-    } else {
+    if ($entry === undefined) {
       throw consoln.error(new Error(`找不到 npm 模块 "${oname}"`));
     }
 
@@ -152,7 +151,7 @@ export function createComponent(oname: string, subscribe: PartialComponent): Com
       const error = mixin(component, dependencyComponent.$export);
 
       if (error) {
-        const mixinError = new Error(`"${$name}" 组件与 "${dependencyComponent.$name}" 依赖组件导出对象之间存在属性合并冲突，${$name}${error}`);
+        const mixinError = new Error(`${$name} 组件与 ${dependencyComponent.$name} 组件之间存在关联属性合并冲突，${$name}${error}`);
         throw consoln.error(mixinError);
       }
 
@@ -164,7 +163,7 @@ export function createComponent(oname: string, subscribe: PartialComponent): Com
       const error = mixin(component.$import, options);
 
       if (error) {
-        const mixinError = new Error(`"${$name}" 组件 import(options) 中存在属性合并冲突，${$name}${error}`);
+        const mixinError = new Error(`${$name} 组件 import(options) 中存在关联属性合并冲突，${$name}${error}`);
         throw consoln.error(mixinError);
       }
 
@@ -174,6 +173,7 @@ export function createComponent(oname: string, subscribe: PartialComponent): Com
       const { $release, $export } = component;
 
       for (const key in options) {
+
         const value = options[key];
 
         for (const name in $release) {
@@ -182,8 +182,8 @@ export function createComponent(oname: string, subscribe: PartialComponent): Com
           const error = mixin(release, { [key]: value });
 
           if (error) {
-            const newError = new Error(`"${name}" 组件与 "${$name}" 依赖组件之间存在属性合并冲突，${name}${error}`);
-            throw consoln.error(newError);
+            const mixinError = new Error(`${name} 组件与 ${$name} 组件之间存在关联属性合并冲突，${name}${error}`);
+            throw consoln.error(mixinError);
           }
 
         }
