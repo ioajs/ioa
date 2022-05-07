@@ -9,7 +9,7 @@ export default {
       "level": 20,
     },
     "test": {
-      "level": 30,
+      level: 30,
       action() {
         return 999;
       }
