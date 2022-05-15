@@ -1,8 +1,6 @@
 const { toString, hasOwnProperty } = Object.prototype;
 
-interface Object {
-  [n: string]: any
-}
+interface Object { [n: string]: any }
 
 /**
 * 深度合并两个对象，仅扩展原有的数据结构，只增不减
@@ -39,7 +37,7 @@ export default function mixin(app: Object, join: Object): void | string {
       } else {
 
         return `.${name}`;
-  
+
       }
 
     } else {

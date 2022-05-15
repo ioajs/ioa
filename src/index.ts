@@ -1,9 +1,9 @@
 import fs from 'fs';
 import consoln from 'consoln';
 import createApp from './createApp.js';
-import { createComponent } from './createComponent.js';
-import { apps, components, onames, paths } from './common.js';
+import { components, onames, paths } from './common.js';
 import type { PartialComponent } from './common.js';
+import main from './main.js';
 
 const url = new URL('../package.json', import.meta.url);
 const packagePath = decodeURI(url.pathname);
@@ -42,66 +42,35 @@ consoln.log(`Ioa Framework v${version}`);
 consoln.log(`NODE_ENV = ${NODE_ENV}`);
 
 /**
- * 获取指定应用实例，缺失状态下获取当前应用实例
- * @param {string} name 应用名称
+ * 获取当前应用实例
  */
-function app(name?: string): PartialComponent {
+function app(): PartialComponent {
 
-  if (name) {
+  const { stack } = new Error();
+  const atPath = stack.split('\n')[2];
+  const [filePath] = atPath.match(/(\/[^/]+)+/);
+  const pathSplit = decodeURI(filePath).split('/');
 
-    const app = apps[name];
-    if (app) {
-      return app;
-    } else {
-      throw new Error(`找不到应用"${name}"`);
-    }
+  pathSplit.pop();
 
-  } else {
-
-    const { stack } = new Error();
-    const atPath = stack.split('\n')[2];
-    const [filePath] = atPath.match(/(\/[^/]+)+/);
-    const pathSplit = decodeURI(filePath).split('/');
-
+  while (pathSplit.length) {
+    const path = pathSplit.join('/');
+    const app = paths[path];
     pathSplit.pop();
-
-    while (pathSplit.length) {
-      const path = pathSplit.join('/');
-      const app = paths[path];
-      pathSplit.pop();
-      if (app) return app;
-    }
-
+    if (app) return app;
   }
 
 }
 
-const { main } = apps;
-
-const ioa = {
-  app,
-  apps,
-  main,
-  onames,
-  components,
-  argv,
-  NODE_ENV,
-  version,
-  createApp,
-  createComponent,
-}
-
 export {
-  app,
-  apps,
-  main,
+  argv,
+  version,
+  NODE_ENV,
   onames,
   components,
-  version,
-  argv,
-  NODE_ENV,
+  main,
   createApp,
-  createComponent,
+  app,
 };
 
-export default ioa;
+export default main;

@@ -40,9 +40,10 @@ export interface PartialComponent extends Partial<Component> { }
 
 export interface Components { [n: string]: Component }
 
+/** 待加载应用队列 */
 export const loaders: PartialComponent[] = [];
 
-export const onames: PartialComponent = {}; // 原始 name、path 映射实例
+export const onames = {}; // 原始 name、path 映射实例
 
 export interface Paths { [name: string]: PartialComponent }
 
@@ -50,13 +51,3 @@ export const paths: Paths = {}; // path 映射实例，用于 ioa.app() 中的�
 
 /** 所有组件实例集合*/
 export const components: Components = {};
-
-export interface Apps {
-  [name: string]: PartialComponent
-}
-
-/** 所有应用实例集合*/
-export const apps: Apps = {
-  /** 主应用实例 */
-  main: {}
-};

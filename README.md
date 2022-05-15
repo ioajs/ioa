@@ -1,5 +1,9 @@
 ## ioa
 
+> As the Serverless ecosystem gradually improves, the project may be deprecated in order to achieve lighter application deployment and more friendly TypeScript support.
+
+[中文](./README-zh.md)
+
 Unlike regular web frameworks, ioa.js is only a miniature framework that supports hierarchical loading of modules. Following the on-demand introduction principle, its core functionality is light enough and does not integrate any web-related services.
 
 As a base framework, unlike many large frameworks, the core functionality of the ioa.js framework consists only of module loading and dynamic orchestration, and we do not want to overly constrain the developer's behaviour, as constraints will inevitably create limitations.

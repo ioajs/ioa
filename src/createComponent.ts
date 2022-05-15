@@ -1,84 +1,21 @@
-import { readFileSync } from 'fs';
 import path from 'path';
+import { readFileSync } from 'fs';
 import consoln from 'consoln';
 import mixin from './mixin.js';
-import { components, apps, paths, loaders, onames } from './common.js';
-import type { PartialComponent, Component, ImportOptions, ExportOptions } from './common.js';
+import { components, paths, loaders, onames } from './common.js';
+import type { Component, PartialComponent, ImportOptions, ExportOptions } from './common.js';
 
 const cwd = process.cwd();
+const cwdSplit = cwd.split('/');
 const pathRegExp = /\/([^/]+)\/?$/;
 
 /**
- * 创建根应用组件实例（仅创建空实例，建立依赖关系,不加载模块）
- * @param { string } $name: 应用名称
- * @param { string } apppath 应用路径
- * @param { object } app 应用容器
- */
-export function createRootComponent($name: string, apppath: string, app: PartialComponent) {
-
-  let $base: string, $entry: string;
-
-
-  const [point] = apppath[0];
-
-  // 相对路径
-  if (point === '.') {
-    $base = path.join(cwd, apppath);
-    $entry = path.join(cwd, apppath, 'index.js');
-  }
-
-  else {
-    throw consoln.error(`无效的应用路径"${apppath}"`);
-  }
-
-  Object.assign(app, {
-    $name,
-    $base,
-    $entry,
-    $import: {}, // 加载器配置项
-    $components: {}, // 关联组件依赖集合
-    component(name: string) {
-      if (typeof name !== 'string') return;
-
-      const dependencyComponent = createComponent(name, app);
-      const error = mixin(app, dependencyComponent.$export);
-
-      if (error) {
-        const mixinError = new Error(`"${$name}" 应用与 "${name}" 依赖组件导出对象之间存在属性合并冲突，${$name}${error}`);
-        throw consoln.error(mixinError);
-      }
-
-      return dependencyComponent;
-    },
-    import(options: ImportOptions) {
-
-      const error = mixin(app.$import, options);
-
-      if (error) {
-        const mixinError = new Error(`"${$name}" 应用 import 选项中存在属性合并冲突，${$name}${error}`);
-        throw consoln.error(mixinError);
-      }
-
-    }
-  })
-
-  apps[$name] = app;
-  paths[$base] = app;
-  onames[apppath] = app;
-
-  loaders.push(app);
-
-}
-
-const cwdSplit = cwd.split('/');
-
-/**
  * 创建组件实例或导出已缓存的组件（不加载模块，仅创建空实例，建立依赖关系）
- * @param { string } oname npm 模块组件名或原始路径
- * @param { object } subscribe 订阅者
- * @returns { object } 组件实例
+ * @param oname npm 模块组件名或原始路径
+ * @param subscribe 订阅者
+ * @returns 组件实例
  */
-export function createComponent(oname: string, subscribe: PartialComponent): Component {
+export default function createComponent(oname: string, subscribe: PartialComponent): Component {
 
   const cacheComponent: Component = onames[oname];
 

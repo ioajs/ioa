@@ -1,12 +1,11 @@
-import { main, components } from 'ioa';
+import ioa, { components } from 'ioa';
 
-const { router, middleware, controller } = main;
+const { router, middleware, controller } = ioa;
 
 const { token } = middleware;
 const { cors } = components['@common'].middleware;
 
 const { home, news } = controller;
-
 
 router.global(cors);
 
@@ -21,7 +20,6 @@ router.get('/news/:id/details/:kk', token, 'news.details');
 router.get('/sms/:id/sd/:kk', 'home.sms');
 
 router.post('/sms/:id/sd/:kk', token, home.sms);
-
 
 ////////// REST路由 ////////////
 

@@ -1,8 +1,7 @@
 import consoln from 'consoln';
 import loader from './loader.js';
-import { createRootComponent } from './createComponent.js';
-import { apps, loaders } from './common.js';
-import { main } from './index.js';
+import { loaders } from './common.js';
+import main, { createMain } from './main.js';
 /**
  * 使用深度优先策略，递归预装载所有组件的 index 入口文件
  */
@@ -46,21 +45,12 @@ async function recursionIndex(components) {
     }
 }
 /**
- * 装载单个或多个应用
- * @param appsOptions 应用配置
+ * 装载根应用
+ * @param mainPath 应用装载路径
  */
-export default async function (appsOptions) {
-    // 截取第一个path作为主节点
-    const firstName = Object.keys(appsOptions).shift();
-    const mainPath = appsOptions[firstName];
-    delete appsOptions[firstName];
-    createRootComponent("main", mainPath, main);
-    for (const name in appsOptions) {
-        const apppath = appsOptions[name];
-        if (apppath)
-            createRootComponent(name, apppath, {});
-    }
-    await recursionIndex(apps);
+export default async function (mainPath) {
+    createMain(mainPath);
+    await recursionIndex({ main });
     /////////////// 根据加载时序，预先对应用进行分级排序 ///////////////
     const levels = {};
     for (const component of loaders) {
@@ -71,8 +61,8 @@ export default async function (appsOptions) {
             imports: component.$import
         }, levels);
     }
-    console.log('\n\x1b[32m******************************** ioa loader **********************\n');
     // 显示加载时序
+    console.log('\n\x1b[32m******************************** ioa loader **********************\n');
     for (const level in levels) {
         console.log(`\x1b[32m${level}›--------------------------------------------------------`);
         const filter = [];

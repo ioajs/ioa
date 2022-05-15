@@ -1,16 +1,18 @@
 import consoln from 'consoln';
 import loader from './loader.js';
-import { createRootComponent } from './createComponent.js';
-import { apps, loaders } from './common.js';
-import type { Apps, PartialComponent, Components } from './common.js';
-import { main } from './index.js';
+import { type Component, loaders, ExportOptions, PartialComponent } from './common.js';
+import main, { createMain } from './main.js';
+
+interface Components {
+  [name: string]: Partial<Component>
+}
 
 /**
  * 使用深度优先策略，递归预装载所有组件的 index 入口文件
  */
-async function recursionIndex(components: Apps) {
+async function recursionIndex(components: Components) {
 
-  const imports: Apps = {}; // 待加载组件
+  const imports: Components = {}; // 待加载组件
 
   for (const name in components) {
     const component = components[name];
@@ -67,27 +69,14 @@ async function recursionIndex(components: Apps) {
 }
 
 /**
- * 装载单个或多个应用
- * @param appsOptions 应用配置
+ * 装载根应用
+ * @param mainPath 应用装载路径
  */
-export default async function (appsOptions: { [name: string]: string }) {
+export default async function (mainPath: string) {
 
-  // 截取第一个path作为主节点
-  const firstName = Object.keys(appsOptions).shift();
+  createMain(mainPath);
 
-  const mainPath = appsOptions[firstName];
-
-  delete appsOptions[firstName];
-
-  createRootComponent("main", mainPath, main);
-
-
-  for (const name in appsOptions) {
-    const apppath = appsOptions[name];
-    if (apppath) createRootComponent(name, apppath, {});
-  }
-
-  await recursionIndex(apps);
+  await recursionIndex({ main });
 
   /////////////// 根据加载时序，预先对应用进行分级排序 ///////////////
 
@@ -102,9 +91,10 @@ export default async function (appsOptions: { [name: string]: string }) {
     }, levels);
   }
 
+  // 显示加载时序
+
   console.log('\n\x1b[32m******************************** ioa loader **********************\n');
 
-  // 显示加载时序
   for (const level in levels) {
 
     console.log(`\x1b[32m${level}›--------------------------------------------------------`);

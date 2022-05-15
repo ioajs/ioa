@@ -1,37 +1,66 @@
 import test from 'jtm';
-import ioa from 'ioa';
+import ioa, { argv, version, NODE_ENV, components, createApp, app } from 'ioa';
 import types, { $index, string, number, func, object } from 'typea';
 
-test('ioa', t => {
+const $components = {}
 
-  const $components = {}
+const common = {
+  $name: string,
+  $base: string,
+  $entry: string,
+  $components,
+  $import: {
+    ...object({
+      level: number,
+      action: func({ optional: true }),
+      module: func({ optional: true }),
+      directory: func({ optional: true }),
+      before: func({ optional: true }),
+      after: func({ optional: true })
+    })
+  },
+  import() { }
+};
 
-  const common = {
-    $name: string,
-    $base: string,
-    $entry: string,
-    $components,
-    $import: {
-      ...object({
-        level: number,
-        action: func({ optional: true }),
-        module: func({ optional: true }),
-        directory: func({ optional: true }),
-        before: func({ optional: true }),
-        after: func({ optional: true })
-      })
+const component = {
+  ...common,
+  $release: {},
+  $export: {},
+  export() { }
+};
+
+$components[$index] = component;
+
+test('ioa export', t => {
+
+  const schema = types({
+    argv: { default: [...string] },
+    version: String,
+    NODE_ENV: String,
+    createApp() { },
+    app() { },
+    components: {
+      '@ioa/config': component,
+      '@ioa/koa': component,
+      '@common': component,
+      ...object(component)
     },
-    import() { }
-  };
+  });
 
-  const component = {
-    ...common,
-    $release: {},
-    $export: {},
-    export() { }
-  };
+  const { data, error } = schema.verify({
+    argv,
+    version,
+    NODE_ENV,
+    components,
+    createApp,
+    app
+  });
 
-  $components[$index] = component;
+  t.ok(data, error);
+
+})
+
+test('ioa export default', t => {
 
   const app = {
     middlewareBefore: [...Function],
@@ -42,7 +71,7 @@ test('ioa', t => {
       delete() { },
       resources() { }
     },
-  }
+  };
 
   const main = {
     ...common,
@@ -89,57 +118,9 @@ test('ioa', t => {
       }
     },
     virtual: 888
-  };
-
-  const admin = {
-    ...common,
-    ...app,
-    config: { base: String },
-    model: { compcerts: undefined },
-    middleware: {
-      token() { },
-    },
-    controller: {
-      home: {
-        index() { },
-        details() { },
-        add() { },
-        update() { },
-        delete() { }
-      }
-    },
-    test: 999
-  };
-
-  const user = {
-    ...common,
-    ...app,
-    config: {},
-    middleware: {
-      test() { },
-      intercept() { }
-    },
-    controller: {
-      home: {
-        home() { },
-      }
-    }
   }
 
-  const schema = types({
-    argv: { default: [...string] },
-    version: String,
-    NODE_ENV: String,
-    createApp() { },
-    main,
-    apps: { main, admin, user },
-    components: {
-      '@ioa/config': component,
-      '@ioa/koa': component,
-      '@common': component,
-      ...object(component)
-    },
-  });
+  const schema = types(main);
 
   const { data, error } = schema.verify(ioa);
 
