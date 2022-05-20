@@ -38,7 +38,7 @@ async function recursionIndex(components: Components) {
 
       if (options.component) {
         for (const name of options.component) {
-          component.component(name);
+          await component.component(name);
         }
       }
 
@@ -82,14 +82,17 @@ export default async function (mainPath: string) {
 
   const levels = {};
 
+  const promises = [];
   for (const component of loaders) {
-    loader.level({
+    promises.push(loader.level({
       dirpath: component.$base,
       root: component,
       data: component,
       imports: component.$import
-    }, levels);
+    }, levels))
   }
+
+  await Promise.all(promises)
 
   // 显示加载时序
 

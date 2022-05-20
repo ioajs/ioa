@@ -1,6 +1,6 @@
-import ioa, { components } from 'ioa';
+import { main, components } from 'ioa';
 
-const { router, middleware, controller } = ioa;
+const { router, middleware, controller } = main;
 
 const { token } = middleware;
 const { cors } = components['@common'].middleware;

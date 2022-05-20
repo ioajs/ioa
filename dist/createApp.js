@@ -26,7 +26,7 @@ async function recursionIndex(components) {
         if (options) {
             if (options.component) {
                 for (const name of options.component) {
-                    component.component(name);
+                    await component.component(name);
                 }
             }
             if (options.import) {
@@ -53,14 +53,16 @@ export default async function (mainPath) {
     await recursionIndex({ main });
     /////////////// 根据加载时序，预先对应用进行分级排序 ///////////////
     const levels = {};
+    const promises = [];
     for (const component of loaders) {
-        loader.level({
+        promises.push(loader.level({
             dirpath: component.$base,
             root: component,
             data: component,
             imports: component.$import
-        }, levels);
+        }, levels));
     }
+    await Promise.all(promises);
     // 显示加载时序
     console.log('\n\x1b[32m******************************** ioa loader **********************\n');
     for (const level in levels) {

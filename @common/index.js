@@ -1,3 +1,3 @@
 export default {
-  component: ["@ioa/koa"]
+  component: ["@ioa/http"]
 }

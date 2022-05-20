@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fsp from 'fs/promises';
 import { default as Path } from 'path';
 
 interface Node {
@@ -40,9 +40,11 @@ export default {
   * @param options 组件加载器配置信息
   * @param levels 保存目录、模块分级加载结果的容器
   */
-  level(options: LevelOptions, levels: object): void {
+  async level(options: LevelOptions, levels: object): Promise<void> {
 
     const { imports, dirpath, root, data } = options;
+
+    const promises = [];
 
     for (const name in imports) {
 
@@ -54,6 +56,14 @@ export default {
 
       const node: Node = { root, ...other };
 
+      const queue = levels[level];
+
+      if (queue) {
+        queue.push(node);
+      } else {
+        levels[level] = [node];
+      }
+
       if (item.action) {
 
         node.path = dirpath;
@@ -64,18 +74,10 @@ export default {
 
         const fullPath = Path.join(dirpath, name);
 
-        let statSync;
-
-        try {
-
-          statSync = fs.statSync(fullPath);
-
-        } catch (e) { }
-
-        if (statSync) {
+        const promise = fsp.stat(fullPath).then(async stat => {
 
           // 文件类型
-          if (statSync.isFile()) {
+          if (stat.isFile()) {
 
             // js模块类型
             const [, filename] = fullPath.match(regModule);
@@ -95,35 +97,27 @@ export default {
             node.name = dirname;
             node.path = fullPath;
             node.parents = data;
-            node.children = fs.readdirSync(fullPath);
+            node.children = await fsp.readdir(fullPath);
             node.data = {};
 
             data[dirname] = node.data;
 
           }
 
-        } else {
+        }).catch(e => {
 
           node.path = fullPath;
           node.error = 'invalid path';
 
-        }
+        })
 
-      }
-
-      const queue = levels[level];
-
-      if (queue) {
-
-        queue.push(node);
-
-      } else {
-
-        levels[level] = [node];
+        promises.push(promise)
 
       }
 
     }
+
+    await Promise.all(promises);
 
   },
   /**
@@ -138,7 +132,7 @@ export default {
 
     // 模块导出数据处理函数
     if (module) {
-      result = module(result, name);
+      result = await module(result, name);
     }
 
     if (data[name] === undefined) {
@@ -156,55 +150,64 @@ export default {
 
     const queue = [];
 
+    const promises = [];
+
     for (const item of children) {
 
       const fullPath = Path.join(path, item);
-      const statSync = fs.statSync(fullPath);
 
-      const node: Node = {
-        path: fullPath,
-        module,
-        root
-      };
+      const promise = fsp.stat(fullPath).then(stat => {
 
-      // 模块
-      if (statSync.isFile()) {
+        const node: Node = {
+          path: fullPath,
+          module,
+          root
+        };
 
-        const match = item.match(regModule);
+        // 模块
+        if (stat.isFile()) {
 
-        if (match === null) continue;
+          const match = item.match(regModule);
 
-        node.name = match[1];
-        node.data = data;
-        node.isFile = true;
+          if (match === null) return;
 
-      }
+          node.name = match[1];
+          node.data = data;
+          node.isFile = true;
 
-      // 目录
-      else {
+        }
 
-        if (excludes.includes(item)) continue;
+        // 目录
+        else {
 
-        node.name = item;
-        node.parents = data;
-        node.children = fs.readdirSync(fullPath);
-        node.directory = directory;
+          if (excludes.includes(item)) return;
 
-        node.data = {};
-        data[item] = node.data; // 将子目录数据添加至父级
+          node.name = item;
+          node.parents = data;
+          node.children = fsp.readdir(fullPath);
+          node.directory = directory;
 
-      }
+          node.data = {};
+          data[item] = node.data; // 将子目录数据添加至父级
 
-      queue.push(node);
+        }
+
+        queue.push(node);
+
+      })
+
+      promises.push(promise)
 
     }
+
+    await Promise.all(promises);
 
     await this.loading({ queue }); // 装载子目录
 
     // 目录装载完毕后的数据处理函数
     if (directory) {
 
-      parents[name] = directory(data, name);
+      parents[name] = await directory(data, name);
 
     }
 
@@ -222,21 +225,23 @@ export default {
       // 前置钩子函数队列
       for (const item of queue) {
         if (item.before) {
-          item.before(item);
+          await item.before(item);
         }
       }
+
+      const promises = [];
 
       // 同级加载队列
       for (const item of queue) {
 
         // 模块类型
         if (item.isFile) {
-          await this.module(item);
+          promises.push(this.module(item))
         }
 
         // 目录类型
         else if (item.children) {
-          await this.directory(item);
+          promises.push(this.directory(item))
         }
 
         // 函数类型
@@ -246,11 +251,13 @@ export default {
 
       }
 
+      await Promise.all(promises);
+
       // 后置钩子函数队列
       for (const item of queue) {
 
         if (item.after) {
-          item.after(item);
+          await item.after(item);
         }
 
       }

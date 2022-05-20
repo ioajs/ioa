@@ -1,11 +1,11 @@
-import fs from 'fs';
 import consoln from 'consoln';
+import { readFile } from 'fs/promises';
 import createApp from './createApp.js';
 import { components, onames, paths } from './common.js';
 import main from './main.js';
 const url = new URL('../package.json', import.meta.url);
 const packagePath = decodeURI(url.pathname);
-const packageUtf8 = fs.readFileSync(packagePath, { encoding: 'utf8' });
+const packageUtf8 = await readFile(packagePath, { encoding: 'utf8' });
 const { version } = JSON.parse(packageUtf8);
 // argv参数解析
 const [, , ...processArgv] = process.argv;

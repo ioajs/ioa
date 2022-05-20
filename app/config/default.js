@@ -1,5 +1,5 @@
 export default {
-   "@ioa/koa": {
+   "@ioa/http": {
       "port": 8600,
       // "debug": true,
    },

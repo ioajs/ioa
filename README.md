@@ -1,6 +1,6 @@
 ## ioa
 
-> As the Serverless ecosystem gradually improves, the project may be deprecated in order to achieve lighter application deployment and more friendly TypeScript support.
+> The project may be deprecated as Serverless technology matures and the use of dynamic module loaders is planned to be abandoned in order to obtain faster application cold starts and more friendly IDE, TypeScript static support.
 
 [中文](./README-zh.md)
 

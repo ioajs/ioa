@@ -41,7 +41,7 @@ test('ioa export', t => {
     app() { },
     components: {
       '@ioa/config': component,
-      '@ioa/koa': component,
+      '@ioa/http': component,
       '@common': component,
       ...object(component)
     },
@@ -77,7 +77,7 @@ test('ioa export default', t => {
     ...common,
     ...app,
     config: {
-      "@ioa/koa": {
+      "@ioa/http": {
         "port": number
       },
       mixin: { a: 666 }

@@ -1,9 +1,8 @@
 {
    "name": "ioa",
-   "version": "20.0.0",
-   "description": "为 serverless 而生的组件化精简应用框架",
+   "version": "20.0.1",
+   "description": "为 Serverless 优化的组件化精简应用框架",
    "keywords": [
-      "koa",
       "ioa",
       "loader"
    ],
@@ -28,7 +27,7 @@
    },
    "devDependencies": {
       "@ioa/config": "^13.0.0",
-      "@ioa/koa": "^13.0.2",
+      "@ioa/http": "^20.0.1",
       "@koa/cors": "^3.3.0",
       "@types/node": "^17.0.23",
       "axios": "^0.26.1",

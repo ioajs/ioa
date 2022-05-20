@@ -59,11 +59,11 @@ export default function createComponent(oname, subscribe) {
         $name,
         $base,
         $entry,
+        $init: false,
         $import: {},
         $components: {},
         $release: { [subscribe.$name]: subscribe },
         $export: {},
-        $init: false,
         component(name) {
             if (typeof name !== 'string')
                 return;

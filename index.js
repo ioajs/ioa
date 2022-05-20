@@ -1,3 +1,7 @@
 import { createApp } from 'ioa';
 
-await createApp("./app");
+console.time()
+
+await createApp("./app")
+
+console.timeEnd()

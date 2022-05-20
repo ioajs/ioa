@@ -1,7 +1,7 @@
 export default {
   component: [
     "@ioa/config",
-    "@ioa/koa",
+    "@ioa/http",
     "./@common"
   ],
   import: {

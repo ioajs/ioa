@@ -75,11 +75,11 @@ export default function createComponent(oname: string, subscribe: PartialCompone
     $name,
     $base,
     $entry,
+    $init: false,
     $import: {}, // 加载器配置项
     $components: {}, // 依赖组件集合
     $release: { [subscribe.$name]: subscribe }, // 被依赖组件集合
     $export: {}, // 导出的数据缓存
-    $init: false,
     component(name: string) {
 
       if (typeof name !== 'string') return;
