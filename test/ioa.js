@@ -1,5 +1,5 @@
 import test from 'jtm';
-import ioa, { argv, version, NODE_ENV, components, createApp, app } from 'ioa';
+import {  argv, version, NODE_ENV, components, createApp, app } from 'ioa';
 import types, { $index, string, number, func, object } from 'typea';
 
 const $components = {}
@@ -31,7 +31,7 @@ const component = {
 
 $components[$index] = component;
 
-test('ioa export', t => {
+test('ioa', t => {
 
   const schema = types({
     argv: { default: [...string] },
@@ -55,74 +55,6 @@ test('ioa export', t => {
     createApp,
     app
   });
-
-  t.ok(data, error);
-
-})
-
-test('ioa export default', t => {
-
-  const app = {
-    middlewareBefore: [...Function],
-    router: {
-      get() { },
-      post() { },
-      put() { },
-      delete() { },
-      resources() { }
-    },
-  };
-
-  const main = {
-    ...common,
-    ...app,
-    config: {
-      "@ioa/http": {
-        "port": number
-      },
-      mixin: { a: 666 }
-    },
-    middleware: {
-      token() { }
-    },
-    model: {
-      document: object,
-      ...object
-    },
-    controller: {
-      home: {
-        index(a = String, b = Number) { return arguments },
-        sms() { },
-        login() { },
-      },
-      index: {
-        test() { },
-      },
-      news: {
-        index() { },
-        details() { },
-      },
-      rest: {
-        index() { },
-        details() { },
-        create() { },
-        update() { },
-        destroy() { }
-      },
-      test: {
-        index() { },
-        details() { },
-        create() { },
-        update() { },
-        destroy() { }
-      }
-    },
-    virtual: 888
-  }
-
-  const schema = types(main);
-
-  const { data, error } = schema.verify(ioa);
 
   t.ok(data, error);
 

@@ -5,7 +5,7 @@ const { controller, config } = main;
 // console.log(controller)
 // console.log(config)
 
-export default class {
+class Test {
    async index(ctx) {
       ctx.body = 'index'
    }
@@ -22,3 +22,4 @@ export default class {
       ctx.body = 'destroy'
    }
 }
+

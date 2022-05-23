@@ -1,10 +1,4 @@
 const { toString, hasOwnProperty } = Object.prototype;
-/**
-* 深度合并两个对象，仅扩展原有的数据结构，只增不减
-* @param app 数据容器
-* @param join 需要加入到容器的数据
-* @returns 合并成功返回 undefined，合并失败时返回冲突属性 path
-*/
 export default function mixin(app, join) {
     for (const name in join) {
         if (hasOwnProperty.call(app, name)) {
@@ -13,7 +7,7 @@ export default function mixin(app, join) {
                 const childJoin = join[name];
                 if (toString.call(childJoin) === '[object Object]') {
                     if (childData === childJoin)
-                        continue; // 跳过全等对象，防止死循环
+                        continue;
                     const result = mixin(childData, childJoin);
                     if (result)
                         return `.${name}${result}`;

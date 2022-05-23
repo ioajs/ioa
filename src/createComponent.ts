@@ -7,10 +7,18 @@ import type { Component, PartialComponent, ImportOptions, ExportOptions } from '
 
 const cwd = process.cwd();
 const cwdSplit = cwd.split('/');
-const pathRegExp = /\/([^/]+)\/?$/;
+const packagePaths = [];
 
+const { length } = cwdSplit;
+for (let index = length; index > 0; index--) {
+  const sliceArray = cwdSplit.slice(0, index);
+  sliceArray.push('node_modules');
+  packagePaths.push(path.join(sliceArray.join('/')));
+}
+
+const pathRegExp = /\/([^/]+)\/?$/;
 /**
- * 创建组件实例或导出已缓存的组件（不加载模块，仅创建空实例，建立依赖关系）
+ * 创建组件实例或导出已缓存的组件（此阶段不加载模块，仅创建空的应用实例，建立依赖关系）
  * @param oname npm 模块组件名或原始路径
  * @param subscribe 订阅者
  * @returns 组件实例
@@ -51,16 +59,16 @@ export default function createComponent(oname: string, subscribe: PartialCompone
   // npm 组件路径，沿 cwd 路径向上就近查找 package.json 文件
   else {
 
-    const { length } = cwdSplit;
-    for (let index = length; index >= 0; index--) {
-      const basePath: string = path.join(cwdSplit.slice(0, index).join('/'), 'node_modules', oname);
+    $name = oname;
+
+    for (const item of packagePaths) {
+      const basePath: string = path.join(item, oname);
       const packagePath = path.join(basePath, 'package.json');
       try {
-        const packageString: string = readFileSync(packagePath, { encoding: 'utf8' });
+        const packageString = readFileSync(packagePath, { encoding: 'utf8' });
         const packageObject = JSON.parse(packageString);
         $entry = path.join(basePath, packageObject.main || "lib/index.js");
         $base = path.join($entry, '..');
-        $name = oname;
         break;
       } catch (e) { }
     }
@@ -127,6 +135,7 @@ export default function createComponent(oname: string, subscribe: PartialCompone
 
         // 缓存所有已发送的数据，让后注册的订阅器也能获取到之前发送的数据
         $export[key] = value;
+
       }
 
     }

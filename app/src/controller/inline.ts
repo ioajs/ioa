@@ -1,10 +1,11 @@
+import api from '@ioa/api';
 import { main } from 'ioa';
 
-const { router, middleware } = main;
+const { middleware } = main;
 
 const { token } = middleware;
 
-router.get('/inline', token, async ctx => {
+api.get('/inline', token, async ctx => {
 
   ctx.body = 'router controller';
 

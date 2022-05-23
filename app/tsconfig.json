@@ -12,7 +12,7 @@
     "experimentalDecorators": true,
     "isolatedModules": true,
     "removeComments": true,
-    "declaration": true,
+    // "declaration": true,
     // "emitDeclarationOnly": true,
     // "strict": true,
     // "noEmit": true,

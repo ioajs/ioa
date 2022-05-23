@@ -1,7 +1,7 @@
 import consoln from 'consoln';
 import loader from './loader.js';
-import { type Component, loaders, ExportOptions, PartialComponent } from './common.js';
 import main, { createMain } from './main.js';
+import { type Component, loaders, ExportOptions, PartialComponent } from './common.js';
 
 interface Components {
   [name: string]: Partial<Component>

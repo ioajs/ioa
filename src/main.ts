@@ -5,7 +5,9 @@ import createComponent from './createComponent.js';
 import { paths, loaders, onames } from './common.js';
 import type { Component, ImportOptions } from './common.js';
 
-export interface Main extends Omit<Component, '$init' | '$release' | 'export' | '$export'> { }
+export interface Main extends Omit<Component, '$init' | '$release' | 'export' | '$export'> {
+  [name: string]: any
+}
 
 /** 主应用实例 */
 const main: Main = {

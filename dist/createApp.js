@@ -1,12 +1,9 @@
 import consoln from 'consoln';
 import loader from './loader.js';
-import { loaders } from './common.js';
 import main, { createMain } from './main.js';
-/**
- * 使用深度优先策略，递归预装载所有组件的 index 入口文件
- */
+import { loaders } from './common.js';
 async function recursionIndex(components) {
-    const imports = {}; // 待加载组件
+    const imports = {};
     for (const name in components) {
         const component = components[name];
         if (!component.$init) {
@@ -22,7 +19,6 @@ async function recursionIndex(components) {
             consoln.error(`"${component.$name}" 组件入口文件加载失败, "${$entry}"`);
             throw consoln.error(error);
         });
-        // 模块有返回值时，表示使用声明式对象
         if (options) {
             if (options.component) {
                 for (const name of options.component) {
@@ -44,14 +40,9 @@ async function recursionIndex(components) {
         await recursionIndex($components);
     }
 }
-/**
- * 装载根应用
- * @param mainPath 应用装载路径
- */
 export default async function (mainPath) {
     createMain(mainPath);
     await recursionIndex({ main });
-    /////////////// 根据加载时序，预先对应用进行分级排序 ///////////////
     const levels = {};
     const promises = [];
     for (const component of loaders) {
@@ -63,7 +54,6 @@ export default async function (mainPath) {
         }, levels));
     }
     await Promise.all(promises);
-    // 显示加载时序
     console.log('\n\x1b[32m******************************** ioa loader **********************\n');
     for (const level in levels) {
         console.log(`\x1b[32m${level}›--------------------------------------------------------`);
@@ -83,13 +73,11 @@ export default async function (mainPath) {
                 }
             }
             else {
-                // console.error(`${item.path},`, item.error);
                 console.log(`\x1b[33m!  ${item.path}`);
             }
         }
         levels[level] = filter;
     }
     console.log(`\n\x1b[32m*******************************************************************\x1b[30m\n`);
-    // 异步加载所有模块
     await loader.loading(levels);
 }

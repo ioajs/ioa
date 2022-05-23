@@ -20,6 +20,9 @@ export default {
         return 888;
       }
     },
+    'router.js': {
+      level: 80
+    },
     // middleware: undefined
   }
 }

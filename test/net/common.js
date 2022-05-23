@@ -1,6 +1,5 @@
 import test from 'jtm';
-
-const { axios } = test;
+import axios from 'axios';
 
 test('get', async t => {
 

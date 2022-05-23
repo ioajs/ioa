@@ -5,13 +5,14 @@ import mixin from './mixin.js';
 import { components, paths, loaders, onames } from './common.js';
 const cwd = process.cwd();
 const cwdSplit = cwd.split('/');
+const packagePaths = [];
+const { length } = cwdSplit;
+for (let index = length; index > 0; index--) {
+    const sliceArray = cwdSplit.slice(0, index);
+    sliceArray.push('node_modules');
+    packagePaths.push(path.join(sliceArray.join('/')));
+}
 const pathRegExp = /\/([^/]+)\/?$/;
-/**
- * 创建组件实例或导出已缓存的组件（不加载模块，仅创建空实例，建立依赖关系）
- * @param oname npm 模块组件名或原始路径
- * @param subscribe 订阅者
- * @returns 组件实例
- */
 export default function createComponent(oname, subscribe) {
     const cacheComponent = onames[oname];
     if (cacheComponent) {
@@ -21,32 +22,28 @@ export default function createComponent(oname, subscribe) {
     }
     let $base, $entry, $name;
     const [first] = oname[0];
-    // 相对路径
     if (first === '.') {
         $base = path.join(cwd, oname);
         $entry = path.join($base, 'index.js');
         const [, name] = oname.match(pathRegExp);
         $name = name;
     }
-    // 绝对路径
     else if (first === '/') {
         $base = path.join(oname);
         $entry = path.join($base, 'index.js');
         const [name] = oname.match(pathRegExp);
         $name = name;
     }
-    // npm 组件路径，沿 cwd 路径向上就近查找 package.json 文件
     else {
-        const { length } = cwdSplit;
-        for (let index = length; index >= 0; index--) {
-            const basePath = path.join(cwdSplit.slice(0, index).join('/'), 'node_modules', oname);
+        $name = oname;
+        for (const item of packagePaths) {
+            const basePath = path.join(item, oname);
             const packagePath = path.join(basePath, 'package.json');
             try {
                 const packageString = readFileSync(packagePath, { encoding: 'utf8' });
                 const packageObject = JSON.parse(packageString);
                 $entry = path.join(basePath, packageObject.main || "lib/index.js");
                 $base = path.join($entry, '..');
-                $name = oname;
                 break;
             }
             catch (e) { }
@@ -94,7 +91,6 @@ export default function createComponent(oname, subscribe) {
                         throw consoln.error(mixinError);
                     }
                 }
-                // 缓存所有已发送的数据，让后注册的订阅器也能获取到之前发送的数据
                 $export[key] = value;
             }
         }

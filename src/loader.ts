@@ -156,7 +156,7 @@ export default {
 
       const fullPath = Path.join(path, item);
 
-      const promise = fsp.stat(fullPath).then(stat => {
+      const promise = fsp.stat(fullPath).then(async stat => {
 
         const node: Node = {
           path: fullPath,
@@ -184,7 +184,7 @@ export default {
 
           node.name = item;
           node.parents = data;
-          node.children = fsp.readdir(fullPath);
+          node.children = await fsp.readdir(fullPath);
           node.directory = directory;
 
           node.data = {};

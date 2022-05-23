@@ -1,17 +1,12 @@
-export default class Index {
-   async index(ctx) {
-      ctx.body = 'common index'
-   }
-   async details(ctx) {
-      ctx.body = 'common details'
-   }
-   async add(ctx) {
-      ctx.body = 'common add'
-   }
-   async update(ctx) {
-      ctx.body = 'common update'
-   }
-   async delete(ctx) {
-      ctx.body = 'common delete'
-   }
-};
+import api from '@ioa/api';
+import { app } from 'ioa';
+
+const { middleware } = app();
+
+api.get('/common', middleware.token, async (ctx) => {
+   ctx.body = 'common index'
+});
+
+api.get('/common/:id', middleware.token, async (ctx) => {
+   ctx.body = 'common details'
+});

@@ -2,7 +2,7 @@ import consoln from 'consoln';
 import { readFile } from 'fs/promises';
 import createApp from './createApp.js';
 import { components, onames, paths } from './common.js';
-import type { PartialComponent } from './common.js';
+import type { App } from './common.js';
 import main from './main.js';
 
 const url = new URL('../package.json', import.meta.url);
@@ -44,7 +44,7 @@ consoln.log(`NODE_ENV = ${NODE_ENV}`);
 /**
  * 获取当前应用实例
  */
-function app(): PartialComponent {
+function app(): App {
 
   const { stack } = new Error();
   const atPath = stack.split('\n')[2];

@@ -7,7 +7,6 @@ const url = new URL('../package.json', import.meta.url);
 const packagePath = decodeURI(url.pathname);
 const packageUtf8 = await readFile(packagePath, { encoding: 'utf8' });
 const { version } = JSON.parse(packageUtf8);
-// argv参数解析
 const [, , ...processArgv] = process.argv;
 const argv = { default: [] };
 let key = 'default';
@@ -34,9 +33,6 @@ else {
 console.log('');
 consoln.log(`Ioa Framework v${version}`);
 consoln.log(`NODE_ENV = ${NODE_ENV}`);
-/**
- * 获取当前应用实例
- */
 function app() {
     const { stack } = new Error();
     const atPath = stack.split('\n')[2];

@@ -33,10 +33,15 @@ export interface Component {
   import(options: ImportOptions): void
   /** 导出资源（对象） */
   export(options: ExportOptions): void
+  [name: string]: any
 }
 
 /** 应用实例 */
 export interface PartialComponent extends Partial<Component> { }
+
+export interface App extends Partial<Component> {
+  [name: string | number]: any
+}
 
 export interface Components { [n: string]: Component }
 
