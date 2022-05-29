@@ -1,6 +1,6 @@
 import test from 'jtm';
 import {  argv, version, NODE_ENV, components, createApp, app } from 'ioa';
-import types, { $index, string, number, func, object } from 'typea';
+import { Schema, $index, string, number, func, object } from 'typea';
 
 const $components = {}
 
@@ -33,7 +33,7 @@ $components[$index] = component;
 
 test('ioa', t => {
 
-  const schema = types({
+  const schema = Schema({
     argv: { default: [...string] },
     version: String,
     NODE_ENV: String,

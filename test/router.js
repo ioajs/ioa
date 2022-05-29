@@ -1,10 +1,10 @@
 import test from 'jtm';
 import api, { globalMiddlewares } from '@ioa/api';
-import types, { $index, string, number, func, object } from 'typea';
+import { Schema, $index, string, number, func, object } from 'typea';
 
 test('router', t => {
 
-  const schema = types({
+  const schema = Schema({
     globalMiddlewares: [...Function],
     api: {
       get() { },

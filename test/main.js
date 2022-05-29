@@ -1,6 +1,6 @@
 import test from 'jtm';
-import { main, argv, version, NODE_ENV, components, createApp, app } from 'ioa';
-import types, { $index, string, number, func, object } from 'typea';
+import { main } from 'ioa';
+import { Schema, $index, string, number, func, object } from 'typea';
 
 const $components = {}
 
@@ -33,7 +33,7 @@ $components[$index] = component;
 
 test('main', t => {
 
-  const schema = types({
+  const schema = Schema({
     ...common,
     config: {
       "@ioa/http": {

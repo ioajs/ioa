@@ -3,16 +3,16 @@ import loader from './loader.js';
 import main, { createMain } from './main.js';
 import { type Component, loaders, ExportOptions, PartialComponent } from './common.js';
 
-interface Components {
+interface PartialComponents {
   [name: string]: Partial<Component>
 }
 
 /**
  * 使用深度优先策略，递归预装载所有组件的 index 入口文件
  */
-async function recursionIndex(components: Components) {
+async function recursionIndex(components: PartialComponents) {
 
-  const imports: Components = {}; // 待加载组件
+  const imports: PartialComponents = {}; // 待加载组件
 
   for (const name in components) {
     const component = components[name];
