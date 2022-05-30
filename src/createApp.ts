@@ -1,7 +1,8 @@
+import path from 'path';
 import consoln from 'consoln';
 import loader from './loader.js';
 import main, { createMain } from './main.js';
-import { type Component, loaders, ExportOptions, PartialComponent } from './common.js';
+import common, { type Component, loaders } from './common.js';
 
 interface PartialComponents {
   [name: string]: Partial<Component>
@@ -69,10 +70,23 @@ async function recursionIndex(components: PartialComponents) {
 }
 
 /**
- * 装载根应用
- * @param mainPath 应用装载路径
+ * 装载主应用
+ * @param appPath 应用相对路径
  */
-export default async function (mainPath: string) {
+export default async function (appPath: string) {
+
+  const { stack } = new Error();
+  const atPath = stack.split('\n')[2];
+  const [filePath] = atPath.match(/(\/[^/]+)+/);
+  const pathSplit = decodeURI(filePath).split('/');
+
+  pathSplit.pop();
+
+  const basePath = pathSplit.join('/');
+
+  common.basePath = basePath;
+
+  const mainPath = path.join(basePath, appPath);
 
   createMain(mainPath);
 

@@ -15,10 +15,10 @@
    },
    "types": "dist/index.d.ts",
    "scripts": {
-      "start": "node ./index.js",
-      "dev": "tsc --watch",
+      "watch": "tsc --watch",
+      "watch:app": "cd ./app/ && tsc --watch",
       "build": "tsc",
-      "build:types": "tsc --emitDeclarationOnly --declaration --outDir ./types/",
+      "start": "node ./app/index.js",
       "swc": "swc ./src/* -d ./dist && node ./dist/index.js",
       "test": "jtm"
    },

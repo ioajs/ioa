@@ -1,7 +1,8 @@
+import path from 'path';
 import consoln from 'consoln';
 import loader from './loader.js';
 import main, { createMain } from './main.js';
-import { loaders } from './common.js';
+import common, { loaders } from './common.js';
 async function recursionIndex(components) {
     const imports = {};
     for (const name in components) {
@@ -40,7 +41,15 @@ async function recursionIndex(components) {
         await recursionIndex($components);
     }
 }
-export default async function (mainPath) {
+export default async function (appPath) {
+    const { stack } = new Error();
+    const atPath = stack.split('\n')[2];
+    const [filePath] = atPath.match(/(\/[^/]+)+/);
+    const pathSplit = decodeURI(filePath).split('/');
+    pathSplit.pop();
+    const basePath = pathSplit.join('/');
+    common.basePath = basePath;
+    const mainPath = path.join(basePath, appPath);
     createMain(mainPath);
     await recursionIndex({ main });
     const levels = {};

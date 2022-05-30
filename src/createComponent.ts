@@ -2,7 +2,7 @@ import path from 'path';
 import { readFileSync } from 'fs';
 import consoln from 'consoln';
 import mixin from './mixin.js';
-import { components, paths, loaders, onames } from './common.js';
+import common, { components, paths, loaders, onames } from './common.js';
 import type { Component, PartialComponent, ImportOptions, ExportOptions } from './common.js';
 
 const cwd = process.cwd();
@@ -42,7 +42,7 @@ export default function createComponent(oname: string, subscribe: PartialCompone
 
   // 相对路径
   if (first === '.') {
-    $base = path.join(cwd, oname);
+    $base = path.join(common.basePath, oname);
     $entry = path.join($base, 'index.js');
     const [, name] = oname.match(pathRegExp);
     $name = name;

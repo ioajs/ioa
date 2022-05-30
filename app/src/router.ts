@@ -1,8 +1,8 @@
 import api from '@ioa/api';
 import { components } from 'ioa';
 
-const { cors } = components['@common'].middleware;
+const { middleware } = components['@common'];
 
-api.use(cors);
+api.use(middleware.cors);
 
 // api.get('/rest/other', 'rest.other');

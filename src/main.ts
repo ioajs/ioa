@@ -41,31 +41,20 @@ const main: Main = {
   }
 };
 
-const cwd = process.cwd();
-
 /**
  * 创建根应用组件实例（仅创建空实例，建立依赖关系,不加载模块）
- * @param appPath 应用路径
+ * @param absolutePath 应用路径
  */
-export function createMain(appPath: string) {
+export function createMain(absolutePath: string) {
 
-  let $base: string, $entry: string;
-
-  const [point] = appPath[0];
-
-  // 相对路径
-  if (point === '.') {
-    $base = path.join(cwd, appPath);
-    $entry = path.join(cwd, appPath, 'index.js');
-  } else {
-    throw consoln.error(`无效的应用路径"${appPath}"`);
-  }
+ const $base = absolutePath;
+ const $entry = path.join(absolutePath, 'index.js');
 
   main.$base = $base;
   main.$entry = $entry;
 
   paths[$base] = main;
-  onames[appPath] = main;
+  onames[absolutePath] = main;
 
   loaders.push(main);
 

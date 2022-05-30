@@ -2,6 +2,6 @@ import { createApp } from 'ioa';
 
 console.time()
 
-await createApp("./app/dist")
+await createApp("./dist/")
 
 console.timeEnd()

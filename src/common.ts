@@ -45,14 +45,16 @@ export interface App extends Partial<Component> {
 
 export interface Components { [n: string]: Component }
 
+export interface Paths { [name: string]: PartialComponent }
+
 /** 待加载应用队列 */
 export const loaders: PartialComponent[] = [];
 
 export const onames = {}; // 原始 name、path 映射实例
 
-export interface Paths { [name: string]: PartialComponent }
-
 export const paths: Paths = {}; // path 映射实例，用于 ioa.app() 中的错误路径匹配
 
 /** 所有组件实例集合*/
 export const components: Components = {};
+
+export default { basePath: '' }
